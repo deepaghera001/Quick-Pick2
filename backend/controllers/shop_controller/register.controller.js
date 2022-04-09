@@ -10,8 +10,6 @@ module.exports = {
                 name,
                 email,
                 password,
-                age,
-                gender,
                 phone_number,
                 shop_name,
                 address,
@@ -22,14 +20,18 @@ module.exports = {
                 end_time
             } = req.body;
 
+            const checkEmail = await register_schema.findOne({ email });
+            if (checkEmail)
+                return res.status(200).json({
+                    message: 'Email is already exist.'
+                })
+
             const hash_password = await bcrypt.hash(password, 10);
 
             const user = new register_schema({
                 name,
                 email,
                 password: hash_password,
-                age,
-                gender,
                 phone_number,
                 shop_name,
                 address,
@@ -51,6 +53,7 @@ module.exports = {
 
 
         } catch (error) {
+            console.log('error', error)
             res.status(500).json(error)
         }
     },

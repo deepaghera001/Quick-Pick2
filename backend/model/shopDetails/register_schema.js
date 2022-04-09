@@ -14,16 +14,6 @@ const register_schema = new mongoose.Schema({
         type: String,
         required: true
     },
-    gender: {
-        type: String,
-        enum: ['male', 'female', 'other'],
-        required: true
-    },
-    age: {
-        type: Number,
-        required: true,
-        $gt: 15
-    },
     phone_number: {
         type: String,
         required: true,

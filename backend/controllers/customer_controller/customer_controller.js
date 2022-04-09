@@ -38,12 +38,14 @@ module.exports = {
 
             await userdata.save();
             res.status(200).json({
-                message: 'added',
+                message: 'Your account is created',
                 userdata: userdata
             })
 
         } catch (error) {
-            res.status(500).send(error)
+            res.status(500).json({
+                message: 'Server error'
+            })
         }
     },
 
