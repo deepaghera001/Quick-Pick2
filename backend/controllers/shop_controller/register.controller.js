@@ -58,26 +58,34 @@ module.exports = {
         }
     },
     login_shop_controller: async (req, res) => {
-        const { email, password } = req.body;
+        try {
+            const { email, password } = req.body;
 
-        const shop = await register_schema.findOne({ email });
-        if (shop) {
-            const hased_password = await bcrypt.compare(password, customer.password);
-            if (hased_password) {
-                res.status(200).json({
-                    message: 'user login successfull',
-                    userData: shop
-                })
+            const shop = await register_schema.findOne({ email });
+            if (shop) {
+                const hased_password = await bcrypt.compare(password, shop.password);
+                if (hased_password) {
+                    res.status(200).json({
+                        message: 'user login successfull',
+                        userData: shop
+                    })
+                } else {
+                    res.status(400).json({
+                        message: 'wrong credencial'
+                    })
+                }
             } else {
                 res.status(400).json({
-                    message: 'wrong credencial'
+                    message: 'please register first'
                 })
             }
-        } else {
-            res.status(400).json({
-                message: 'please register first'
+
+        } catch (error) {
+            res.status(500).json({
+                message: 'Server error'
             })
         }
+
     },
 
     all_users_controller: async (req, res) => {
