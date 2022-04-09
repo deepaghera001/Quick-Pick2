@@ -325,7 +325,7 @@ export default function SignUp() {
 
     return (
         <>
-            <RadioGroup defaultValue='2'>
+            <RadioGroup defaultValue='customer'>
                 <Stack spacing={5} direction='row' onChange={user}>
                     <Radio colorScheme='green' value='customer' checked>
                         Customer
