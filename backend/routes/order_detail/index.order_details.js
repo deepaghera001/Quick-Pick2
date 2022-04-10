@@ -1,6 +1,6 @@
 const express = require('express')
 const routes = express.Router();
-const { order_controller, get_order_of_customer, get_order_of_shop } = require('../../controllers/order_controller/order_constroller.js')
+const { order_controller, get_order_of_customer, get_order_of_shop } = require('../../controllers/order_constroller.js')
 
 // routes.get('/getreq', order_controller);
 

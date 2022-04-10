@@ -1,4 +1,4 @@
-const customer_schema = require('../../model/customerDetails/customer_schema')
+const customer_schema = require('../model/customer_schema')
 const bcrypt = require('bcrypt')
 
 module.exports = {

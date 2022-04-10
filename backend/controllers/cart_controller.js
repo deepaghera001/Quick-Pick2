@@ -1,4 +1,4 @@
-const cart_schema = require('../../model/cartDetails/cart_schema')
+const cart_schema = require('../model/cart_schema')
 
 
 module.exports = {

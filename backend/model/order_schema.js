@@ -7,7 +7,7 @@ const order_schema = new mongoose.Schema({
     },
     shopId: {
         type: String,
-        ref: 'register_detail',
+        ref: 'shop_detail',
         required: true,
     },
     product_details: [

@@ -1,5 +1,5 @@
-const product_Schema = require('../../model/shopDetails/product_schema')
-const register_schema = require('../../model/shopDetails/register_schema')
+const product_Schema = require('../model/product_schema')
+// const shop_schema = require('../../model/shopDetails/shop_schema')
 
 const mongoose = require('mongoose');
 
@@ -17,9 +17,9 @@ module.exports = {
                 image,
                 tags
             } = req.body;
-            const user_found = await register_schema.findOne({ _id: shop_id });
+            // const user_found = await shop_schema.findOne({ _id: shop_id });
 
-            !user_found && res.status(400).send(response)
+            // !user_found && res.status(400).send(response)
 
             const product = new product_Schema({
                 shop_id,

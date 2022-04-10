@@ -1,6 +1,6 @@
 const express = require('express')
 const routes = express.Router();
-const { product_detail_controller, all_shop_product_controller, one_product_controller, update_product_controller, delete_product_controller, image_controller } = require('../../controllers/shop_controller/product.controller')
+const { product_detail_controller, all_shop_product_controller, one_product_controller, update_product_controller, delete_product_controller, image_controller } = require('../../controllers/product.controller')
 const multer = require("multer");
 const path = require("path");
 
