@@ -19,6 +19,7 @@ import {
     CheckboxGroup,
 } from '@chakra-ui/react';
 import { useState, useEffect } from 'react';
+import { API } from '../API/api_url';
 import { ViewIcon, ViewOffIcon } from '@chakra-ui/icons';
 const axios = require('axios')
 
@@ -51,7 +52,7 @@ const ShopRegister = () => {
     }
 
     const onsubmit = async () => {
-        const res = await axios.post('http://localhost:5000/api/shop_register', shopDetail)
+        const res = await axios.post(`${API}/api/shop_register`, shopDetail)
         console.log('res is', res)
 
         if (res.data.statusCode === 200) {
@@ -205,7 +206,7 @@ const CustomerRegiter = () => {
         })
     }
     const onSubmit = async () => {
-        const user = await axios.post('http://localhost:5000/api/customerRegister', custDetail)
+        const user = await axios.post(`${API}/api/customerRegister`, custDetail)
 
         if (user.data.statusCode == 200) {
             alert(user.data.message)
