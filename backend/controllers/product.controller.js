@@ -19,13 +19,9 @@ module.exports = {
             } = req.body;
             // const user_found = await shop_schema.findOne({ _id: shop_id });
 
-<<<<<<< HEAD:backend/controllers/shop_controller/product.controller.js
             !user_found && res.status(400).json({
                 message: 'shop is not registered'
             })
-=======
-            // !user_found && res.status(400).send(response)
->>>>>>> 8674d15b08c20724508fde81c9f4a0ee47884ff1:backend/controllers/product.controller.js
 
             const product = new product_Schema({
                 shop_id,
@@ -224,7 +220,7 @@ module.exports = {
             console.log(product)
             console.log(req.file)
             product.image.imgId = req.file.filename;
-            product.image.url = `D:/quick-pick final/Quick-Pick/upload/images/${req.file.filename}`
+            product.image.url = `D:/quick-pick final/QuickPick/backend/upload/images/${req.file.filename}`
 
             await product.save();
 
