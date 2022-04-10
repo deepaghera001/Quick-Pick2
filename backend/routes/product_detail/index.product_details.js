@@ -20,8 +20,8 @@ const upload = multer({
 })
 
 routes.use('/productImage', express.static('upload/images'))
-
-routes.post('/productDetail', AuthenticateShop, product_detail_controller);
+// AuthenticateShop
+routes.post('/productDetail', product_detail_controller);
 // AuthenticateShop
 routes.post('/upload/:productId', upload.single('productImage'), image_controller)
 
