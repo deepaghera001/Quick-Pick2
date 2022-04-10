@@ -25,7 +25,7 @@ const axios = require('axios')
 
 export default function AddProduct() {
     const [productDetail, setproductDetail] = useState({
-        shop_id: '62511363e7f67e1b640d0b12',
+        shop_id: '625261e58268f50b24e752eb',
         name: '',
         description: '',
         stock: '',
@@ -36,7 +36,7 @@ export default function AddProduct() {
 
     const inputHandler = (e) => {
         const { name, value } = e.target;
-        console.log(name, value)
+        // console.log(name, value)
         setproductDetail((preVal) => {
             return {
                 ...preVal,
@@ -52,7 +52,7 @@ export default function AddProduct() {
 
     const onsubmit = async (e) => {
         e.preventDefault();
-        console.log(image);
+        console.log(productDetail);
         const res = await axios.post('http://localhost:5000/api/productDetail', productDetail)
         console.log('res is', res, 'id is', res.data.userdata._id)
 
