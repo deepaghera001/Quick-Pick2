@@ -8,7 +8,7 @@ const fs = require('fs')
 module.exports = {
     product_detail_controller: async (req, res) => {
         try {
-            console.log('hello')
+            // console.log('hello')
             const {
                 shop_id,
                 name,
@@ -23,8 +23,12 @@ module.exports = {
                 message: 'shop is not registered'
             })
 
+            // !user_found && res.status(400).json({
+            //     message: 'shop is not registered'
+            // })
+            console.log(req.body);
             const product = new product_Schema({
-                shop_id,
+                shop_id: "6252b5565677b95b709e0d92",
                 name,
                 description,
                 stock,
@@ -214,11 +218,10 @@ module.exports = {
     image_controller: async (req, res) => {
         try {
 
-            console.log('hhhhhhhh///')
+
 
             const product = await product_Schema.findOne({ _id: req.params.productId });
-            console.log(product)
-            console.log(req.file)
+
             product.image.imgId = req.file.filename;
             product.image.url = `D:/quick-pick final/QuickPick/backend/upload/images/${req.file.filename}`
 
