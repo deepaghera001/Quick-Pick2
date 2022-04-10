@@ -6,8 +6,8 @@ const { order_controller, get_order_of_customer, get_order_of_shop } = require('
 
 routes.post('/makeOrder', order_controller)
 
-routes.get('/customerOrders', get_order_of_customer);
+routes.get('/customerOrders/:id', get_order_of_customer);
 
-routes.get('/shopOrders', get_order_of_shop);
+routes.get('/shopOrders/:id', get_order_of_shop);
 
 module.exports = routes;

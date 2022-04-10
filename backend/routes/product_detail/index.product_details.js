@@ -5,12 +5,6 @@ const multer = require("multer");
 const path = require("path");
 
 
-routes.get('/', (req, res) => {
-  res.status(200).send('hello world!')
-})
-
-routes.post('/productDetail', product_detail_controller);
-
 const storage = multer.diskStorage({
   destination: './upload/images',
   filename: (req, file, cb) => {
@@ -24,6 +18,8 @@ const upload = multer({
 })
 
 routes.use('/productImage', express.static('upload/images'))
+
+routes.post('/productDetail', product_detail_controller);
 
 routes.post('/upload/:productId', upload.single('productImage'), image_controller)
 

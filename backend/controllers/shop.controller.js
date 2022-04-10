@@ -7,11 +7,11 @@ module.exports = {
     register_shop_controller: async (req, res) => {
         try {
             const {
-                name,
+                shop_name,
                 email,
                 password,
                 phone_number,
-                shop_name,
+                owner_name,
                 address,
                 area,
                 city,
@@ -27,13 +27,12 @@ module.exports = {
                 })
 
             const hash_password = await bcrypt.hash(password, 10);
-
             const user = new shop_schema({
-                name,
+                shop_name,
                 email,
                 password: hash_password,
                 phone_number,
-                shop_name,
+                owner_name,
                 address,
                 area,
                 city,
