@@ -8,6 +8,7 @@ const cors = require('cors')
 const port = process.env.PORT || 5000;
 
 app.use(cookieParser());
+
 const routes = require('./routes/index.routes');
 
 app.use(cors())

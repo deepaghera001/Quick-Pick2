@@ -67,9 +67,9 @@ module.exports = {
                 if (hased_password) {
                    
                     const token = jwt.sign({id: shop._id}, process.env.SECRET_KEY);
-                    res.cookie("shopToken", token, {
+                    res.cookie('st', token, {
                         expires: new Date(Date.now() + 86400000),
-                        httpOnly: true,
+                        // httpOnly: true,
                     })
                     res.status(200).json({
                         message: 'user login successfull',

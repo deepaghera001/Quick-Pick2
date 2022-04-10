@@ -5,7 +5,7 @@ const AuthenticateShop = async (req, res, next) => {
     // console.log("Authenticating shop")
     try{
         next();
-        const token = req.cookies.shopToken;
+        const token = req.cookies.st;
         const response = {
             status: true, 
             statusCode: 400,

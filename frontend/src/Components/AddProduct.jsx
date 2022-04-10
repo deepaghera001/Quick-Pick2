@@ -1,4 +1,5 @@
 import React from 'react'
+import { API } from "../API/api_url";
 import {
     FormControl,
     FormLabel,
@@ -53,12 +54,12 @@ export default function AddProduct() {
     const onsubmit = async (e) => {
         e.preventDefault();
         console.log(productDetail);
-        const res = await axios.post('http://localhost:5000/api/productDetail', productDetail)
+        const res = await axios.post(`${API}/api/productDetail`, productDetail)
         console.log('res is', res, 'id is', res.data.userdata._id)
 
         const formData = new FormData()
         formData.append('productImage', image)
-        const res2 = await axios.post(`http://localhost:5000/api/upload/${res.data.userdata._id}`, formData, image)
+        const res2 = await axios.post(`${API}}/api/upload/${res.data.userdata._id}`, formData, image)
 
         console.log(res2)
 
