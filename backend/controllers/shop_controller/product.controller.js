@@ -8,18 +8,20 @@ const fs = require('fs')
 module.exports = {
     product_detail_controller: async (req, res) => {
         try {
+            console.log('hello')
             const {
                 shop_id,
                 name,
                 description,
                 stock,
                 price,
-                image,
                 tags
             } = req.body;
             const user_found = await register_schema.findOne({ _id: shop_id });
 
-            !user_found && res.status(400).send(response)
+            !user_found && res.status(400).json({
+                message: 'shop is not registered'
+            })
 
             const product = new product_Schema({
                 shop_id,
@@ -27,19 +29,21 @@ module.exports = {
                 description,
                 stock,
                 price,
-                image,
                 tags
             })
 
             const saved_product = await product.save();
 
-            response = {
-                status: true,
-                statusCode: 200,
-                message: 'Product detail is added successfully.',
-                productDetail: saved_product
-            }
-            res.status(200).send(response)
+            // response = {
+            //     status: true,
+            //     statusCode: 200,
+            //     message: 'Product detail is added successfully.',
+            //     productDetail: saved_product
+            // }
+            res.status(200).json({
+                message: 'added',
+                userdata: saved_product
+            })
 
             // const product_found = await product_Schema.findOne({ user_id })
             // console.log(user_found, product_found)
@@ -79,6 +83,7 @@ module.exports = {
             //     res.status(400).send(response)
             // }
         } catch (error) {
+            console.log(error)
             res.status(500).send('server crashed.')
         }
     },
@@ -213,6 +218,7 @@ module.exports = {
 
             const product = await product_Schema.findOne({ _id: req.params.productId });
             console.log(product)
+            console.log(req.file)
             product.image.imgId = req.file.filename;
             product.image.url = `D:/quick-pick final/Quick-Pick/upload/images/${req.file.filename}`
 
@@ -228,7 +234,8 @@ module.exports = {
             res.status(200).send(response);
 
         } catch (error) {
-            res.status(500).send('error', error);
+            console.log(error)
+            res.status(500).send('error');
         }
     },
 
