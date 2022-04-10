@@ -1,6 +1,7 @@
 const customer_schema = require('../model/customer_schema')
 const bcrypt = require('bcrypt')
 
+const jwt = require('jsonwebtoken');
 module.exports = {
     customer_register_controller: async (req, res) => {
 
@@ -56,6 +57,12 @@ module.exports = {
         if (customer) {
             const hased_password = await bcrypt.compare(password, customer.password);
             if (hased_password) {
+
+                const token = jwt.sign({id:customer._id}, process.env.SECRET_KEY);
+                res.cookie('customerToken', token, {
+                    exipres: new Date(Date.now() + 86400000),
+                    httpOnly: true,
+                });
                 res.status(200).json({
                     message: 'user login successfull',
                     userData: customer

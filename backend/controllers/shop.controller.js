@@ -1,6 +1,7 @@
 const shop_schema = require('../model/shop_schema')
 // const product_schema = require('../../model/shopDetails/product_schema')
 const bcrypt = require('bcrypt')
+const jwt = require("jsonwebtoken");
 
 module.exports = {
 
@@ -64,22 +65,29 @@ module.exports = {
             if (shop) {
                 const hased_password = await bcrypt.compare(password, shop.password);
                 if (hased_password) {
+                   
+                    const token = jwt.sign({id: shop._id}, process.env.SECRET_KEY);
+                    res.cookie("shopToken", token, {
+                        expires: new Date(Date.now() + 86400000),
+                        httpOnly: true,
+                    })
                     res.status(200).json({
                         message: 'user login successfull',
                         userData: shop
                     })
                 } else {
                     res.status(400).json({
-                        message: 'wrong credencial'
+                        message: 'bad credencial'
                     })
                 }
             } else {
                 res.status(400).json({
-                    message: 'please register first'
+                    message: 'User is not exits'
                 })
             }
 
         } catch (error) {
+            console.log("error: " + error);
             res.status(500).json({
                 message: 'Server error'
             })
