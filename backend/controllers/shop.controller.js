@@ -6,6 +6,7 @@ const jwt = require("jsonwebtoken");
 module.exports = {
 
     register_shop_controller: async (req, res) => {
+        // console.log(req.body);
         try {
             const {
                 shop_name,

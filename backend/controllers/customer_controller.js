@@ -38,10 +38,13 @@ module.exports = {
             })
 
             await userdata.save();
-            res.status(200).json({
+            const response = {
+                status: true,
+                statusCode: 200,
                 message: 'Your account is created',
                 userdata: userdata
-            })
+            }
+            res.status(200).json(response)
 
         } catch (error) {
             res.status(500).json({

@@ -22,7 +22,7 @@ module.exports = {
             // !user_found && res.status(400).json({
             //     message: 'shop is not registered'
             // })
-            console.log(req.body);
+            // console.log(req.body);
             const product = new product_Schema({
                 shop_id: "6252b5565677b95b709e0d92",
                 name,
@@ -34,16 +34,13 @@ module.exports = {
 
             const saved_product = await product.save();
 
-            // response = {
-            //     status: true,
-            //     statusCode: 200,
-            //     message: 'Product detail is added successfully.',
-            //     productDetail: saved_product
-            // }
-            res.status(200).json({
-                message: 'added',
-                userdata: saved_product
-            })
+            response = {
+                status: true,
+                statusCode: 200,
+                message: 'Product detail is added successfully.',
+                productDetail: saved_product
+            }
+            res.status(200).json(response)
 
             // const product_found = await product_Schema.findOne({ user_id })
             // console.log(user_found, product_found)
@@ -213,8 +210,6 @@ module.exports = {
 
     image_controller: async (req, res) => {
         try {
-
-            
 
             const product = await product_Schema.findOne({ _id: req.params.productId });
     
