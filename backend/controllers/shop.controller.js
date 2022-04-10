@@ -1,17 +1,17 @@
-const register_schema = require('../../model/shopDetails/register_schema')
-const product_schema = require('../../model/shopDetails/product_schema')
+const shop_schema = require('../model/shop_schema')
+// const product_schema = require('../../model/shopDetails/product_schema')
 const bcrypt = require('bcrypt')
 
 module.exports = {
 
-    register_controller: async (req, res) => {
+    register_shop_controller: async (req, res) => {
         try {
             const {
-                name,
+                shop_name,
                 email,
                 password,
                 phone_number,
-                shop_name,
+                owner_name,
                 address,
                 area,
                 city,
@@ -20,20 +20,19 @@ module.exports = {
                 end_time
             } = req.body;
 
-            const checkEmail = await register_schema.findOne({ email });
+            const checkEmail = await shop_schema.findOne({ email });
             if (checkEmail)
                 return res.status(200).json({
                     message: 'Email is already exist.'
                 })
 
             const hash_password = await bcrypt.hash(password, 10);
-
-            const user = new register_schema({
-                name,
+            const user = new shop_schema({
+                shop_name,
                 email,
                 password: hash_password,
                 phone_number,
-                shop_name,
+                owner_name,
                 address,
                 area,
                 city,
@@ -61,7 +60,7 @@ module.exports = {
         try {
             const { email, password } = req.body;
 
-            const shop = await register_schema.findOne({ email });
+            const shop = await shop_schema.findOne({ email });
             if (shop) {
                 const hased_password = await bcrypt.compare(password, shop.password);
                 if (hased_password) {
@@ -88,14 +87,14 @@ module.exports = {
 
     },
 
-    all_users_controller: async (req, res) => {
+    all_shops_controller: async (req, res) => {
         try {
-            const registerDetails = await register_schema.find({});
+            const registerDetails = await shop_schema.find({});
             if (registerDetails) {
                 var response = {
                     status: true,
                     statusCode: 200,
-                    message: 'All user details',
+                    message: 'All shop details',
                     userdata: registerDetails
                 }
                 res.status(200).send(response)
@@ -113,11 +112,11 @@ module.exports = {
         }
     },
 
-    one_user_controller: async (req, res) => {
+    one_shop_controller: async (req, res) => {
         try {
             const _id = req.params.id;
             console.log(_id)
-            const user = await register_schema.findOne({ _id });
+            const user = await shop_schema.findOne({ _id });
             if (user) {
                 var response = {
                     status: true,
@@ -140,10 +139,10 @@ module.exports = {
         }
     },
 
-    update_user_controller: async (req, res) => {
+    update_shop_controller: async (req, res) => {
         try {
             const _id = req.params.id;
-            const user = await register_schema.findByIdAndUpdate(_id, req.body, {
+            const user = await shop_schema.findByIdAndUpdate(_id, req.body, {
                 new: true
             });
             if (user) {
@@ -169,10 +168,10 @@ module.exports = {
         }
     },
 
-    delete_user_controller: async (req, res) => {
+    delete_shop_controller: async (req, res) => {
         try {
             const _id = req.params.id;
-            const delete_user = await register_schema.findByIdAndDelete({ _id });
+            const delete_user = await shop_schema.findByIdAndDelete({ _id });
             if (delete_user) {
                 var response = {
                     status: true,

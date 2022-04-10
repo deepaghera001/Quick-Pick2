@@ -1,7 +1,7 @@
 const mongoose = require('mongoose');
 
-const register_schema = new mongoose.Schema({
-    name: {
+const shop_schema = new mongoose.Schema({
+    shop_name: {
         type: String,
         required: true
     },
@@ -19,7 +19,7 @@ const register_schema = new mongoose.Schema({
         required: true,
         unique: true
     },
-    shop_name: {
+    owner_name: {
         type: String,
         required: true
     },
@@ -53,6 +53,6 @@ const register_schema = new mongoose.Schema({
     }
 })
 
-const register_detail = mongoose.model('register_detail', register_schema);
+const shop_detail = mongoose.model('shop_detail', shop_schema);
 
-module.exports = register_detail;
+module.exports = shop_detail;

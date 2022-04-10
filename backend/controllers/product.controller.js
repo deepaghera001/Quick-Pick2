@@ -1,5 +1,5 @@
-const product_Schema = require('../../model/shopDetails/product_schema')
-const register_schema = require('../../model/shopDetails/register_schema')
+const product_Schema = require('../model/product_schema')
+// const shop_schema = require('../../model/shopDetails/shop_schema')
 
 const mongoose = require('mongoose');
 
@@ -17,11 +17,15 @@ module.exports = {
                 price,
                 tags
             } = req.body;
-            const user_found = await register_schema.findOne({ _id: shop_id });
+            // const user_found = await shop_schema.findOne({ _id: shop_id });
 
+<<<<<<< HEAD:backend/controllers/shop_controller/product.controller.js
             !user_found && res.status(400).json({
                 message: 'shop is not registered'
             })
+=======
+            // !user_found && res.status(400).send(response)
+>>>>>>> 8674d15b08c20724508fde81c9f4a0ee47884ff1:backend/controllers/product.controller.js
 
             const product = new product_Schema({
                 shop_id,

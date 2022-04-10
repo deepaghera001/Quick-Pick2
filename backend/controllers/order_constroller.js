@@ -1,5 +1,5 @@
-const order_schema = require('../../model/orderDetails/order_schema')
-const customer_schema = require('../../model/customerDetails/customer_schema')
+const order_schema = require('../model/order_schema')
+const customer_schema = require('../model/customer_schema')
 
 const nodemailer = require('nodemailer');
 
