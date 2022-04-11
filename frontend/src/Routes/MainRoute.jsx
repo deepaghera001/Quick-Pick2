@@ -1,10 +1,10 @@
 import React from "react";
 import { Route, Routes } from "react-router-dom";
 import Login from "../Components/Login";
-import Navbar from '../Components/Navbar'
+import Navbar from '../Components/partials/Navbar'
 import SignUp from "../Components/SignUp";
 import AddProduct from "../Components/AddProduct";
-
+import DisplayProducts from "../Components/Customer/DisplayProducts";
 
 const Home = () => {
     return (
@@ -24,6 +24,8 @@ export const MainRoute = () => {
 
                 <Route exact path="/login" element={<Login />}></Route>
                 <Route exact path="/signup" element={<SignUp />}></Route>
+                <Route exact path="/displayProducts" element={<DisplayProducts />}></Route> 
+
 
             </Routes>
         </>

@@ -20,20 +20,22 @@ import {
     RadioGroup,
     Radio,
     CheckboxGroup,
+    Textarea,
 } from '@chakra-ui/react'
 import { useState } from 'react'
 const axios = require('axios')
 
 export default function AddProduct() {
-    const [productDetail, setproductDetail] = useState({
+    const initalValue = {
         shop_id: '625261e58268f50b24e752eb',
         name: '',
         description: '',
         stock: '',
         price: '',
         tags: []
-    })
-    const [image, setImage] = useState("")
+    }
+    const [productDetail, setproductDetail] = useState(initalValue)
+    const [image, setImage] = useState('')
 
     const inputHandler = (e) => {
         const { name, value } = e.target;
@@ -53,18 +55,20 @@ export default function AddProduct() {
 
     const onsubmit = async (e) => {
         e.preventDefault();
-        console.log(productDetail);
+        // console.log(productDetail);
         const res = await axios.post(`${API}/api/productDetail`, productDetail)
-        console.log('res is', res, 'id is', res.data.userdata._id)
+        console.log(res);
+        console.log('res is', res, 'id is', res.data.productDetail._id)
 
         const formData = new FormData()
         formData.append('productImage', image)
-        const res2 = await axios.post(`${API}}/api/upload/${res.data.userdata._id}`, formData, image)
+        const res2 = await axios.post(`${API}/api/upload/${res.data.productDetail._id}`, formData, image)
 
         console.log(res2)
-
         if (res.data.statusCode === 200) {
+            setproductDetail(initalValue);
             alert(res.data.message)
+            setImage('');
         } else {
             console.log('')
             alert(res.data.message)
@@ -93,18 +97,19 @@ export default function AddProduct() {
                         <Stack spacing={4}>
                             <FormControl id="name" isRequired>
                                 <FormLabel>Product Name</FormLabel>
-                                <Input type="text" name="name" onChange={inputHandler} />
+                                <Input type="text" name="name" onChange={inputHandler} value={productDetail.name} />
                             </FormControl>
 
                             <FormControl id="description" isRequired>
                                 <FormLabel>Description</FormLabel>
-                                <Input type="text" name="description" onChange={inputHandler} />
+                                <Textarea placeholder='Add your detailed product description' name="description" onChange={inputHandler} value={productDetail.description} />
+                                {/* <Input type="text"  /> */}
                             </FormControl>
 
 
                             <FormControl id="image" isRequired>
                                 <FormLabel>Image</FormLabel>
-                                <Input type="file" name="image" onChange={inputImage} />
+                                <Input type="file" name="image" onChange={inputImage} /> {/* Value not given here check that */}
                             </FormControl>
 
 
@@ -112,19 +117,19 @@ export default function AddProduct() {
                                 <FormControl id="stock" isRequired>
                                     <FormLabel>Stock</FormLabel>
                                     <InputGroup>
-                                        <Input type='text' name='stock' onChange={inputHandler} />
+                                        <Input type='text' name='stock' onChange={inputHandler} value={productDetail.stock} />
                                     </InputGroup>
                                 </FormControl>
 
                                 <FormControl id="price" isRequired>
                                     <FormLabel>Price</FormLabel>
-                                    <Input type="text" name="price" onChange={inputHandler} />
+                                    <Input type="text" name="price" onChange={inputHandler} value={productDetail.price} />
                                 </FormControl>
                             </Stack>
 
                             <FormControl id="tags" isRequired>
                                 <FormLabel>Tags</FormLabel>
-                                <Input type="text" name="tags" onChange={inputHandler} />
+                                <Input type="text" name="tags" onChange={inputHandler} value={productDetail.tags} placeholder='add tegs sepreted by comma' />
                             </FormControl>
 
 
