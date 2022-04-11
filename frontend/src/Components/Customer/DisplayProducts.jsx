@@ -1,4 +1,4 @@
-import { Container, Flex, space, Spacer } from '@chakra-ui/react'
+import { Box, Container, Flex, Link, space, Spacer } from '@chakra-ui/react'
 import axios from 'axios';
 import React, { useEffect } from 'react'
 import { useState } from 'react'
@@ -30,16 +30,16 @@ export default function DisplayProducts() {
       <Flex justifyContent={'space-around'} alignContent={'space-between'} wrap={'wrap'}>
         {
           products.length > 0 ? products.map((value, index) => (
-            <>
-
-              <Product 
-                key={index}
-                name={value.name} 
-                imageURL={process.env.PUBLIC_URL + `/upload/images/${value.image.imgId}`} 
-                price={value.price} 
-                description={value.description} 
-              />
-            </>
+            <Box key={index}>
+              <Link href={`/product/${value.shop_id}/${value._id}`}>
+                <Product 
+                  name={value.name} 
+                  imageURL={process.env.PUBLIC_URL + `/upload/images/${value.image.imgId}`} 
+                  price={value.price} 
+                  description={value.description}
+                />
+              </Link>
+            </Box>
           ))
             : <h3>No products found</h3>
         }

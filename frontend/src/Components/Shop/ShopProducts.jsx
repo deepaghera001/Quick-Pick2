@@ -10,8 +10,6 @@ export default function ShopProducts() {
         getProduct()
     }, []);
 
-
-
     const getProduct = async () => {
         console.log('hello')
         const shop = await axios.get(`${API}/api/productDetail/shop/6253f02125e5f259fc698b1b`)
