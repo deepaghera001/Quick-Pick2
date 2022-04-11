@@ -6,6 +6,7 @@ const cart = new mongoose.Schema({
     },
     shopId: {
         type: String,
+        ref: 'shop_detail'
     },
     productIds: [
         {
