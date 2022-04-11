@@ -13,8 +13,8 @@ export default function ShopProducts() {
 
 
     const getProduct = async () => {
-        
-        const shop = await axios.get(`${API}/api/productDetail/shop/62511363e7f67e1b640d0b12`)
+        console.log('hello')
+        const shop = await axios.get(`${API}/api/productDetail/shop/6253f02125e5f259fc698b1b`)
         setallProduct(shop.data.userdata)
         console.log(shop.data.userdata)
     }
@@ -33,7 +33,7 @@ export default function ShopProducts() {
                             description={val.description}
                             price={val.price}
                             stock={val.stock}
-                        // image={val.image}
+                            imgId={val.image.imgId}
                         />
                     ))}
                 </Flex>
