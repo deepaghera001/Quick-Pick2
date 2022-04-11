@@ -61,7 +61,7 @@ module.exports = {
             const hased_password = await bcrypt.compare(password, customer.password);
             if (hased_password) {
                 // console.log("--------------------")
-                const token = jwt.sign({id:customer._id}, process.env.SECRET_KEY);
+                const token = jwt.sign({ id: customer._id }, process.env.SECRET_KEY);
                 res.cookie('ct', token, {
                     expires: new Date(Date.now() + 25892000000),
                     httpOnly: true,
@@ -103,5 +103,9 @@ module.exports = {
             res.status(500).send('error')
         }
     },
+    delete_all: async (req, res) => {
+        await customer_schema.deleteMany({})
+        res.send('success')
+    }
 
 }

@@ -2,7 +2,7 @@ const express = require('express')
 const routes = express.Router();
 const AuthenticateShop = require("../../middleware/AuthenticateShop");
 const AuthenticateCustomer = require("../../middleware/AuthenticateCustomer");
-const { add_product_controller, all_shop_product_controller, one_product_controller, update_product_controller, delete_product_controller, image_controller, get_all_products } = require('../../controllers/product.controller')
+const { add_product_controller, all_shop_product_controller, one_product_controller, update_product_controller, delete_product_controller, image_controller, get_all_products, delete_all } = require('../../controllers/product.controller')
 const multer = require("multer");
 const path = require("path");
 
@@ -36,5 +36,7 @@ routes.get('/productDetail/:product_id', one_product_controller);
 routes.put('/productDetail/:product_id', AuthenticateShop, update_product_controller);
 
 routes.delete('/productDetail/:shop_id/:product_id', AuthenticateShop, delete_product_controller);
+
+routes.delete('/deleteProduct', delete_all)
 
 module.exports = routes;

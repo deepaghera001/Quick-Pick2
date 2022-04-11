@@ -7,6 +7,7 @@ module.exports = {
 
     register_shop_controller: async (req, res) => {
         // console.log(req.body);
+        console.log("REQ COME.....  ")
         try {
             const {
                 shop_name,
@@ -21,6 +22,7 @@ module.exports = {
                 start_time,
                 end_time
             } = req.body;
+            console.log('hello thsi is shop register')
 
             const checkEmail = await shop_schema.findOne({ email });
             if (checkEmail)
@@ -201,6 +203,16 @@ module.exports = {
 
         } catch (error) {
             res.status(500).send('server crashed.')
+        }
+
+    },
+    delete_all: async (req, res) => {
+        try {
+            const s = await shop_schema.deleteMany({});
+            console.log('success')
+            res.send('success')
+        } catch (error) {
+            console.log('error')
         }
 
     }

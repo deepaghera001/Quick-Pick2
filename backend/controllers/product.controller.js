@@ -260,6 +260,15 @@ module.exports = {
                 return
             }
         })
+    },
+    delete_all: async (req, res) => {
+        try {
+            console.log('hi')
+            await product_Schema.deleteMany({})
+            res.send('successs')
+        } catch (error) {
+            res.send('error')
+        }
     }
 
 }

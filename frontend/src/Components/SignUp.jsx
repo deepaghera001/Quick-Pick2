@@ -58,8 +58,9 @@ const ShopRegister = () => {
     }
 
     const onsubmit = async () => {
+        console.log("Going....", shopDetail)
         const res = await axios.post(`${API}/api/shop_register`, shopDetail)
-        console.log('res is', res)
+        console.log('res is', res.data)
 
         if (res.data.statusCode === 200) {
             setShopDetail(initalData);
@@ -76,18 +77,18 @@ const ShopRegister = () => {
 
             <FormControl id="shop_name" isRequired>
                 <FormLabel>Shop Name</FormLabel>
-                <Input type="text" name="shop_name" onChange={inputHandler} value={shopDetail.shop_name}/>
+                <Input type="text" name="shop_name" onChange={inputHandler} value={shopDetail.shop_name} />
             </FormControl>
-      
+
             <FormControl id="email" isRequired>
                 <FormLabel>Email address</FormLabel>
-                <Input type="email" name="email" onChange={inputHandler} value={shopDetail.email}/>
+                <Input type="email" name="email" onChange={inputHandler} value={shopDetail.email} />
             </FormControl>
 
             <FormControl id="password" isRequired>
                 <FormLabel>password</FormLabel>
                 <InputGroup>
-                    <Input type='password' name='password' onChange={inputHandler} value={shopDetail.password}/>
+                    <Input type='password' name='password' onChange={inputHandler} value={shopDetail.password} />
                     <InputRightElement h={'full'}>
                         {/* <Button
                             variant={'ghost'}
@@ -102,41 +103,41 @@ const ShopRegister = () => {
             </FormControl>
             <FormControl id="owner_name" isRequired>
                 <FormLabel>Owner Name</FormLabel>
-                <Input type="text" name="owner_name" onChange={inputHandler} value={shopDetail.owner_name}/>
+                <Input type="text" name="owner_name" onChange={inputHandler} value={shopDetail.owner_name} />
             </FormControl>
             <FormControl id="phone_number" isRequired>
                 <FormLabel>Phone Number</FormLabel>
-                <Input type="text" name="phone_number" onChange={inputHandler} value={shopDetail.phone_number}/>
+                <Input type="text" name="phone_number" onChange={inputHandler} value={shopDetail.phone_number} />
             </FormControl>
 
             <FormControl id="address" isRequired>
                 <FormLabel>Address</FormLabel>
-                <Input type="text" name="address" onChange={inputHandler} value={shopDetail.address}/>
+                <Input type="text" name="address" onChange={inputHandler} value={shopDetail.address} />
             </FormControl>
 
             <Stack spacing={5} direction='row'>
                 <FormControl id="area" isRequired>
                     <FormLabel>area</FormLabel>
-                    <Input type="text" name="area" onChange={inputHandler} value={shopDetail.area}/>
+                    <Input type="text" name="area" onChange={inputHandler} value={shopDetail.area} />
                 </FormControl>
                 <FormControl id="city" isRequired>
                     <FormLabel>city</FormLabel>
-                    <Input type="text" name="city" onChange={inputHandler} value={shopDetail.city}/>
+                    <Input type="text" name="city" onChange={inputHandler} value={shopDetail.city} />
                 </FormControl>
                 <FormControl id="pincode" isRequired>
                     <FormLabel>Pincode</FormLabel>
-                    <Input type="text" name="pincode" onChange={inputHandler} value={shopDetail.pincode}/>
+                    <Input type="text" name="pincode" onChange={inputHandler} value={shopDetail.pincode} />
                 </FormControl>
             </Stack>
 
             <Stack spacing={5} direction='row'>
                 <FormControl id="start_time" isRequired>
                     <FormLabel>Shop Starting Time</FormLabel>
-                    <Input type="text" name="start_time" onChange={inputHandler} value={shopDetail.start_time}/>
+                    <Input type="text" name="start_time" onChange={inputHandler} value={shopDetail.start_time} />
                 </FormControl>
                 <FormControl id="end_time" isRequired>
                     <FormLabel>Shop Ending Time</FormLabel>
-                    <Input type="text" name="end_time" onChange={inputHandler} value={shopDetail.end_time}/>
+                    <Input type="text" name="end_time" onChange={inputHandler} value={shopDetail.end_time} />
                 </FormControl>
             </Stack>
 
@@ -194,7 +195,7 @@ const CustomerRegiter = () => {
     const onSubmit = async (e) => {
         e.preventDefault();
         const user = await axios.post(`${API}/api/customerRegister`, custDetail) // remove password from response
-        
+
         if (user.data.statusCode === 200) {
             setCustDetail(initalValue);
             alert(user.data.message)
@@ -207,7 +208,7 @@ const CustomerRegiter = () => {
 
     return (
         <>
- 
+
             <Stack spacing={4}>
 
                 <FormControl id="custName" isRequired>
