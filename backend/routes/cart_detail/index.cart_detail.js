@@ -3,9 +3,10 @@ const routes = express.Router();
 const AuthenticateCustomer = require("../../middleware/AuthenticateCustomer");
 const { add_to_cart, get_cart } = require('../../controllers/cart_controller')
 
-routes.post('/addtocart', AuthenticateCustomer, add_to_cart);
-
-routes.get('/getcart', AuthenticateCustomer, get_cart);
+// AuthenticateCustomer
+routes.post('/addtocart', add_to_cart);
+// AuthenticateCustomer
+routes.get('/getcart', get_cart);
 
 // Add get cart api here
 

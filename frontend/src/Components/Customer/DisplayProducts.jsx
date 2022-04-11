@@ -30,16 +30,12 @@ export default function DisplayProducts() {
       <Flex justifyContent={'space-around'} alignContent={'space-between'} wrap={'wrap'}>
         {
           products.length > 0 ? products.map((value, index) => (
-            <>
+            <Box>
 
-              <Product
-                key={index}
-                name={value.name}
-                imageURL={process.env.PUBLIC_URL + `/upload/images/${value.image.imgId}`}
-                price={value.price}
-                description={value.description}
-              />
-            </>
+              <Link href={`/product/${value.shop_id}/${value._id}`}>
+                <Product name={value.name} imageURL={process.env.PUBLIC_URL + `/upload/images/${value.image.imgId}`} price={value.price} description={value.description} />
+              </Link>
+            </Box>
           ))
             : <h3>No products found</h3>
         }

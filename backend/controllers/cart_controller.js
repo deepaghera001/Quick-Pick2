@@ -3,7 +3,7 @@ const cart_schema = require('../model/cart_schema')
 
 module.exports = {
     add_to_cart: async (req, res) => {
-        const custId = req.id; // this is taken from customer Authentication
+        const custId = req.body.custId; // this is taken from customer Authentication
         console.log(custId)
         const shopId = req.body.shopId;
         const productId = req.body.productId;
@@ -76,7 +76,7 @@ module.exports = {
     get_cart: async (req, res) => {
         const cust_id = req.id;
         console.log(cust_id);
-        const result = await cart_schema.find({custId: cust_id});
+        const result = await cart_schema.find({ custId: cust_id });
         console.log(result);
         res.status(200).json(result);
     }
