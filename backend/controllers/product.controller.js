@@ -86,8 +86,10 @@ module.exports = {
     },
     all_shop_product_controller: async (req, res) => {
         try {
-
-            const product_details = await product_Schema.find({ shop_id: req.params.shop_id }).populate('shop_id');
+            console.log('inside')
+            const product_details = await product_Schema.find({ shop_id: req.params.shop_id })
+            // .populate('shop_id');
+            console.log(product_details)
             if (product_details) {
                 console.log(product_details)
                 var response = {
@@ -107,6 +109,7 @@ module.exports = {
                 res.status(400).send(response)
             }
         } catch (error) {
+            console.log(error)
             res.status(500).send('server crashed.')
         }
     },
@@ -228,7 +231,7 @@ module.exports = {
         try {
 
             const product = await product_Schema.findOne({ _id: req.params.productId });
-    
+
             product.image.imgId = req.file.filename;
             product.image.url = `D:/Savan Program/Web devlopment/Project/Quick-Pick/Code/backend/upload/images/${req.file.filename}`
 

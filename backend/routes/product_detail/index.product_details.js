@@ -35,6 +35,6 @@ routes.get('/productDetail/:product_id', one_product_controller);
 
 routes.put('/productDetail/:product_id', AuthenticateShop, update_product_controller);
 
-routes.delete('/productDetail/:shop_id/:product_id', AuthenticateShop,  delete_product_controller);
+routes.delete('/productDetail/:shop_id/:product_id', AuthenticateShop, delete_product_controller);
 
 module.exports = routes;

@@ -66,8 +66,8 @@ module.exports = {
             if (shop) {
                 const hased_password = await bcrypt.compare(password, shop.password);
                 if (hased_password) {
-                   
-                    const token = jwt.sign({id: shop._id}, process.env.SECRET_KEY);
+
+                    const token = jwt.sign({ id: shop._id }, process.env.SECRET_KEY);
                     res.cookie('st', token, {
                         expires: new Date(Date.now() + 86400000),
                         // httpOnly: true,
