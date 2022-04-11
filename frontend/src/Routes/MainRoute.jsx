@@ -6,6 +6,7 @@ import SignUp from "../Components/SignUp";
 import AddProduct from "../Components/Shop/AddProduct";
 import Shopproduct from "../Components/Shop/ShopProducts"
 import DisplayProducts from "../Components/Customer/DisplayProducts";
+import DisplayCart from "../Components/Customer/DisplayCart";
 
 const Home = () => {
     return (
@@ -27,6 +28,7 @@ export const MainRoute = () => {
                 <Route exact path="/login" element={<Login />}></Route>
                 <Route exact path="/signup" element={<SignUp />}></Route>
                 <Route exact path="/displayProducts" element={<DisplayProducts />}></Route>
+                <Route exact path="/cart" element={<DisplayCart />}></Route>
 
 
             </Routes>

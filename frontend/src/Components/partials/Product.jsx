@@ -54,7 +54,8 @@ const Product = (props) => {
                             isTruncated>
                             {props.name}
                         </Box>
-                        <Tooltip
+                        
+                        {/* <Tooltip
                             label="Add to cart"
                             bg="white"
                             placement={'top'}
@@ -63,9 +64,15 @@ const Product = (props) => {
                             <chakra.a href={'#'} display={'flex'}>
                                 <Icon as={FiShoppingCart} h={7} w={7} alignSelf={'center'} />
                             </chakra.a>
-                        </Tooltip>
+                        </Tooltip> */}
                     </Flex>
-
+                    <Box
+                            fontSize="md"
+                            as='p'
+                            // isTruncated
+                        >
+                         {  props.description.length < 50 ? props.description : props.description.substring(0,50)+" ..."  }
+                        </Box>  
                     <Flex justifyContent="space-between" alignContent="center">
                         {/* <Rating rating={props.rating} numReviews={props.numReviews} /> */}
                         <Box fontSize="xl" color={useColorModeValue('gray.800', 'white')}>

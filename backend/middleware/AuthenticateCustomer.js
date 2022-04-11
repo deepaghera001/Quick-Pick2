@@ -14,7 +14,7 @@ const AuthenticateCustomer = async ( req, res, next) => {
         }
 
         const id = jwt.verify(token, process.env.SECRET_KEY).id;
-        const result = customer_detail.findOne({_id: id});
+        const result = await customer_detail.findOne({_id: id});
         if(!result){
             req.status(400).json(response);
         }
