@@ -55,13 +55,13 @@ export default function AddProduct() {
     const onsubmit = async (e) => {
         e.preventDefault();
         // console.log(productDetail);
-        setproductDetail((prev) => {
-            return {
-                ...prev,
-                tags: productDetail.tags.split(',')
-            }
-        })
-        const res = await axios.post(`${API}/api/productDetail`, productDetail)
+        const productDetail_split = {
+            ...productDetail,
+            tags: productDetail.tags.split(',')
+        }
+        console.log("Product Detail: ", productDetail_split);
+        
+        const res = await axios.post(`${API}/api/productDetail`, productDetail_split)
         console.log(res);
         // console.log('res is', res, 'id is', res.data.productDetail._id)
 
