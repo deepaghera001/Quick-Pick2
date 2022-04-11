@@ -27,7 +27,6 @@ const axios = require('axios')
 
 export default function AddProduct() {
     const initalValue = {
-        shop_id: '625261e58268f50b24e752eb',
         name: '',
         description: '',
         stock: '',

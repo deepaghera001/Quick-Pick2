@@ -23,13 +23,13 @@ const upload = multer({
 routes.use('/productImage', express.static('upload/images'))
 
 // This will add products
-routes.post('/productDetail', add_product_controller);
+routes.post('/productDetail',AuthenticateShop,  add_product_controller);
 
 routes.post('/upload/:productId', upload.single('productImage'), image_controller)
 
-routes.get('/productDetail/shop/:shop_id', all_shop_product_controller);
+routes.get('/productDetail/shop', AuthenticateShop,  all_shop_product_controller);
 
-routes.get('/getproducts', get_all_products)
+routes.get('/getproducts', get_all_products) // HERE add authenticate middleware
 
 routes.get('/productDetail/:product_id', one_product_controller);
 
