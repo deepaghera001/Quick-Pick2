@@ -10,7 +10,6 @@ module.exports = {
         try {
             // console.log('hello')
             const {
-                shop_id,
                 name,
                 description,
                 stock,
@@ -24,7 +23,7 @@ module.exports = {
             // })
             // console.log(req.body);
             const product = new product_Schema({
-                shop_id: "6252b5565677b95b709e0d92",
+                shop_id: req.id,
                 name,
                 description,
                 stock,
@@ -87,7 +86,8 @@ module.exports = {
     all_shop_product_controller: async (req, res) => {
         try {
             console.log('inside')
-            const product_details = await product_Schema.find({ shop_id: req.params.shop_id })
+            const id = req.id;
+            const product_details = await product_Schema.find({ shop_id: id })
             // .populate('shop_id');
             console.log(product_details)
             if (product_details) {

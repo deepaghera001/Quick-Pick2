@@ -25,13 +25,13 @@ const Product = (props) => {
                 rounded="lg"
                 shadow="lg"
                 position="relative"
-                mr={1}  my={3}
+                mr={2}  my={3}
                 >
                
 
                 <Image
                     src={props.imageURL}
-                    boxSize={"200px"}
+                    boxSize={"250px"}
                     objectFit={"cover"}
                     alt={`Picture of ${props.name}`}
                     roundedTop="lg"

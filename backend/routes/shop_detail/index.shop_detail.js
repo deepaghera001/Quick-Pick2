@@ -8,7 +8,7 @@ routes.post('/shop_register', register_shop_controller);
 
 routes.get('/shop_register', all_shops_controller);
 
-routes.get('/shop_register/:id', one_shop_controller);
+routes.get('/shop_register', AuthenticateShop,  one_shop_controller);
 
 routes.put('/shop_register/:id', AuthenticateShop, update_shop_controller);
 
