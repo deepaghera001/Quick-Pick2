@@ -3,8 +3,8 @@ const cart_schema = require('../model/cart_schema')
 
 module.exports = {
     add_to_cart: async (req, res) => {
-        const custId = req.body.custId; // this is taken from customer Authentication
-        console.log(custId)
+        const custId = req.id; // this is taken from customer Authentication
+        console.log(req.body)
         const shopId = req.body.shopId;
         const productId = req.body.productId;
         const quantity = req.body.quantity;
@@ -13,7 +13,7 @@ module.exports = {
             if (cart) {
                 console.log('cart', cart)
 
-                const found = await cart_schema.findOne({ custId, shopId, 'productIds.productId': productId })
+                const found = await cart_schema.findOne({ $and: [{ custId, shopId, 'productIds.productId': productId }] })
                 if (found) {
                     console.log('found', found)
                     const setVal = await cart_schema.findOneAndUpdate({ custId, shopId, 'productIds.productId': productId }, {
@@ -30,6 +30,7 @@ module.exports = {
                     })
                 }
                 else {
+                    console.log('pushed')
                     const setVal = await cart_schema.findOneAndUpdate({ custId, shopId }, {
                         $push: {
                             productIds: {
