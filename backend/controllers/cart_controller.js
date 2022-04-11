@@ -13,7 +13,7 @@ module.exports = {
             if (cart) {
                 console.log('cart', cart)
 
-                const found = await cart_schema.findOne({ custId, shopId, 'productIds.productId': productId })
+                const found = await cart_schema.findOne({ $and: [{ custId, shopId, 'productIds.productId': productId }] })
                 if (found) {
                     console.log('found', found)
                     const setVal = await cart_schema.findOneAndUpdate({ custId, shopId, 'productIds.productId': productId }, {
@@ -30,6 +30,7 @@ module.exports = {
                     })
                 }
                 else {
+                    console.log('pushed')
                     const setVal = await cart_schema.findOneAndUpdate({ custId, shopId }, {
                         $push: {
                             productIds: {
