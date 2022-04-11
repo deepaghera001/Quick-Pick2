@@ -1,4 +1,4 @@
-// import React from 'react'
+import React from 'react'
 import {
     FormControl,
     FormLabel,
@@ -21,107 +21,7 @@ import {
     CheckboxGroup,
 } from '@chakra-ui/react'
 import { useState } from 'react'
-// const axios = require('axios')
-
-import axios from 'axios';
-
-import React, { Component } from 'react';
-
-// class AddProduct extends Component {
-
-//     state = {
-
-//         // Initially, no file is selected
-//         selectedFile: null,
-
-//     };
-
-//     // On file select (from the pop up)
-//     onFileChange = event => {
-
-//         // Update the state
-//         this.setState({ selectedFile: event.target.files[0] });
-
-//     };
-
-//     // On file upload (click the upload button)
-//     onFileUpload = async () => {
-
-//         // Create an object of formData
-//         const formData = new FormData();
-
-//         // Update the formData object
-//         formData.append(
-//             "productImage",
-//             this.state.selectedFile,
-//             this.state.selectedFile.name
-//         );
-
-//         // Details of the uploaded file
-//         console.log(this.state.selectedFile);
-
-//         // Request made to the backend api
-//         // Send formData object
-//         const add = await axios.post("http://localhost:5000/api/upload/6252de9fffd8a03fe865eb41", formData);
-//         console.log('done', add)
-//     };
-
-//     // File content to be displayed after
-//     // file upload is complete
-//     fileData = () => {
-
-//         if (this.state.selectedFile) {
-
-//             return (
-//                 <div>
-//                     <h2>File Details:</h2>
-
-//                     <p>File Name: {this.state.selectedFile.name}</p>
-
-
-//                     <p>File Type: {this.state.selectedFile.type}</p>
-
-
-//                     <p>
-//                         Last Modified:{" "}
-//                         {this.state.selectedFile.lastModifiedDate.toDateString()}
-//                     </p>
-
-//                 </div>
-//             );
-//         } else {
-//             return (
-//                 <div>
-//                     <br />
-//                     <h4>Choose before Pressing the Upload button</h4>
-//                 </div>
-//             );
-//         }
-//     };
-
-//     render() {
-
-//         return (
-//             <div>
-//                 <h1>
-//                     GeeksforGeeks
-//                 </h1>
-//                 <h3>
-//                     File Upload using React!
-//                 </h3>
-//                 <div>
-//                     <input type="file" onChange={this.onFileChange} />
-//                     <button onClick={this.onFileUpload}>
-//                         Upload!
-//                     </button>
-//                 </div>
-//                 {this.fileData()}
-//             </div>
-//         );
-//     }
-// }
-
-// export default AddProduct;
+const axios = require('axios')
 
 export default function AddProduct() {
     const [productDetail, setproductDetail] = useState({
@@ -132,7 +32,7 @@ export default function AddProduct() {
         price: '',
         tags: []
     })
-    const [image, setImage] = useState('')
+    const [image, setImage] = useState("")
 
     const inputHandler = (e) => {
         const { name, value } = e.target;
@@ -146,9 +46,8 @@ export default function AddProduct() {
     }
 
     const inputImage = (e) => {
-        console.log(e.target.value)
+        console.log(e.target.files[0])
         setImage(e.target.files[0])
-        console.log('p is', image)
     }
 
     const onsubmit = async (e) => {
@@ -159,7 +58,7 @@ export default function AddProduct() {
 
         const formData = new FormData()
         formData.append('productImage', image)
-        const res2 = await axios.post(`http://localhost:5000/api/upload/${res.data.userdata._id}`, formData)
+        const res2 = await axios.post(`http://localhost:5000/api/upload/${res.data.userdata._id}`, formData, image)
 
         console.log(res2)
 
@@ -240,6 +139,7 @@ export default function AddProduct() {
                                     }}>
                                     Add Product
                                 </Button>
+
                             </Stack>
                         </Stack>
                     </Box>

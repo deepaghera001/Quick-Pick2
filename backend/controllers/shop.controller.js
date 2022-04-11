@@ -65,12 +65,11 @@ module.exports = {
             if (shop) {
                 const hased_password = await bcrypt.compare(password, shop.password);
                 if (hased_password) {
-                   
-                    const token = jwt.sign({id: shop._id}, process.env.SECRET_KEY);
-                    res.cookie("shopToken", token, {
-                        expires: new Date(Date.now() + 86400000),
-                        httpOnly: true,
-                    })
+
+                    const token = jwt.sign({ id: shop._id }, process.env.SECRET_KEY);
+                    console.log(token)
+                    res.cookie("shopToken", token)
+                    console.log('cookie is ', req.cookies)
                     res.status(200).json({
                         message: 'user login successfull',
                         userData: shop
