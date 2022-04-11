@@ -8,20 +8,22 @@ const fs = require('fs')
 module.exports = {
     add_product_controller: async (req, res) => {
         try {
-            // console.log('hello')
+            console.log(req.body)
             const {
                 name,
                 description,
                 stock,
                 price,
-                tags
+                tags,
             } = req.body;
+            // const tags = req.body.tags.split(',')
             // // const user_found = await shop_schema.findOne({ _id: shop_id });
 
             // !user_found && res.status(400).json({
             //     message: 'shop is not registered'
             // })
             // console.log(req.body);
+            console.log(tags);
             const product = new product_Schema({
                 shop_id: req.id,
                 name,
