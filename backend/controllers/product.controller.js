@@ -210,7 +210,23 @@ module.exports = {
         }
 
     },
+    get_all_products: async (req, res) => {
+        try{
+            const products = await product_Schema.find({});
+            const response = {
+                status: true, 
+                statusCode: 200,
+                message: 'All product details',
+                products: products,
+            }
+            res.status(200).send(response);
 
+        }
+        catch(err){
+            console.log("Error while geting all produt: " + err);
+        }
+    }
+    ,
     image_controller: async (req, res) => {
         try {
 

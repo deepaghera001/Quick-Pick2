@@ -1,7 +1,8 @@
 const express = require('express')
 const routes = express.Router();
 const AuthenticateShop = require("../../middleware/AuthenticateShop");
-const { add_product_controller, all_shop_product_controller, one_product_controller, update_product_controller, delete_product_controller, image_controller, delete_all } = require('../../controllers/product.controller')
+const AuthenticateCustomer = require("../../middleware/AuthenticateCustomer");
+const { add_product_controller, all_shop_product_controller, one_product_controller, update_product_controller, delete_product_controller, image_controller, get_all_products, delete_all } = require('../../controllers/product.controller')
 const multer = require("multer");
 const path = require("path");
 
@@ -21,11 +22,14 @@ const upload = multer({
 
 routes.use('/productImage', express.static('upload/images'))
 
+// This will add products
 routes.post('/productDetail', add_product_controller);
 
 routes.post('/upload/:productId', upload.single('productImage'), image_controller)
 
 routes.get('/productDetail/shop/:shop_id', all_shop_product_controller);
+
+routes.get('/getproducts', get_all_products)
 
 routes.get('/productDetail/:product_id', one_product_controller);
 
