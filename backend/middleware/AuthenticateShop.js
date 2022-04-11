@@ -4,7 +4,6 @@ const jwt = require("jsonwebtoken");
 const AuthenticateShop = async (req, res, next) => {
     // console.log("Authenticating shop")
     try{
-        next();
         const token = req.cookies.st;
         const response = {
             status: true, 
@@ -21,6 +20,7 @@ const AuthenticateShop = async (req, res, next) => {
         }
         console.log(result);
         req.id = result._id;
+        next();
     }
     catch(err){
         console.log("Error while authenticate shop : " + err);

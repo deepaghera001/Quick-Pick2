@@ -30,10 +30,14 @@ export default function DisplayProducts () {
       {/* <Container mt={4}> */}
         <Flex justifyItems={'self-start'} justifyContent={'space-around'} alignContent={'space-between'} wrap={'wrap'}>
         {
-        // products.map((value, index) => {
-          
-        // }
-      } 
+          products.length > 0 ? products.map((value, index) => (
+            <>
+            
+            <Product name={value.name} imageURL={process.env.PUBLIC_URL + `/upload/images/${value.image.imgId}`} price = {value.price}/>
+            </>
+          ))
+          : <h3>No products found</h3>
+        }
       
         {/* <Product />
         <Product />
