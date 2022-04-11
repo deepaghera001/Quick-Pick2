@@ -2,7 +2,6 @@ import React from 'react'
 import { useEffect, useState } from 'react'
 import axios from 'axios'
 import Product from './Product'
-import { Box } from '@chakra-ui/react'
 
 export default function ShopProducts() {
     const [allProduct, setallProduct] = useState('')
@@ -24,7 +23,7 @@ export default function ShopProducts() {
             {/* {allProduct.map((val) => console.log('hello'))} */}
             {/* <Products allProduct={allProduct} /> */}
             {
-                <Box flex='1'>
+                <Flex>
                     {allProduct?.length > 0 && allProduct.map((val, ind) => (
                         <Product
                             id={val._id}
@@ -35,7 +34,7 @@ export default function ShopProducts() {
                         // image={val.image}
                         />
                     ))}
-                </Box>
+                </Flex>
             }
         </div>
     )

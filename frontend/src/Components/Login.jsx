@@ -16,6 +16,7 @@ import {
     RadioGroup,
     Radio,
 } from '@chakra-ui/react';
+import { API } from "../API/api_url";
 import { useState, useEffect } from 'react';
 import { ViewIcon, ViewOffIcon } from '@chakra-ui/icons';
 const axios = require('axios')
@@ -35,7 +36,7 @@ export default function Login() {
     const userLogin = (e) => {
         const isShopkeeper = e.target.value;
         console.log('who', isShopkeeper)
-        if (isShopkeeper == 'shopkeeper')
+        if (isShopkeeper === 'shopkeeper')
             setShopkeeper(true)
         else
             setShopkeeper(false)
@@ -54,12 +55,15 @@ export default function Login() {
     const onSubmit = async () => {
         if (isShopkeeper) {
             console.log('shopkeeper')
-            const login = await axios.post('http://localhost:5000/api/shop_login', loginDetail)
+            const login = await axios.post(`${API}/api/shop_login`, loginDetail)
             alert(login.data.message)
             console.log(login.data)
         } else {
             console.log('customer')
-            const login = await axios.post('http://localhost:5000/api/customerLogin', loginDetail)
+            const login = await axios.post(`${API}/api/customerLogin`, loginDetail, {
+                withCredentials: true
+            })
+            console.log(login)
             alert(login.data.message)
             console.log(login.data)
         }

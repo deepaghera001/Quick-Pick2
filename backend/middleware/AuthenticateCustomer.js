@@ -4,7 +4,7 @@ const jwt = require("jsonwebtoken");
 const AuthenticateCustomer = async ( req, res, next) => {
     try{
         next();
-        const token = req.cookies.customerToken;
+        const token = req.cookies.ct;
         const response = {
             status: true, 
             statusCode: 400,

@@ -38,10 +38,13 @@ module.exports = {
             })
 
             await userdata.save();
-            res.status(200).json({
+            const response = {
+                status: true,
+                statusCode: 200,
                 message: 'Your account is created',
                 userdata: userdata
-            })
+            }
+            res.status(200).json(response)
 
         } catch (error) {
             res.status(500).json({
@@ -57,10 +60,10 @@ module.exports = {
         if (customer) {
             const hased_password = await bcrypt.compare(password, customer.password);
             if (hased_password) {
-
+                // console.log("--------------------")
                 const token = jwt.sign({id:customer._id}, process.env.SECRET_KEY);
-                res.cookie('customerToken', token, {
-                    exipres: new Date(Date.now() + 86400000),
+                res.cookie('ct', token, {
+                    expires: new Date(Date.now() + 25892000000),
                     httpOnly: true,
                 });
                 res.status(200).json({

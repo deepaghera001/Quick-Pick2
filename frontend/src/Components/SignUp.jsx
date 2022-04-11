@@ -19,25 +19,32 @@ import {
     CheckboxGroup,
 } from '@chakra-ui/react';
 import { useState, useEffect } from 'react';
+import { API } from '../API/api_url';
 import { ViewIcon, ViewOffIcon } from '@chakra-ui/icons';
 const axios = require('axios')
 
 // Sign up form for shop 
 const ShopRegister = () => {
-
-    const [shopDetail, setShopDetail] = useState({
+    // // put spinner and toast
+    // const [status, setStatus] = ({
+    //     type: '',
+    //     title: '',
+    //     massage: '',
+    // })
+    const initalData = {
         shop_name: '',
         email: '',
         password: '',
-        name: '',
         phone_number: '',
+        owner_name: '',
         address: '',
         area: '',
         city: '',
         pincode: '',
         start_time: '',
         end_time: ''
-    })
+    }
+    const [shopDetail, setShopDetail] = useState(initalData)
 
     const inputHandler = (e) => {
         const { name, value } = e.target;
@@ -51,11 +58,13 @@ const ShopRegister = () => {
     }
 
     const onsubmit = async () => {
-        const res = await axios.post('http://localhost:5000/api/shop_register', shopDetail)
+        const res = await axios.post(`${API}/api/shop_register`, shopDetail)
         console.log('res is', res)
 
         if (res.data.statusCode === 200) {
+            setShopDetail(initalData);
             alert(res.data.message)
+            // PUT toast here
         } else {
             console.log('')
             alert(res.data.message)
@@ -64,92 +73,70 @@ const ShopRegister = () => {
 
     return (
         <>
-            {/* <Flex
-                minH={'100vh'}
-                align={'center'}
-                justify={'center'}
-                bg={useColorModeValue('gray.50', 'gray.800')}>
-                <Stack spacing={8} mx={'auto'} maxW={'lg'} py={12} px={6}>
-                    <Stack align={'center'}>
-                        <Heading fontSize={'4xl'} textAlign={'center'}>
-                            Sign up for shop
-                        </Heading>
-                    </Stack>
-                    <Box
-                        rounded={'lg'}
-                        bg={useColorModeValue('white', 'gray.700')}
-                        boxShadow={'lg'}
-                        p={8}> */}
 
-            {/* <Stack spacing={4}> */}
-            {/* <HStack>
-
-                            <Box> */}
             <FormControl id="shop_name" isRequired>
                 <FormLabel>Shop Name</FormLabel>
-                <Input type="text" name="shop_name" onChange={inputHandler} />
+                <Input type="text" name="shop_name" onChange={inputHandler} value={shopDetail.shop_name}/>
             </FormControl>
-            {/* </Box>
-                            
-                        </HStack> */}
+      
             <FormControl id="email" isRequired>
                 <FormLabel>Email address</FormLabel>
-                <Input type="email" name="email" onChange={inputHandler} />
+                <Input type="email" name="email" onChange={inputHandler} value={shopDetail.email}/>
             </FormControl>
 
             <FormControl id="password" isRequired>
                 <FormLabel>password</FormLabel>
                 <InputGroup>
-                    <Input type='password' name='password' onChange={inputHandler} />
+                    <Input type='password' name='password' onChange={inputHandler} value={shopDetail.password}/>
                     <InputRightElement h={'full'}>
-                        <Button
+                        {/* <Button
                             variant={'ghost'}
                         // onClick={() =>
                         //     setShowPassword((showPassword) => !showPassword)
                         // }
                         >
-                            {/* {showPassword ? <ViewIcon /> : <ViewOffIcon />} */}
-                        </Button>
+                             {showPassword ? <ViewIcon /> : <ViewOffIcon />} 
+                        </Button> */}
                     </InputRightElement>
                 </InputGroup>
             </FormControl>
-            <FormControl id="name" isRequired>
+            <FormControl id="owner_name" isRequired>
                 <FormLabel>Owner Name</FormLabel>
-                <Input type="text" name="name" onChange={inputHandler} />
+                <Input type="text" name="owner_name" onChange={inputHandler} value={shopDetail.owner_name}/>
             </FormControl>
             <FormControl id="phone_number" isRequired>
                 <FormLabel>Phone Number</FormLabel>
-                <Input type="text" name="phone_number" onChange={inputHandler} />
+                <Input type="text" name="phone_number" onChange={inputHandler} value={shopDetail.phone_number}/>
             </FormControl>
 
             <FormControl id="address" isRequired>
                 <FormLabel>Address</FormLabel>
-                <Input type="text" name="address" onChange={inputHandler} />
+                <Input type="text" name="address" onChange={inputHandler} value={shopDetail.address}/>
             </FormControl>
 
             <Stack spacing={5} direction='row'>
                 <FormControl id="area" isRequired>
                     <FormLabel>area</FormLabel>
-                    <Input type="text" name="area" onChange={inputHandler} />
+                    <Input type="text" name="area" onChange={inputHandler} value={shopDetail.area}/>
                 </FormControl>
                 <FormControl id="city" isRequired>
                     <FormLabel>city</FormLabel>
-                    <Input type="text" name="city" onChange={inputHandler} />
+                    <Input type="text" name="city" onChange={inputHandler} value={shopDetail.city}/>
                 </FormControl>
                 <FormControl id="pincode" isRequired>
                     <FormLabel>Pincode</FormLabel>
-                    <Input type="text" name="pincode" onChange={inputHandler} />
+                    <Input type="text" name="pincode" onChange={inputHandler} value={shopDetail.pincode}/>
                 </FormControl>
             </Stack>
 
             <Stack spacing={5} direction='row'>
                 <FormControl id="start_time" isRequired>
                     <FormLabel>Shop Starting Time</FormLabel>
-                    <Input type="text" name="start_time" onChange={inputHandler} />
+                    <Input type="text" name="start_time" onChange={inputHandler} value={shopDetail.start_time}/>
                 </FormControl>
                 <FormControl id="end_time" isRequired>
                     <FormLabel>Shop Ending Time</FormLabel>
-                    <Input type="text" name="end_time" onChange={inputHandler} />
+                    <Input type="text" name="end_time" onChange={inputHandler} value={shopDetail.end_time}/>
                 </FormControl>
             </Stack>
 
@@ -181,8 +168,7 @@ const ShopRegister = () => {
 
 // Sign up form for customer
 const CustomerRegiter = () => {
-
-    const [custDetail, setCustDetail] = useState({
+    const initalValue = {
         email: '',
         phone_number: '',
         password: '',
@@ -191,11 +177,12 @@ const CustomerRegiter = () => {
         area: '',
         city: '',
         pincode: '',
-    })
+    }
+    const [custDetail, setCustDetail] = useState(initalValue)
 
     const handleInput = (e) => {
         const { name, value } = e.target;
-        console.log(name, value)
+        // console.log(name, value)
 
         setCustDetail((preVal) => {
             return {
@@ -204,12 +191,15 @@ const CustomerRegiter = () => {
             }
         })
     }
-    const onSubmit = async () => {
-        const user = await axios.post('http://localhost:5000/api/customerRegister', custDetail)
-
-        if (user.data.statusCode == 200) {
+    const onSubmit = async (e) => {
+        e.preventDefault();
+        const user = await axios.post(`${API}/api/customerRegister`, custDetail) // remove password from response
+        
+        if (user.data.statusCode === 200) {
+            setCustDetail(initalValue);
             alert(user.data.message)
         } else {
+
             alert(user.data.message)
         }
 
@@ -217,67 +207,49 @@ const CustomerRegiter = () => {
 
     return (
         <>
-            {/* <Flex
-                minH={'100vh'}
-                align={'center'}
-                justify={'center'}
-                bg={useColorModeValue('gray.50', 'gray.800')}>
-                <Stack spacing={8} mx={'auto'} maxW={'lg'} py={12} px={6}>
-                    <Stack align={'center'}>
-                        <Heading fontSize={'4xl'} textAlign={'center'}>
-                            Sign up for Customer
-                        </Heading>
-                    </Stack>
-                    <Box
-                        rounded={'lg'}
-                        bg={useColorModeValue('white', 'gray.700')}
-                        boxShadow={'lg'}
-                        p={8}> */}
-
+ 
             <Stack spacing={4}>
-                {/* <HStack>
 
-                            <Box> */}
                 <FormControl id="custName" isRequired>
                     <FormLabel>Customer Name</FormLabel>
-                    <Input type="text" name='name' onChange={handleInput} />
+                    <Input type="text" name='name' onChange={handleInput} value={custDetail.name} />
                 </FormControl>
                 {/* </Box>
                             
                         </HStack> */}
                 <FormControl id="cusEmail" isRequired>
                     <FormLabel>Email address</FormLabel>
-                    <Input type="email" name='email' onChange={handleInput} />
+                    <Input type="email" name='email' onChange={handleInput} value={custDetail.email} />
                 </FormControl>
 
                 <FormControl id="password" isRequired>
                     <FormLabel>Password</FormLabel>
                     <InputGroup>
-                        <Input type='password' name='password' onChange={handleInput} />
+                        <Input type='password' name='password' onChange={handleInput} value={custDetail.password} />
                     </InputGroup>
                 </FormControl>
                 <FormControl id="phoneNo" isRequired>
                     <FormLabel>Phone Number</FormLabel>
-                    <Input type="text" name='phone_number' onChange={handleInput} />
+                    <Input type="text" name='phone_number' onChange={handleInput} value={custDetail.phone_number} />
                 </FormControl>
 
                 <FormControl id="address" isRequired>
                     <FormLabel>Address</FormLabel>
-                    <Input type="text" name='address' onChange={handleInput} />
+                    <Input type="text" name='address' onChange={handleInput} value={custDetail.address} />
                 </FormControl>
 
                 <Stack spacing={5} direction='row'>
                     <FormControl id="area" isRequired>
                         <FormLabel>area</FormLabel>
-                        <Input type="text" name='area' onChange={handleInput} />
+                        <Input type="text" name='area' onChange={handleInput} value={custDetail.area} />
                     </FormControl>
                     <FormControl id="city" isRequired>
                         <FormLabel>city</FormLabel>
-                        <Input type="text" name='city' onChange={handleInput} />
+                        <Input type="text" name='city' onChange={handleInput} value={custDetail.city} />
                     </FormControl>
                     <FormControl id="Pincode" isRequired>
                         <FormLabel>Pincode</FormLabel>
-                        <Input type="text" name='pincode' onChange={handleInput} />
+                        <Input type="text" name='pincode' onChange={handleInput} value={custDetail.pincode} />
                     </FormControl>
                 </Stack>
 
