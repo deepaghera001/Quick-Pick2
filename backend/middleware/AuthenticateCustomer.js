@@ -3,7 +3,6 @@ const jwt = require("jsonwebtoken");
 
 const AuthenticateCustomer = async ( req, res, next) => {
     try{
-        next();
         const token = req.cookies.ct;
         const response = {
             status: true, 
@@ -19,8 +18,9 @@ const AuthenticateCustomer = async ( req, res, next) => {
         if(!result){
             req.status(400).json(response);
         }
-        console.log(result);
+        // console.log(result);
         req.id = result._id;
+        next();
     }
     catch(err){
         console.log("Error while autheticating customer: " + err);
