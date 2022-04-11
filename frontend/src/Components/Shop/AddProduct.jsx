@@ -55,9 +55,15 @@ export default function AddProduct() {
     const onsubmit = async (e) => {
         e.preventDefault();
         // console.log(productDetail);
+        setproductDetail((prev) => {
+            return {
+                ...prev,
+                tags: productDetail.tags.split(',')
+            }
+        })
         const res = await axios.post(`${API}/api/productDetail`, productDetail)
         console.log(res);
-        console.log('res is', res, 'id is', res.data.productDetail._id)
+        // console.log('res is', res, 'id is', res.data.productDetail._id)
 
         const formData = new FormData()
         formData.append('productImage', image)

@@ -58,8 +58,9 @@ export default function ShowProduct() {
             <Stack
                 borderWidth="1px"
                 borderRadius="lg"
-                w={{ sm: '100%', md: '540px' }}
-                height={{ sm: '476px', md: '20rem' }}
+                w={{ sm: '100%', md: '540px', lg: '900px' }}
+                height={{ sm: '476px', md: '20rem', lg: '30rem' }}
+                p={3}
                 direction={{ base: 'column', md: 'row' }}
                 bg={useColorModeValue('white', 'gray.900')}
                 boxShadow={'2xl'}
@@ -68,6 +69,10 @@ export default function ShowProduct() {
                     <Image
                         objectFit="cover"
                         boxSize="100%"
+                        src={productDetail.image
+                            ? process.env.PUBLIC_URL + `/upload/images/${productDetail.image.imgId}`
+                            : ""
+                        }
                     // src={process.env.PUBLIC_URL + `/upload/images/${productDetail.image.imgId}`}
                     />
                 </Flex>
@@ -103,9 +108,6 @@ export default function ShowProduct() {
                     <Button colorScheme='teal' size='sm' onClick={addtocart}>
                         Add to Cart
                     </Button>
-
-
-
                 </Stack>
             </Stack>
         </Center>

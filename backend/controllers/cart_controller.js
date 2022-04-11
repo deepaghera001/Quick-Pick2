@@ -4,7 +4,7 @@ const cart_schema = require('../model/cart_schema')
 module.exports = {
     add_to_cart: async (req, res) => {
         const custId = req.id; // this is taken from customer Authentication
-        console.log(req.body)
+        console.log(custId)
         const shopId = req.body.shopId;
         const productId = req.body.productId;
         const quantity = req.body.quantity;
