@@ -27,8 +27,7 @@ export default function DisplayProducts () {
 
   return (
     <>
-      {/* <Container mt={4}> */}
-        <Flex justifyItems={'self-start'} justifyContent={'space-around'} alignContent={'space-between'} wrap={'wrap'}>
+        <Flex justifyContent={'space-around'} alignContent={'space-between'} wrap={'wrap'}>
         {
           products.length > 0 ? products.map((value, index) => (
             <>
@@ -39,20 +38,8 @@ export default function DisplayProducts () {
           : <h3>No products found</h3>
         }
       
-        {/* <Product />
-        <Product />
-        <Product />
-
-        <Product />
-        <Product />
-
-        <Product />
-
-
-        <Product /> */}
 
         </Flex>
-      {/* </Container> */}
     </>
   )
 }
