@@ -9,8 +9,8 @@ import DisplayProducts from "../Components/Customer/DisplayProducts";
 import ShowProduct2 from "../Components/Customer/ShowProduct2"
 import DisplayShops from "../Components/Customer/DisplayShops"
 
-import Shop_card from "../Components/partials/Shop_card";
 import Cart_With_shop from "../Components/Customer/Cart_With_shop";
+import DisplayCartProduct from "../Components/Customer/DisplayCartProduct";
 const Home = () => {
     return (
         <>
@@ -31,6 +31,7 @@ export const MainRoute = () => {
                 <Route exact path="/product/:shop_id/:productId" element={<ShowProduct2 />}></Route>
                 <Route exact path="/displayshops" element={<DisplayShops />}></Route>
                 <Route exact path="/cart" element={<Cart_With_shop />}></Route>
+                <Route exact path="/cartproducts/:shop_id" element={<DisplayCartProduct />}></Route>
                 <Route exact path="/shopproducts/:shop_id" element={<DisplayProducts />}></Route>
 
 

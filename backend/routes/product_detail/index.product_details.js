@@ -29,7 +29,7 @@ routes.post('/upload/:productId', upload.single('productImage'), image_controlle
 
 routes.get('/productDetail/shop', AuthenticateShop, all_shop_product_controller);
 
-routes.get('/getShopProducts/:shop_id', get_all_shop_product_controller)
+routes.get('/getShopProducts/:shop_id' ,get_all_shop_product_controller)
 
 routes.get('/getproducts', get_all_products) // HERE add authenticate middleware
 

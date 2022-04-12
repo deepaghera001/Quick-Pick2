@@ -22,6 +22,7 @@ export default function DisplayShops() {
             <Flex justifyContent={'space-around'} alignContent={'space-between'} wrap={'wrap'}>
                 {shops.length > 0 ? shops.map((val, ind) => (
                     <Shop_card
+                        key={ind}
                         shop_id={val._id}
                         shop_name={val.shop_name}
                         owner_name={val.owner_name}
@@ -31,7 +32,8 @@ export default function DisplayShops() {
                         pincode={val.pincode}
                         start_time={val.start_time}
                         end_time={val.end_time}
-                        aim='onlyshops'
+                        onClickLink={`/shopproducts/${val._id}`}
+                        btnText = {"View Products"}
                     />
                 )) : "no found"}
             </Flex>

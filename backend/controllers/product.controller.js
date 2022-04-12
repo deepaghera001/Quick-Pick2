@@ -117,7 +117,7 @@ module.exports = {
     },
     get_all_shop_product_controller: async (req, res) => {
         try {
-            console.log('inside')
+            console.log('-----------inside--------------')
             const shop_id = req.params.shop_id;
             const product_details = await product_Schema.find({ shop_id: shop_id })
             // .populate('shop_id');
