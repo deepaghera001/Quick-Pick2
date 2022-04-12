@@ -7,7 +7,6 @@ import AddProduct from "../Components/Shop/AddProduct";
 import Shopproduct from "../Components/Shop/ShopProducts"
 import DisplayProducts from "../Components/Customer/DisplayProducts";
 import ShowProduct2 from "../Components/Customer/ShowProduct2"
-import DisplayCart from "../Components/Customer/DisplayCart";
 import DisplayShops from "../Components/Customer/DisplayShops"
 
 import Shop_card from "../Components/partials/Shop_card";
