@@ -11,6 +11,7 @@ export default function DisplayShops() {
     }, []);
 
     const getAllShop = async () => {
+        console.log('s///')
         const shops = await axios.get(`${API}/api/shop_register`)
         setshops(shops.data.userdata)
         console.log('shops are: ', shops)
@@ -31,7 +32,8 @@ export default function DisplayShops() {
                         pincode={val.pincode}
                         start_time={val.start_time}
                         end_time={val.end_time}
-                        aim='onlyshops'
+                        onClickLink={`/shopproducts/${val._id}`}
+                        btnText = {"View Products"}
                     />
                 )) : "no found"}
             </Flex>
