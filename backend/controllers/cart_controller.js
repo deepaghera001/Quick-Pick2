@@ -18,12 +18,10 @@ module.exports = {
                     console.log('found', found)
                     const setVal = await cart_schema.findOneAndUpdate({ custId, shopId, 'productIds.productId': productId }, {
                         $set: {
-                            productIds: {
-                                productId,
-                                quantity
-                            }
+                            "productIds.$.quantity": quantity
                         }
                     })
+
                     res.status(200).json({
                         message: 'product modified',
                         data: setVal
@@ -43,7 +41,7 @@ module.exports = {
                     res.status(200).json({
                         message: 'product added successfully.'
                     })
-                }
+                }   
 
                 // cart.productIds.map((val) => {
                 //     console.log(val)
@@ -76,10 +74,16 @@ module.exports = {
     },
     get_cart: async (req, res) => {
         const cust_id = req.id;
-        console.log(cust_id);
-        const result = await cart_schema.find({})
+        console.log("get req for cart ", cust_id)
+        const result = await cart_schema.find({custId: cust_id})
             .populate('productIds.productId')
             .populate('shopId');
+        const response = {
+            status: true,
+            statusCode: 200,
+            message: "Data fetched",
+            data: result
+        }
         console.log(result);
         res.status(200).json(result);
     }

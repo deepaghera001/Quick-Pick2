@@ -98,7 +98,37 @@ module.exports = {
                     status: true,
                     statusCode: 200,
                     message: 'Product founded...',
-                    userdata: product_details
+                    products: product_details
+                }
+                res.status(200).send(response)
+            }
+            else {
+                var response = {
+                    status: false,
+                    statusCode: 400,
+                    message: 'Product not founded...'
+                }
+                res.status(400).send(response)
+            }
+        } catch (error) {
+            console.log(error)
+            res.status(500).send('server crashed.')
+        }
+    },
+    get_all_shop_product_controller: async (req, res) => {
+        try {
+            console.log('inside')
+            const shop_id = req.params.shop_id;
+            const product_details = await product_Schema.find({ shop_id: shop_id })
+            // .populate('shop_id');
+            console.log(product_details)
+            if (product_details) {
+                console.log(product_details)
+                var response = {
+                    status: true,
+                    statusCode: 200,
+                    message: 'Product founded...',
+                    products: product_details
                 }
                 res.status(200).send(response)
             }
@@ -213,10 +243,10 @@ module.exports = {
 
     },
     get_all_products: async (req, res) => {
-        try{
+        try {
             const products = await product_Schema.find({});
             const response = {
-                status: true, 
+                status: true,
                 statusCode: 200,
                 message: 'All product details',
                 products: products,
@@ -224,7 +254,7 @@ module.exports = {
             res.status(200).send(response);
 
         }
-        catch(err){
+        catch (err) {
             console.log("Error while geting all produt: " + err);
         }
     }

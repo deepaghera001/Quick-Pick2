@@ -4,17 +4,20 @@ import React, { useEffect } from 'react'
 import { useState } from 'react'
 import Product from '../partials/Product'
 import { API } from "../../API/api_url";
+import { useParams } from 'react-router-dom';
 
 
 
 export default function DisplayProducts() {
   const [products, setProducts] = useState([]);
+  const { shop_id } = useParams()
+
   const fetchAllProducts = async () => {
     // console.log("Fating all data");
-    const response = await axios.get(`${API}/api/getproducts`);
+    const response = await axios.get(`${API}/api/getShopProducts/${shop_id}`);
+    console.log(response.data);
     if (response.data.statusCode === 200) {
       setProducts(response.data.products);
-      console.log(response.data.products);
     } else {
       alert("Not able to fetch all products");
     }
