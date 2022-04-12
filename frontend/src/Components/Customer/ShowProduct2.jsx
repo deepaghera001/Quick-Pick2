@@ -1,84 +1,126 @@
 import {
-    Box,
-    chakra,
-    Container,
-    Stack,
-    Text,
-    Image,
-    Flex,
-    VStack,
-    Button,
-    Heading,
-    SimpleGrid,
-    StackDivider,
-    useColorModeValue,
-    VisuallyHidden,
-    List,
-    ListItem,
-  } from '@chakra-ui/react';
-  import { FaInstagram, FaTwitter, FaYoutube } from 'react-icons/fa';
-  import { MdLocalShipping } from 'react-icons/md';
-  
-  export default function ShowProduct2() {
-    return (
-      <Container maxW={'7xl'}>
-        <SimpleGrid
-          columns={{ base: 1, lg: 2 }}
-          spacing={{ base: 8, md: 10 }}
-          py={{ base: 18, md: 24 }}>
-          <Flex>
-            <Image
-              rounded={'md'}
-              alt={'product image'}
-              src={
-                'https://images.unsplash.com/photo-1596516109370-29001ec8ec36?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=MnwyODE1MDl8MHwxfGFsbHx8fHx8fHx8fDE2Mzg5MzY2MzE&ixlib=rb-1.2.1&q=80&w=1080'
-              }
-              fit={'cover'}
-              align={'center'}
-              w={'100%'}
-              h={{ base: '100%', sm: '400px', lg: '500px' }}
-            />
-          </Flex>
-          <Stack spacing={{ base: 6, md: 10 }}>
-            <Box as={'header'}>
-              <Heading
-                lineHeight={1.1}
-                fontWeight={600}
-                fontSize={{ base: '2xl', sm: '4xl', lg: '5xl' }}>
-                Automatic Watch
-              </Heading>
+  Box,
+  chakra,
+  Container,
+  Stack,
+  Text,
+  Image,
+  Flex,
+  VStack,
+  Button,
+  Heading,
+  SimpleGrid,
+  StackDivider,
+  useColorModeValue,
+  VisuallyHidden,
+  List,
+  ListItem,
+} from '@chakra-ui/react';
+import React, { useState, useEffect } from 'react'
+import { useParams } from 'react-router-dom'
+import { API } from '../../API/api_url'
+import axios from 'axios'
+
+export default function ShowProduct2() {
+  const { shop_id, productId } = useParams();
+  const [productDetail, setproductDetail] = useState('')
+  const [count, setcount] = useState(0)
+
+  const handleCount = (e) => {
+    const value = e.target.value;
+    console.log(value)
+    if (value == '-' && count > 1) {
+      setcount(count - 1);
+    }
+    if (value == '+') {
+      setcount(count + 1)
+    }
+  }
+  const addtocart = async (e) => {
+    const cart = await axios.post(`${API}/api/addtocart`, {
+      shopId: shop_id,
+      productId: productId,
+      quantity: count
+    })
+    console.log(cart.data)
+    alert('added to cart')
+  }
+
+  useEffect(() => {
+    getProduct();
+  }, [productId]);
+
+  const getProduct = async () => {
+    const product = await axios.get(`${API}/api/productDetail/${productId}`)
+    setproductDetail(product.data.userdata)
+    console.log(product.data)
+  }
+
+  return (
+    <Container maxW={'7xl'}>
+      <SimpleGrid
+        columns={{ base: 1, lg: 2 }}
+        spacing={{ base: 8, md: 10 }}
+        py={{ base: 18, md: 24 }}>
+        <Flex>
+          <Image
+            rounded={'md'}
+            alt={'product image'}
+            src={
+              productDetail.image
+                ? process.env.PUBLIC_URL + `/upload/images/${productDetail.image.imgId}`
+                : ""
+            }
+            fit={'cover'}
+            align={'center'}
+            w={'100%'}
+            h={{ base: '100%', sm: '400px', lg: '500px' }}
+          />
+        </Flex>
+        <Stack spacing={{ base: 6, md: 10 }}>
+          <Box as={'header'}>
+            <Heading
+              lineHeight={1.1}
+              fontWeight={600}
+              fontSize={{ base: '2xl', sm: '4xl', lg: '5xl' }}>
+              {productDetail.name}
+            </Heading>
+            <Text
+              color={useColorModeValue('gray.900', 'gray.400')}
+              fontWeight={400}
+              fontSize={'2xl'}
+              my={3}
+              >
+              ₹ {productDetail.price}
+            </Text>
+            <Text
+              color={useColorModeValue('gray.900', 'gray.400')}
+              fontWeight={300}
+              fontSize={'2xl'}>
+              Stock: {productDetail.stock}
+            </Text>
+          </Box>
+
+          <Stack
+            spacing={{ base: 4, sm: 6 }}
+            direction={'column'}
+            divider={
+              <StackDivider
+                borderColor={useColorModeValue('gray.200', 'gray.600')}
+              />
+            }>
+            <VStack spacing={{ base: 4, sm: 6 }}>
               <Text
-                color={useColorModeValue('gray.900', 'gray.400')}
-                fontWeight={300}
-                fontSize={'2xl'}>
-                $350.00 USD
+                color={useColorModeValue('gray.500', 'gray.400')}
+                fontSize={'2xl'}
+                fontWeight={'300'}>
+                {productDetail.description}
               </Text>
-            </Box>
-  
-            <Stack
-              spacing={{ base: 4, sm: 6 }}
-              direction={'column'}
-              divider={
-                <StackDivider
-                  borderColor={useColorModeValue('gray.200', 'gray.600')}
-                />
-              }>
-              <VStack spacing={{ base: 4, sm: 6 }}>
-                <Text
-                  color={useColorModeValue('gray.500', 'gray.400')}
-                  fontSize={'2xl'}
-                  fontWeight={'300'}>
-                  Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed
-                  diam nonumy eirmod tempor invidunt ut labore
-                </Text>
-                <Text fontSize={'lg'}>
-                  Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ad
-                  aliquid amet at delectus doloribus dolorum expedita hic, ipsum
-                  maxime modi nam officiis porro, quae, quisquam quos
-                  reprehenderit velit? Natus, totam.
-                </Text>
-              </VStack>
-                  {/* 
+              <Text fontSize={'lg'}>
+                {productDetail.description}
+              </Text>
+            </VStack>
+            {/* 
               <Box>
                 <Text
                   fontSize={{ base: '16px', lg: '18px' }}
@@ -159,8 +201,24 @@ import {
                 </List> 
               </Box>
                 */}
-            </Stack>
-  
+          </Stack>
+
+          <Flex direction={"column"} m={'auto'}>
+            <Text fontWeight={600}  size="md" my={2}>
+              <Flex direction={'row'} justifyContent={'space-evenly'}>
+
+                <Button bg={useColorModeValue('gray.900', 'gray.50')}
+                  color={useColorModeValue('white', 'gray.900')} size='md' value="-" id="moinsminus" onClick={handleCount}>
+                  -
+                </Button>
+                {count}     {/* if iteam is alrady present in cart then that is reamin */}
+                <Button bg={useColorModeValue('gray.900', 'gray.50')}
+                  color={useColorModeValue('white', 'gray.900')} size='md' value="+" id="moinsplus" onClick={handleCount}>
+                  +
+                </Button>
+              </Flex>
+            </Text>
+
             <Button
               rounded={'none'}
               w={'full'}
@@ -173,13 +231,14 @@ import {
               _hover={{
                 transform: 'translateY(2px)',
                 boxShadow: 'lg',
-              }}>
+              }}
+              onClick={addtocart}
+            >
               Add to cart
             </Button>
-  
-            
-          </Stack>
-        </SimpleGrid>
-      </Container>
-    );
-  }
+          </Flex>
+        </Stack>
+      </SimpleGrid>
+    </Container>
+  );
+}

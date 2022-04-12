@@ -15,7 +15,7 @@ import React, { useState, useEffect } from 'react'
 import { useParams } from 'react-router-dom'
 import { API } from '../../API/api_url'
 import axios from 'axios'
-import { AddIcon } from '@chakra-ui/icons';
+
 
 export default function ShowProduct() {
 
