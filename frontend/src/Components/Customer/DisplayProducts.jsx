@@ -32,10 +32,10 @@ export default function DisplayProducts() {
           products.length > 0 ? products.map((value, index) => (
             <Box key={index}>
               <Link href={`/product/${value.shop_id}/${value._id}`}>
-                <Product 
-                  name={value.name} 
-                  imageURL={process.env.PUBLIC_URL + `/upload/images/${value.image.imgId}`} 
-                  price={value.price} 
+                <Product
+                  name={value.name}
+                  imageURL={process.env.PUBLIC_URL + `/upload/images/${value.image.imgId}`}
+                  price={value.price}
                   description={value.description}
                 />
               </Link>
