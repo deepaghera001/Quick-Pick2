@@ -9,10 +9,18 @@ import {
   Text,
   useColorModeValue,
 } from '@chakra-ui/react';
+import axios from 'axios';
+import { API } from '../../API/api_url';
 import { Link } from 'react-router-dom';
 
 export default function Shop_card(props) {
-  console.log(props)
+
+  const getShopProducts = async () => {
+    const shopproduct = await axios.get(`${API}/productDetail/shop`)
+    console.log(shopproduct)
+
+  }
+
   return (
     <Center py={6}>
       <Stack
