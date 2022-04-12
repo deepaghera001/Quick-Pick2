@@ -76,15 +76,32 @@ module.exports = {
         const cust_id = req.id;
         console.log("get req for cart ", cust_id)
         const result = await cart_schema.find({custId: cust_id})
-            .populate('productIds.productId')
-            .populate('shopId');
+        .populate('shopId');
+        // .populate('productIds.productId')
         const response = {
             status: true,
             statusCode: 200,
             message: "Data fetched",
             data: result
         }
-        console.log(result);
-        res.status(200).json(result);
+        res.status(200).json(response);
+    },
+
+    get_shop_cart: async (req, res) => {
+        const cust_id = req.id;
+        const shop_id = req.params.shop_id;
+        // console.log("Custid: ", cust_id, "shop_id: ", shop_id)
+        const result = await cart_schema.find({$and: [{custId: cust_id, shopId: shop_id}]})
+                        .populate('productIds.productId');
+        console.log(result)
+        const response = {
+            status: true,
+            statusCode: 200,
+            message: "Data fetched of one shop",
+            data: result
+
+        }
+        res.status(200).send(response);
+
     }
 }
