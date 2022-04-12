@@ -67,6 +67,7 @@ export default function ShowProduct() {
                 padding={4}>
                 <Flex flex={1} bg="blue.200">
                     <Image
+                    // Give shadow to image
                         objectFit="cover"
                         boxSize="100%"
                         src={productDetail.image
@@ -79,36 +80,46 @@ export default function ShowProduct() {
                 <Stack
                     flex={1}
                     flexDirection="column"
-                    justifyContent="center"
-                    alignItems="center"
+                    // justifyContent="center"
+                    alignItems="flex-start"
                     p={1}
-                    pt={2}>
+                    pt={2}
+                    pl={4}>
                     <Heading fontSize={'2xl'} fontFamily={'body'}>
-                        Name: {productDetail.name}
+                        {productDetail.name}
                     </Heading>
-                    <Text fontWeight={600} color={'gray.500'} size="sm" mb={4}>
-                        Price: {productDetail.price}
+                    <Text color={'gray.600'} size="sm" mb={4}>
+                        Price: ₹ {productDetail.price}
                     </Text>
-                    <Text fontWeight={600} color={'gray.500'} size="sm" mb={4}>
+                    <Text color={'gray.600'} size="sm" mb={4}>
                         Stock: {productDetail.stock}
                     </Text>
-                    <Text fontWeight={600} color={'gray.500'} size="sm" mb={4}>
+                    <Text color={'gray.600'} size="sm" mb={4}>
+                        {productDetail.description}
+                        {productDetail.description}
                         {productDetail.description}
                     </Text>
-                    <Text fontWeight={600} color={'gray.500'} size="sm" mb={4}>
-                        <Button colorScheme='teal' margin="5px" size='xs' value="-" id="moins" onClick={handleCount}>
-                            -
-                        </Button>
-                        {count}
-                        <Button colorScheme='teal' margin="5px" size='xs' value="+" id="moins" onClick={handleCount}>
-                            +
-                        </Button>
-                    </Text>
+                    
+                    <Flex direction={"column"} m={'auto'}>
+                        <Text fontWeight={600} color={'gray.800'} size="sm" my={2}>
+                            <Flex direction={'row'} justifyContent={'space-evenly'}>
 
-                    <Button colorScheme='teal' size='sm' onClick={addtocart}>
-                        Add to Cart
-                    </Button>
+                                <Button colorScheme='teal' size='xs' value="-" id="moinsminus" onClick={handleCount}>
+                                    -
+                                </Button>
+                                {count}     {/* if iteam is alrady present in cart then that is reamin */}
+                                <Button colorScheme='teal' size='xs' value="+" id="moinsplus" onClick={handleCount}>
+                                    +
+                                </Button>
+                            </Flex>
+                        </Text>
+
+                        <Button colorScheme='teal' size='sm' onClick={addtocart}>
+                            Add to Cart
+                        </Button>
+                    </Flex>
                 </Stack>
+
             </Stack>
         </Center>
     );

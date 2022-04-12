@@ -34,7 +34,7 @@ export default function DisplayProducts() {
               <Link href={`/product/${value.shop_id}/${value._id}`}>
                 <Product 
                   name={value.name} 
-                  imageURL={process.env.PUBLIC_URL + `/upload/images/${value.image.imgId}`} 
+                  imageURL={value.image ? process.env.PUBLIC_URL + `/upload/images/${value.image.imgId}` : ""} 
                   price={value.price} 
                   description={value.description}
                 />
