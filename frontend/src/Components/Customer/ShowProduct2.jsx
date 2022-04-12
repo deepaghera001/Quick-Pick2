@@ -29,7 +29,7 @@ export default function ShowProduct2() {
   const handleCount = (e) => {
     const value = e.target.value;
     console.log(value)
-    if (value == '-' && count > 1) {
+    if (value == '-' && count >= 1) {
       setcount(count - 1);
     }
     if (value == '+') {
@@ -208,7 +208,9 @@ export default function ShowProduct2() {
               <Flex direction={'row'} justifyContent={'space-evenly'}>
 
                 <Button bg={useColorModeValue('gray.900', 'gray.50')}
-                  color={useColorModeValue('white', 'gray.900')} size='md' value="-" id="moinsminus" onClick={handleCount}>
+                  color={useColorModeValue('white', 'gray.900')} size='md' value="-" id="moinsminus" onClick={handleCount}
+                  isDisabled = {count ? false : true}
+                  >
                   -
                 </Button>
                 {count}     {/* if iteam is alrady present in cart then that is reamin */}
@@ -233,6 +235,7 @@ export default function ShowProduct2() {
                 boxShadow: 'lg',
               }}
               onClick={addtocart}
+              isDisabled = {count ? false : true}
             >
               Add to cart
             </Button>
