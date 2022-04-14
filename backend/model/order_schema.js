@@ -37,8 +37,10 @@ const order_schema = new mongoose.Schema({
     order_status: {
         type: String,
         default: 'Not Picked Up'
-    }
-    ,
+    },
+    pickup_time: {
+        type: String,
+    },
     date: {
         type: Date,
         default: Date.now

@@ -9,7 +9,7 @@ import DisplayProducts from "../Components/Customer/DisplayProducts";
 import ShowProduct2 from "../Components/Customer/ShowProduct2"
 import DisplayShops from "../Components/Customer/DisplayShops"
 import DisplayCart from "../Components/Customer/DisplayCart"
-
+import Order_Success from "../Components/Customer/Order_Success"
 import Cart_With_shop from "../Components/Customer/Cart_With_shop";
 import DisplayCartProduct from "../Components/Customer/DisplayCartProduct";
 
@@ -40,7 +40,7 @@ export const MainRoute = () => {
                     <Route exact path="/cart" element={<Cart_With_shop />}></Route>
                     <Route exact path="/cartproducts/:shop_id" element={<DisplayCartProduct />}></Route>
                     <Route exact path="/shopproducts/:shop_id" element={<DisplayProducts />}></Route>
-                    {/* <Route exact path="/cart_card" element={<Cart_product_card />}></Route> */}
+                    <Route exact path="/temp" element={<Order_Success />}></Route>
 
                     <Route exact path="/login" element={<Login />}></Route>
                     <Route exact path="/signup" element={<SignUp />}></Route>

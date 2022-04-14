@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import axios from 'axios'
 import { API } from '../../API/api_url';
-import Product  from "../partials/Product";
+import Product  from "../partials/ProductCard";
 export default function DisplayCart() {
     const [cart, setCart] = useState([]);
     const fetchCartDetail = async () => {

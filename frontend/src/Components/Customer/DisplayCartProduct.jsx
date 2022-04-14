@@ -1,12 +1,22 @@
 import React, { useEffect, useState } from 'react'
 import axios from 'axios';
-import { useParams } from 'react-router-dom';import Product from '../partials/ProductCard'
+import { useParams } from 'react-router-dom'; import Product from '../partials/ProductCard'
 import Cart_product_card from '../partials/Cart_product_card';
 import { ArrowForwardIcon, TimeIcon } from '@chakra-ui/icons';
 import { Link } from 'react-router-dom';
 import { API } from '../../API/api_url'
 
 import {
+	Modal,
+	ModalOverlay,
+	ModalContent,
+	ModalHeader,
+	ModalFooter,
+	ModalBody,
+	useDisclosure,
+	Heading,
+	Avatar,
+	Center,
 	Box,
 	Container,
 	Divider,
@@ -21,12 +31,20 @@ import {
 	InputRightElement,
 } from '@chakra-ui/react';
 
+
+
 export default function DisplayCartProduct() {
+	const { isOpen, onOpen, onClose } = useDisclosure();
 	const [cartProducts, setCartProducts] = useState([]);
 	const { shop_id } = useParams();
 	const [pickupTime, setPickupTime] = useState('');
 	const [amount, setAmount] = useState(0);
 	const [productDetails, setProductDetails] = useState(''); // array of all product that added in cart
+	const [orderData, setOrderData] = useState({});
+
+
+
+
 	const fetchData = async () => {
 		const response = await axios.get(`${API}/api/getcart/${shop_id}`);
 		if (response.data.statusCode === 200) {
@@ -41,7 +59,7 @@ export default function DisplayCartProduct() {
 		// console.log("Calculated")
 		tproduct_details = cartProducts.map((value, index) => {
 			console.log(value)
-			tamount += value.productId.price*value.quantity;
+			tamount += value.productId.price * value.quantity;
 			return {
 				productId: value.productId._id,
 				quantity: value.quantity,
@@ -61,24 +79,35 @@ export default function DisplayCartProduct() {
 		setPickupTime(e.target.value)
 	}
 
+	// Place order
 	const PlaceOrder = async () => {
+		setPickupTime('')
 		// console.log("placing order")
 		const order_detail = {
 			shopId: shop_id,
 			product_details: productDetails,
 			amount: amount,
+			pickup_time: pickupTime
 		}
 		console.log(order_detail)
 
 		const response = await axios.post(`${API}/api/makeOrder`, order_detail);
 		// console.log(response.data)
-		if(response.data.statusCode === 200){
-			alert("Order Successfull");
-		}else{
+
+		if (response.data.statusCode === 200) {
+			// Delete from cart
+			console.log("Opening model")
+			setOrderData(response.data.orderData);
+			onOpen()
+
+			// console.log(response.data);
+			// console.log(orderData)
+		} else {
 			alert("Error While doing order")
-		}	
+		}
 	}
 
+	// Remove items from cart
 	const removeFromCart = async (productId) => {
 		console.log("Removing")
 		console.log(cartProducts)
@@ -87,11 +116,11 @@ export default function DisplayCartProduct() {
 			return value.productId._id !== productId
 		}));
 		// console.log(`${API}/api/remove/${shop_id}/${productId}`)
-		const result = await axios.get(`${API}/api/remove/${shop_id}/${productId}`);	
-		if(result.data.statusCode === 200){
+		const result = await axios.get(`${API}/api/remove/${shop_id}/${productId}`);
+		if (result.data.statusCode === 200) {
 			console.log("Product remove from cart in DB");
 			// show alert here
-		}else{
+		} else {
 			console.error("Error while Removing product");
 		}
 
@@ -100,6 +129,137 @@ export default function DisplayCartProduct() {
 	return (
 
 		<>
+			{/* This is for opening model on success fully order placed */}
+			<Modal closeOnOverlayClick={false} isOpen={isOpen} onClose={onClose} size={'lg'}>
+				<ModalOverlay />
+				<ModalContent>
+					<ModalHeader>
+						Thank you for your order
+
+					</ModalHeader>
+					{/* <ModalCloseButton /> */}
+					<ModalBody pb={6}>
+
+						<Center py={6}>
+							<Box
+								// maxW={'320px'}
+								w={'full'}
+								bg={useColorModeValue('white', 'gray.700')}
+								// boxShadow={'2xl'}
+								rounded={'lg'}
+								p={6}
+								textAlign={'center'}>
+								<Avatar
+									size={'xl'}
+									src={
+										`${process.env.PUBLIC_URL}/Images/Success.png`
+									}
+									alt={'Avatar Alt'}
+									mb={4}
+									pos={'relative'}
+
+								/>
+								<Heading fontSize={'2xl'} fontFamily={'body'} >
+									Order submitted !
+								</Heading>
+								<Text fontWeight={600} color={'gray.500'} mb={4} mt={2}>
+									Thanks for submitting your order.
+								</Text>
+								<Text
+									textAlign={'center'}
+									color={useColorModeValue('gray.700', 'gray.400')}
+									px={3}>
+									<Box mt={1}>
+										<Text fontWeight={600} as='span'>Order Id: </Text>
+										<Text as='span'> {orderData._id} </Text>
+									</Box>
+
+									<Box mt={1}>
+										<Text fontWeight={600} as='span'>Amount: </Text>
+										<Text as='span'> {orderData.amount} </Text>
+									</Box>
+
+									<Box mt={1}>
+										<Text fontWeight={600} as='span'>Secure Code: </Text>
+										<Text as='span'> {orderData.secure_code} </Text>
+									</Box>
+
+									<Box mt={1}>
+										<Text fontWeight={600} as='span'>Pick up time: </Text>
+										<Text as='span'> {orderData.pickup_time} </Text>
+									</Box>
+
+
+									{/* Actress, musician, songwriter and artist. PM for work inquires or{' '}
+												<Link href={'#'} color={'blue.400'}>
+														#tag
+												</Link>{' '}
+												me in your posts */}
+								</Text>
+
+
+								{/* <Stack mt={8} direction={'row'} spacing={4}>
+										<Button
+											flex={1}
+											fontSize={'sm'}
+											rounded={'full'}
+											_focus={{
+												bg: 'gray.200',
+											}}>
+											Message
+										</Button>
+										<Button
+											flex={1}
+											fontSize={'sm'}
+											rounded={'full'}
+											bg={'blue.400'}
+											color={'white'}
+											boxShadow={
+												'0px 1px 25px -5px rgb(66 153 225 / 48%), 0 10px 10px -5px rgb(66 153 225 / 43%)'
+											}
+											_hover={{
+												bg: 'blue.500',
+											}}
+											_focus={{
+												bg: 'blue.500',
+											}}>
+											Follow
+										</Button>
+									</Stack> */}
+							</Box>
+						</Center>
+
+						{/* <Alert
+								status='success'
+								variant='subtle'
+								flexDirection='column'
+								alignItems='center'
+								justifyContent='center'
+								textAlign='center'
+								height='200px'
+							>
+								<AlertIcon boxSize='40px' mr={0} />
+								<AlertTitle mt={4} mb={1} fontSize='lg'>
+									Order submitted!
+								</AlertTitle>
+								<AlertDescription maxWidth='sm'>
+								
+									Thanks for submitting your order.
+	
+							
+						</AlertDescription>
+					</Alert> */}
+					</ModalBody>
+
+					<ModalFooter>
+						<Button colorScheme='blue' mr={3} onClick={onClose}>
+							Explore More
+						</Button>
+						{/* <Button onClick={onClose}>Cancel</Button> */}
+					</ModalFooter>
+				</ModalContent>
+			</Modal >
+			{/* This is file main ui code */}
 			<Container maxW={'1000px'} bg={useColorModeValue('gray.100', 'gray.700')} my={5} p={3} borderRadius={'md'}>
 				<Flex direction={'row'} justifyContent={'space-around'}>
 					<Box>
@@ -107,18 +267,18 @@ export default function DisplayCartProduct() {
 
 							cartProducts.length > 0 ? cartProducts.map((value, index) => (
 								<Box key={index}>
-									
-										<Cart_product_card
-											name={value.productId.name}
-											imageURL={value.productId.image ? process.env.PUBLIC_URL + `/upload/images/${value.productId.image.imgId}` : ""}
-											price={value.productId.price}
-											description={value.productId.description}
-											quantity={value.quantity}
-											productLink={`/product/${value.productId.shop_id}/${value.productId._id}`}
-											product_id={value.productId._id}
-											removeItem={removeFromCart}
-										/>
-									
+
+									<Cart_product_card
+										name={value.productId.name}
+										imageURL={value.productId.image ? process.env.PUBLIC_URL + `/upload/images/${value.productId.image.imgId}` : ""}
+										price={value.productId.price}
+										description={value.productId.description}
+										quantity={value.quantity}
+										productLink={`/product/${value.productId.shop_id}/${value.productId._id}`}
+										product_id={value.productId._id}
+										removeItem={removeFromCart}
+									/>
+
 								</Box>
 							))
 								: <h3>No products found</h3>
@@ -151,7 +311,7 @@ export default function DisplayCartProduct() {
 										fontSize='1.2em'
 										children={<TimeIcon />}
 									/>
-									<Input placeholder='Enter Pickup time' value={pickupTime} onChange={handleInputChange} boxShadow={'md'}/>
+									<Input placeholder='Enter Pickup time' value={pickupTime} onChange={handleInputChange} boxShadow={'md'} />
 								</InputGroup>
 							</Stack>
 							<Button
@@ -163,7 +323,7 @@ export default function DisplayCartProduct() {
 								onClick={PlaceOrder}
 								isDisabled={pickupTime ? false : true}
 								boxShadow={'xl'}
-								>
+							>
 								Place Order
 							</Button>
 						</Box>

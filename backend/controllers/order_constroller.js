@@ -1,9 +1,9 @@
 const order_schema = require('../model/order_schema')
 const customer_schema = require('../model/customer_schema')
-
+const cart_schema  = require("../model/cart_schema")
 const nodemailer = require('nodemailer');
 
-
+// for seding secret code
 function data(toEmail, toName, secureCode) {
     const htmldata = `
     <div>
@@ -42,6 +42,18 @@ function data(toEmail, toName, secureCode) {
     });
 }
 
+// on success full order we can remove product from cart
+const remove_shop_cart = async (custId, shopId) => {
+    try{
+        // const cust_id = req.id;
+        // const shop_id = req.params.shop_id;
+        const result = await cart_schema.deleteOne({custId: custId, shopId: shopId});
+    }
+    catch(err){
+        console.log("Error while removing shop cart", err);
+    }
+    
+}
 module.exports = {
     order_controller: async (req, res) => {
         try {
@@ -51,6 +63,7 @@ module.exports = {
                 shopId,
                 product_details,
                 amount,
+                pickup_time
                 // payment_method
             } = req.body
 
@@ -61,6 +74,7 @@ module.exports = {
                 shopId,
                 product_details,
                 amount,
+                pickup_time,
                 // payment_method,
                 secure_code
             });
@@ -71,9 +85,10 @@ module.exports = {
                 status: true,
                 statusCode: 200,
                 message: 'Order is successully done.',
-                // userdata: saved_order
+                orderData: saved_order
             }
-
+            // remove whole shop cart when order is successfully one
+            remove_shop_cart(custId, shopId);
             const customer = await customer_schema.findById({ _id: custId });
             data(customer.email, customer.name, secure_code)
 

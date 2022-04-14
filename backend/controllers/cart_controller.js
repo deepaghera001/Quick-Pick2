@@ -132,7 +132,17 @@ module.exports = {
             console.log("Error while get cart: ", err)
         }
     },
-
+    remove_shop_cart: async (req, res) => {
+        try{
+            const cust_id = req.id;
+            const shop_id = req.params.shop_id;
+            const result = await cart_schema.deleteOne({custId: cust_id, shopId: shop_id});
+        }
+        catch(err){
+            console.log("Error while removing shop cart", err);
+        }
+        
+    },
     get_shop_cart: async (req, res) => {
         const cust_id = req.id;
         const shop_id = req.params.shop_id;
