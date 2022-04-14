@@ -22,7 +22,7 @@ export default function Cart_product_card(props) {
       height={'230px'}
       direction={{ base: 'column', md: 'row' }}
       bg={useColorModeValue('white', 'gray.900')}
-      boxShadow={'2xl'}
+      boxShadow={'xl'}
       padding={4}
       mt={3}
     >

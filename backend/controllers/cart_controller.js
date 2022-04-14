@@ -11,8 +11,8 @@ module.exports = {
         cart_schema.findOne({ custId, shopId }).then(async (cart) => {
 
             if (cart) {
-                console.log('cart', cart)
-
+                // console.log('cart', cart)
+                
                 const found = await cart_schema.findOne({ $and: [{ custId, shopId, 'productIds.productId': productId }] })
                 if (found) {
                     console.log('found', found)
@@ -110,21 +110,27 @@ module.exports = {
             quantity: result ? result.productIds[0].quantity : 0
         }
         res.status(200).send(response);
-    }
-    ,
+    },
     get_cart: async (req, res) => {
-        const cust_id = req.id;
-        console.log("get req for cart ", cust_id)
-        const result = await cart_schema.find({custId: cust_id})
-        .populate('shopId');
-        // .populate('productIds.productId')
-        const response = {
-            status: true,
-            statusCode: 200,
-            message: "Data fetched",
-            data: result
+        try{
+            const cust_id = req.id;
+            // console.log("get req for cart ", cust_id)
+            const deleteEmpty = await cart_schema.deleteMany({productIds: {"$size" : 0}}) // this will delete all shops card that will not contain any value
+            // console.log(deleteEmpty)
+            const result = await cart_schema.find({custId: cust_id})
+            .populate('shopId');
+            // .populate('productIds.productId')
+            const response = {
+                status: true,
+                statusCode: 200,
+                message: "Data fetched",
+                data: result
+            }
+            res.status(200).json(response);
         }
-        res.status(200).json(response);
+        catch(err){
+            console.log("Error while get cart: ", err)
+        }
     },
 
     get_shop_cart: async (req, res) => {
@@ -139,7 +145,6 @@ module.exports = {
             statusCode: 200,
             message: "Data fetched of one shop",
             data: result
-
         }
         res.status(200).send(response);
     }

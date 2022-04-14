@@ -79,7 +79,7 @@ export default function DisplayCartProduct() {
 		}	
 	}
 
-	const removeItem = async (productId) => {
+	const removeFromCart = async (productId) => {
 		console.log("Removing")
 		console.log(cartProducts)
 		setCartProducts(cartProducts.filter((value) => {
@@ -87,8 +87,7 @@ export default function DisplayCartProduct() {
 			return value.productId._id !== productId
 		}));
 		// console.log(`${API}/api/remove/${shop_id}/${productId}`)
-		const result = await axios.get(`${API}/api/remove/${shop_id}/${productId}`);
-		console.log(result.data);
+		const result = await axios.get(`${API}/api/remove/${shop_id}/${productId}`);	
 		if(result.data.statusCode === 200){
 			console.log("Product remove from cart in DB");
 			// show alert here
@@ -117,7 +116,7 @@ export default function DisplayCartProduct() {
 											quantity={value.quantity}
 											productLink={`/product/${value.productId.shop_id}/${value.productId._id}`}
 											product_id={value.productId._id}
-											removeItem={removeItem}
+											removeItem={removeFromCart}
 										/>
 									
 								</Box>
@@ -127,8 +126,8 @@ export default function DisplayCartProduct() {
 						{/* <Cart_product_card /> */}
 						{/* <Cart_product_card /> */}
 					</Box>
-					<Box mt={3}>
-						<Box bg={useColorModeValue('white', 'gray.900')} borderRadius={'lg'} maxWidth={'200px'} p={4} height={'160px'}>
+					<Box mt={3} >
+						<Box bg={useColorModeValue('white', 'gray.900')} borderRadius={'lg'} maxWidth={'200px'} p={4} height={'160px'} boxShadow={'md'}>
 							<Flex direction={'row'} justifyContent={'space-between'} my={2}>
 								<Text>SubCost: </Text>
 								<Text>{amount}</Text>
@@ -152,7 +151,7 @@ export default function DisplayCartProduct() {
 										fontSize='1.2em'
 										children={<TimeIcon />}
 									/>
-									<Input placeholder='Enter Pickup time' value={pickupTime} onChange={handleInputChange}/>
+									<Input placeholder='Enter Pickup time' value={pickupTime} onChange={handleInputChange} boxShadow={'md'}/>
 								</InputGroup>
 							</Stack>
 							<Button
@@ -163,6 +162,7 @@ export default function DisplayCartProduct() {
 								my={5}
 								onClick={PlaceOrder}
 								isDisabled={pickupTime ? false : true}
+								boxShadow={'xl'}
 								>
 								Place Order
 							</Button>
