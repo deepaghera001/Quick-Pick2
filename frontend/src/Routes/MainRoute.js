@@ -11,6 +11,7 @@ import DisplayShops from "../Components/Customer/DisplayShops"
 
 import Cart_With_shop from "../Components/Customer/Cart_With_shop";
 import DisplayCartProduct from "../Components/Customer/DisplayCartProduct";
+import Cart_product_card from "../Components/Customer/Cart_product_card";
 const Home = () => {
     return (
         <>
@@ -33,7 +34,7 @@ export const MainRoute = () => {
                 <Route exact path="/cart" element={<Cart_With_shop />}></Route>
                 <Route exact path="/cartproducts/:shop_id" element={<DisplayCartProduct />}></Route>
                 <Route exact path="/shopproducts/:shop_id" element={<DisplayProducts />}></Route>
-
+                <Route exact path="/cart_card" element={<Cart_product_card />}></Route>
 
                 <Route exact path="/login" element={<Login />}></Route>
                 <Route exact path="/signup" element={<SignUp />}></Route>

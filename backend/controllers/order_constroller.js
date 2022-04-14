@@ -46,12 +46,12 @@ module.exports = {
     order_controller: async (req, res) => {
         try {
 
+            const custId = req.id;
             const {
-                custId,
                 shopId,
                 product_details,
                 amount,
-                payment_method
+                // payment_method
             } = req.body
 
             const secure_code = Math.floor((Math.random() * 10000) + 999);
@@ -61,7 +61,7 @@ module.exports = {
                 shopId,
                 product_details,
                 amount,
-                payment_method,
+                // payment_method,
                 secure_code
             });
 
