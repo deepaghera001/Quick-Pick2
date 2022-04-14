@@ -13,7 +13,7 @@ import {
 //   import { BsStar, BsStarFill, BsStarHalf } from 'react-icons/bs';
 import { FiShoppingCart } from 'react-icons/fi';
 
-const Product = (props) => {
+const ProductCard = (props) => {
     console.log(props)
     return (
         //   <Flex p={50} w="full" alignItems="center" justifyContent="center">
@@ -88,4 +88,4 @@ const Product = (props) => {
     );
 }
 
-export default Product;
+export default ProductCard;

@@ -20,25 +20,26 @@ import React, { useState, useEffect } from 'react'
 import { useParams } from 'react-router-dom'
 import { API } from '../../API/api_url'
 import axios from 'axios'
+import { AddIcon, MinusIcon } from '@chakra-ui/icons';
 
 export default function ShowProduct2() {
-  const { shop_id, productId } = useParams();
+  const { shopId, productId } = useParams();
   const [productDetail, setproductDetail] = useState('')
-  const [count, setcount] = useState(0)
+  const [count, setCount] = useState(0)
 
   const handleCount = (e) => {
     const value = e.target.value;
-    console.log(value)
-    if (value == '-' && count >= 1) {
-      setcount(count - 1);
+    // console.log(value)
+    if (value === '-' && count >= 0) {
+      setCount(count - 1);
     }
-    if (value == '+') {
-      setcount(count + 1)
+    if (value === '+') {
+      setCount(count + 1)
     }
   }
   const addtocart = async (e) => {
     const cart = await axios.post(`${API}/api/addtocart`, {
-      shopId: shop_id,
+      shopId: shopId,
       productId: productId,
       quantity: count
     })
@@ -48,12 +49,22 @@ export default function ShowProduct2() {
 
   useEffect(() => {
     getProduct();
+    isInCart();
   }, [productId]);
 
   const getProduct = async () => {
     const product = await axios.get(`${API}/api/productDetail/${productId}`)
     setproductDetail(product.data.userdata)
     console.log(product.data)
+  }
+  const isInCart = async () => {
+    const result = await axios.get(`${API}/api/isincart/${shopId}/${productId}`);
+    if(result.data.statusCode === 200){
+      if(result.data.quantity) 
+        setCount(result.data.quantity);
+    }else{
+      console.error("Error while checking product present in cart or not")
+    }
   }
 
   return (
@@ -93,12 +104,12 @@ export default function ShowProduct2() {
               >
               ₹ {productDetail.price}
             </Text>
-            <Text
+            {/* <Text
               color={useColorModeValue('gray.900', 'gray.400')}
               fontWeight={300}
               fontSize={'2xl'}>
               Stock: {productDetail.stock}
-            </Text>
+            </Text> */}
           </Box>
 
           <Stack
@@ -211,12 +222,12 @@ export default function ShowProduct2() {
                   color={useColorModeValue('white', 'gray.900')} size='md' value="-" id="moinsminus" onClick={handleCount}
                   isDisabled = {count ? false : true}
                   >
-                  -
+                  <MinusIcon />
                 </Button>
-                {count}     {/* if iteam is alrady present in cart then that is reamin */}
+                { count }     {/* if iteam is alrady present in cart then that is reamin */}
                 <Button bg={useColorModeValue('gray.900', 'gray.50')}
                   color={useColorModeValue('white', 'gray.900')} size='md' value="+" id="moinsplus" onClick={handleCount}>
-                  +
+                  <AddIcon />
                 </Button>
               </Flex>
             </Text>
