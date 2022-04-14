@@ -15,13 +15,17 @@ import {
     Link,
     RadioGroup,
     Radio,
+    useConst,
 } from '@chakra-ui/react';
 import { API } from "../API/api_url";
-import { useState, useEffect } from 'react';
-import { ViewIcon, ViewOffIcon } from '@chakra-ui/icons';
+import { useState, useEffect, useContext } from 'react';
+import { userContext } from '../Routes/MainRoute';
 const axios = require('axios')
 
 export default function Login() {
+
+    const { isuser, setisUser } = useContext(userContext)
+
     const [isShopkeeper, setShopkeeper] = useState(false);
     const [loginDetail, setLoginDetail] = useState({
         email: '',
@@ -57,14 +61,17 @@ export default function Login() {
             console.log('shopkeeper')
             const login = await axios.post(`${API}/api/shop_login`, loginDetail)
             alert(login.data.message)
+            setisUser('shopkeeper')
             console.log(login.data)
         } else {
             console.log('customer')
             const login = await axios.post(`${API}/api/customerLogin`, loginDetail, {
                 withCredentials: true
             })
+            window.history.pushState('', '', '/displayproducts')
             console.log(login)
             alert(login.data.message)
+            setisUser('customer')
             console.log(login.data)
         }
     }
@@ -72,7 +79,7 @@ export default function Login() {
 
     return (
         <Flex
-            minH={'100vh'}
+            minH={'90vh'}
             align={'center'}
             justify={'center'}
             bg={useColorModeValue('gray.50', 'gray.800')}>
@@ -119,12 +126,12 @@ export default function Login() {
                                 _hover={{
                                     bg: 'blue.500',
                                 }}>
-                                Sign up
+                                Sign In
                             </Button>
                         </Stack>
                         <Stack pt={6}>
                             <Text align={'center'}>
-                                Already a user? <Link color={'blue.400'}>Login</Link>
+                                Already a user? <Link color={'blue.400'} href="/signup">Sign Up</Link>
                             </Text>
                         </Stack>
                     </Stack>

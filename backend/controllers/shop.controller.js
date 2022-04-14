@@ -100,6 +100,7 @@ module.exports = {
 
     all_shops_controller: async (req, res) => {
         try {
+            console.log('in......')
             const registerDetails = await shop_schema.find({});
             if (registerDetails) {
                 var response = {
