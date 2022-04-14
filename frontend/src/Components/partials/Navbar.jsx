@@ -17,6 +17,8 @@ import {
     Center,
 } from '@chakra-ui/react';
 import { MoonIcon, SunIcon } from '@chakra-ui/icons';
+import { useState, useEffect, useContext } from 'react';
+import { userContext } from '../../Routes/MainRoute';
 
 // const NavLink = ({ children }: { children: ReactNode }) => (
 
@@ -34,9 +36,16 @@ import { MoonIcon, SunIcon } from '@chakra-ui/icons';
 // );
 
 export default function Navbar() {
+    const { isuser, setisUser } = useContext(userContext);
     const { colorMode, toggleColorMode } = useColorMode();
-    const { isOpen, onOpen, onClose } = useDisclosure();
     let test = true;
+    useEffect(() => {
+        console.log('isuser ', isuser)
+    }, [isuser])
+    const handleLogout = () => {
+        setisUser('')
+        console.log('logout....')
+    }
     return (
         <>
             <Box bg={useColorModeValue('gray.100', 'gray.900')} px={4}>
@@ -90,26 +99,48 @@ export default function Navbar() {
                                 justify={'flex-end'}
                                 direction={'row'}
                                 spacing={6}>
-                                <Button
-                                    as={'a'}
-                                    fontSize={'sm'}
-                                    fontWeight={400}
-                                    variant={'link'}
-                                    href={'#'}>
-                                    Sign In
-                                </Button>
-                                <Button
-                                    display={{ base: 'none', md: 'inline-flex' }}
-                                    fontSize={'sm'}
-                                    fontWeight={600}
-                                    color={'white'}
-                                    bg={'pink.400'}
-                                    href={'#'}
-                                    _hover={{
-                                        bg: 'pink.300',
-                                    }}>
-                                    Sign Up
-                                </Button>
+                                {
+                                    isuser == '' ? (<>
+                                        <Button
+                                            as={'a'}
+                                            fontSize={'sm'}
+                                            fontWeight={400}
+                                            variant={'link'}
+                                            href={'/login'}>
+                                            Sign In
+                                        </Button>
+                                        <Button
+                                            as={'a'}
+                                            display={{ base: 'none', md: 'inline-flex' }}
+                                            fontSize={'sm'}
+                                            fontWeight={600}
+                                            color={'white'}
+                                            bg={'pink.400'}
+                                            href={'/signup'}
+                                            _hover={{
+                                                bg: 'pink.300',
+                                            }}>
+                                            Sign Up
+                                        </Button>
+                                    </>)
+                                        :
+                                        (
+                                            <Button
+                                                as={'a'}
+                                                display={{ base: 'none', md: 'inline-flex' }}
+                                                fontSize={'sm'}
+                                                fontWeight={600}
+                                                color={'white'}
+                                                bg={'pink.400'}
+                                                onClick={handleLogout}
+                                                _hover={{
+                                                    bg: 'pink.300',
+                                                }}>
+                                                Logout
+                                            </Button>
+                                        )
+                                }
+
                             </Stack>)
                         }
                     </Flex>

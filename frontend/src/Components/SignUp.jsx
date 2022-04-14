@@ -21,6 +21,7 @@ import {
 import { useState, useEffect } from 'react';
 import { API } from '../API/api_url';
 import { ViewIcon, ViewOffIcon } from '@chakra-ui/icons';
+import { } from 'react-router-dom'
 const axios = require('axios')
 
 // Sign up form for shop 
@@ -155,15 +156,6 @@ const ShopRegister = () => {
                     Sign up
                 </Button>
             </Stack>
-            <Stack pt={6}>
-                <Text align={'center'}>
-                    Already a user? <Link color={'blue.400'}>Login</Link>
-                </Text>
-            </Stack>
-            {/* </Stack>
-                    </Box>
-                </Stack>
-            </Flex> */}
         </>)
 }
 
@@ -268,15 +260,7 @@ const CustomerRegiter = () => {
                         Sign up
                     </Button>
                 </Stack>
-                <Stack pt={6}>
-                    <Text align={'center'}>
-                        Already a user? <Link color={'blue.400'}>Login</Link>
-                    </Text>
-                </Stack>
             </Stack>
-            {/* </Box>
-                </Stack>
-            </Flex> */}
         </>)
 }
 
