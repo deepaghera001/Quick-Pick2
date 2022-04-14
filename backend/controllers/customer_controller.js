@@ -67,17 +67,23 @@ module.exports = {
                     httpOnly: true,
                 });
                 res.status(200).json({
+                    status: true,
+                    statusCode: 200,
                     message: 'user login successfull',
                     userData: customer
                 })
             } else {
-                res.status(400).json({
-                    message: 'wrong credencial'
+                res.status(200).json({
+                    status: true,
+                    statusCode: 400,
+                    message: 'Email and Password are not matched'
                 })
             }
         } else {
-            res.status(400).json({
-                message: 'please register first'
+            res.status(200).json({
+                status: true,
+                statusCode: 400,
+                message: 'User is not exits'
             })
         }
     },

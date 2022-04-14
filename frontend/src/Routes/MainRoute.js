@@ -12,6 +12,7 @@ import DisplayCart from "../Components/Customer/DisplayCart"
 import Order_Success from "../Components/Customer/Order_Success"
 import Cart_With_shop from "../Components/Customer/Cart_With_shop";
 import DisplayCartProduct from "../Components/Customer/DisplayCartProduct";
+import Alert from "../Components/partials/Alert"
 
 export const userContext = createContext([])
 // import Cart_product_card from "../Components/partials/Cart_product_card";
@@ -24,6 +25,10 @@ const Home = () => {
     )
 }
 
+const New2 = () => {
+    Alert({'status': 'my name is lakhan'})
+    // return <Alert status={"this is my new status"}/>
+}
 export const MainRoute = () => {
     const [isuser, setisuser] = useState('')
     return (
@@ -40,7 +45,8 @@ export const MainRoute = () => {
                     <Route exact path="/cart" element={<Cart_With_shop />}></Route>
                     <Route exact path="/cartproducts/:shop_id" element={<DisplayCartProduct />}></Route>
                     <Route exact path="/shopproducts/:shop_id" element={<DisplayProducts />}></Route>
-                    <Route exact path="/temp" element={<Order_Success />}></Route>
+                    <Route exact path="/temp" element={<Alert />}></Route>
+                    <Route exact path="/temp2" element={<New2 />}></Route>
 
                     <Route exact path="/login" element={<Login />}></Route>
                     <Route exact path="/signup" element={<SignUp />}></Route>

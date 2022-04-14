@@ -75,16 +75,22 @@ module.exports = {
                         // httpOnly: true,
                     })
                     res.status(200).json({
+                        status: true,
+                        statusCode: 200,
                         message: 'user login successfull',
                         userData: shop
                     })
                 } else {
-                    res.status(400).json({
+                    res.status(200).json({
+                        status: true,
+                        statusCode: 200,
                         message: 'bad credencial'
                     })
                 }
             } else {
-                res.status(400).json({
+                res.status(200).json({
+                    status: true,
+                    statusCode: 400,
                     message: 'User is not exits'
                 })
             }
