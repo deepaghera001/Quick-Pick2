@@ -72,6 +72,46 @@ module.exports = {
         })
 
     },
+    remove_from_cart: async (req, res) => {
+        try{
+            console.log("REQ. COME")
+            const cust_id = req.id;
+            const shop_id = req.params.shop_id;
+            const product_id = req.params.product_id;
+            const result = await cart_schema.updateOne({custId: cust_id, shopId: shop_id},{
+                $pull: {productIds:  {productId: product_id}}
+            })
+            if(result){
+                const response = {
+                    status: true,
+                    statusCode: 204,
+                    message: "Produce removed successfully"
+                }
+                res.status(200).json(response);
+            }else{
+                res.status(500).json({message: "Server crushed"})
+            }
+        }
+        catch(err){
+            console.log("Error while removeing item from cart: " , err);
+        }
+    },
+    isInCart: async (req, res) => {
+        const shop_id = req.params.shop_id;
+        const product_id = req.params.product_id;
+        const cust_id = req.id;
+
+        const result = await cart_schema.findOne({custId: cust_id, shopId: shop_id, "productIds.productId": product_id}, {"productIds.quantity": 1});
+
+        const response = {
+            status: true,
+            statusCode: 200,
+            inCart: result ? true : false, // if product not find then result is null
+            quantity: result ? result.productIds[0].quantity : 0
+        }
+        res.status(200).send(response);
+    }
+    ,
     get_cart: async (req, res) => {
         const cust_id = req.id;
         console.log("get req for cart ", cust_id)
@@ -102,6 +142,5 @@ module.exports = {
 
         }
         res.status(200).send(response);
-
     }
 }

@@ -1,7 +1,7 @@
 import React from 'react'
 import { useEffect, useState } from 'react'
 import axios from 'axios'
-import Product from '../partials/Product'
+import Product from '../partials/ProductCard'
 import { Flex } from '@chakra-ui/react'
 import { API } from "../../API/api_url"
 export default function ShopProducts() {

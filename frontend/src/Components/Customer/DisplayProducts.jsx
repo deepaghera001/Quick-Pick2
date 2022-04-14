@@ -2,7 +2,7 @@ import { Box, Flex, Link, } from '@chakra-ui/react'
 import axios from 'axios';
 import React, { useEffect } from 'react'
 import { useState } from 'react'
-import Product from '../partials/Product'
+import Product from '../partials/ProductCard'
 import { API } from "../../API/api_url";
 import { useParams } from 'react-router-dom';
 
