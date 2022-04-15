@@ -12,6 +12,7 @@ import DisplayCart from "../Components/Customer/DisplayCart"
 import Order_Success from "../Components/Customer/Order_Success"
 import Cart_With_shop from "../Components/Customer/Cart_With_shop";
 import DisplayCartProduct from "../Components/Customer/DisplayCartProduct";
+import Logout from "../Components/Logout"
 // import Alert from "../Components/partials/ShowToast"
 
 export const userContext = createContext([])
@@ -56,6 +57,7 @@ export const MainRoute = () => {
 
                     <Route exact path="/login" element={<Login />}></Route>
                     <Route exact path="/signup" element={<SignUp />}></Route>
+                    <Route exact path='/logout' element={<Logout />}></Route>
                     {/* <Route exact path="/displayProducts" element={<DisplayProducts />}></Route> */}
                     {/* <Route exact path="/cart" element={<DisplayCart />}></Route> */}
 

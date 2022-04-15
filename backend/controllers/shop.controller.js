@@ -96,14 +96,14 @@ module.exports = {
                         userData: shop
                     })
                 } else {
-                    res.status(200).json({
+                    res.status(400).json({
                         status: true,
-                        statusCode: 200,
-                        message: 'bad credencial'
+                        statusCode: 400,
+                        message: 'Email and Password are not matched'
                     })
                 }
             } else {
-                res.status(200).json({
+                res.status(400).json({
                     status: true,
                     statusCode: 400,
                     message: 'User is not exits'
@@ -117,6 +117,27 @@ module.exports = {
             })
         }
 
+    },
+    logout_shop_controller: async (req, res) => {
+        try{
+            res.cookie('st', '', {
+                maxAge: 0,
+                httpOnly: true,
+            })
+            res.status(200).json({
+                status: true,
+                statusCode: 200,
+                message: "Logout successful"
+            })
+        }
+        catch(err){
+            console.log("Error while logout shopKeeper: ", err)
+            res.status(500).json({
+                status: true,
+                statusCode: 500,
+                message: "Server Error"
+            })
+        }
     },
 
     all_shops_controller: async (req, res) => {

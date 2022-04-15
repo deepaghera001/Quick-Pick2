@@ -16,9 +16,9 @@ module.exports = {
             pincode,
 
         } = req.body
-        
+
         try {
-            if(!email || !phone_number || !password || !name || !address || !area || !city || !pincode){
+            if (!email || !phone_number || !password || !name || !address || !area || !city || !pincode) {
                 return res.status(400).json({
                     status: true,
                     statusCode: 400,
@@ -57,7 +57,7 @@ module.exports = {
             res.status(200).json(response)
 
         } catch (error) {
-            console.log("Error while register customer: " , error)
+            console.log("Error while register customer: ", error)
             res.status(500).json({
                 message: 'Server error'
             })
@@ -103,7 +103,44 @@ module.exports = {
             })
         }
     },
+    customer_logout_controller: async (req, res) => {
+        try{
+            res.cookie('ct', '', {
+                maxAge: 0,
+                httpOnly: true
+            })
+            res.status(200).send({
+                status: true,
+                statusCode: 200,
+                message: "Logout successful"
+            })
+        }
+        catch(err){
+            console.log("Error while logout customer: ", err);
+            res.status(500).send({
+                status: true,
+                statusCode: 500,
+                message: "Server error"
+            })
+        }
+    },
+    // customer_detail: async (req, res) => {
+    //     try {
+    //         const cust_id = req.id;
+    //         const result = await customer_schema.findOne({ _id: cust_id });
 
+    //         const response = {
+    //             status: true,
+    //             statusCode: 200,
+    //             message: result ?'Userdata is found' : 'Userdata is not found',
+    //             userDetail: result ? result : {}
+    //         }
+    //         res.status(200).json(response);
+    //     }
+    //     catch (err) {
+
+    //     }
+    // },
     customer_update_controller: async (req, res) => {
         try {
 

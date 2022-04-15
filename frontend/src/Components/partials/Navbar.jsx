@@ -1,151 +1,165 @@
-import { ReactNode } from 'react';
+import { React } from 'react';
 import {
-    Box,
-    Flex,
-    Avatar,
-    // Link,
-    Button,
-    Menu,
-    MenuButton,
-    MenuList,
-    MenuItem,
-    MenuDivider,
-    useDisclosure,
-    useColorModeValue,
-    Stack,
-    useColorMode,
-    Center,
+	Box,
+	Flex,
+	Avatar,
+	// Link,
+	Button,
+	Menu,
+	MenuButton,
+	MenuList,
+	MenuItem,
+	MenuDivider,
+	useDisclosure,
+	useColorModeValue,
+	Stack,
+	useColorMode,
+	Center,
+	Text,
 } from '@chakra-ui/react';
 import { MoonIcon, SunIcon } from '@chakra-ui/icons';
 import { useState, useEffect, useContext } from 'react';
 import { userContext } from '../../Routes/MainRoute';
+import { Link } from 'react-router-dom';
 
-// const NavLink = ({ children }: { children: ReactNode }) => (
 
-//     <Link
-//         px={2}
-//         py={1}
-//         rounded={'md'}
-//         _hover={{
-//             textDecoration: 'none',
-//             bg: useColorModeValue('gray.200', 'gray.700'),
-//         }}
-//         href={'#'}>
-//         {children}
-//     </Link>
-// );
 
 export default function Navbar() {
-    const { isuser, setisUser } = useContext(userContext);
-    const { colorMode, toggleColorMode } = useColorMode();
-    let test = true;
-    useEffect(() => {
-        console.log('isuser ', isuser)
-    }, [isuser])
-    const handleLogout = () => {
-        setisUser('')
-        console.log('logout....')
-    }
-    return (
-        <>
-            <Box bg={useColorModeValue('gray.100', 'gray.900')} px={4}>
-                <Flex h={16} alignItems={'center'} justifyContent={'space-between'}>
-                    <Box>Quick-Pick</Box>
+	const { isuser, setisUser } = useContext(userContext);
+	const { colorMode, toggleColorMode } = useColorMode();
+	const [isLoggedin, setIsLoggedin] = useState(false);
+	const [whoIsLoggedin, setWhoIsLoggedIn] = useState('');
+	useEffect(() => {
+		if (localStorage.getItem('token')) {
+			setIsLoggedin(true);
+		}
+		setWhoIsLoggedIn(localStorage.getItem('whoIsLoggedIn'))
+	}, [])
+
+	useEffect(() => {
+		console.log('isuser ', isuser)
+	}, [isuser])
+	const handleLogout = () => {
+		setisUser('')
+		console.log('logout....')
+	}
+	return (
+		<>
+			<Box bg={useColorModeValue('gray.100', 'gray.900')} px={4}>
+				<Flex h={16} alignItems={'center'} justifyContent={'space-between'}>
+					<Box>Quick-Pick</Box>
 
 
-                    <Flex alignItems={'center'}>
-                        <Button onClick={toggleColorMode} mx={3}>
-                            {colorMode === 'light' ? <MoonIcon /> : <SunIcon />}
-                        </Button>
-                        {false ?
-                            (<Stack direction={'row'} spacing={7}>
+					<Flex alignItems={'center'}>
+						<Button onClick={toggleColorMode} mx={3}>
+							{colorMode === 'light' ? <MoonIcon /> : <SunIcon />}
+						</Button>
+						{isLoggedin ?
+							(<Stack direction={'row'} spacing={7}>
 
 
-                                <Menu>
-                                    <MenuButton
-                                        as={Button}
-                                        rounded={'full'}
-                                        variant={'link'}
-                                        cursor={'pointer'}
-                                        minW={0}>
-                                        <Avatar
-                                            size={'sm'}
-                                            src={'https://avatars.dicebear.com/api/male/username.svg'}
-                                        />
-                                    </MenuButton>
-                                    <MenuList alignItems={'center'}>
-                                        <br />
-                                        <Center>
-                                            <Avatar
-                                                size={'2xl'}
-                                                src={'https://avatars.dicebear.com/api/male/username.svg'}
-                                            />
-                                        </Center>
-                                        <br />
-                                        <Center>
-                                            <p>Username</p>
-                                        </Center>
-                                        <br />
-                                        <MenuDivider />
-                                        <MenuItem>Your Servers</MenuItem>
-                                        <MenuItem>Account Settings</MenuItem>
-                                        <MenuItem>Logout</MenuItem>
-                                    </MenuList>
-                                </Menu>
+								<Menu>
+									<MenuButton
+										as={Button}
+										rounded={'full'}
+										variant={'link'}
+										cursor={'pointer'}
+										minW={0}>
+										<Avatar
+											size={'sm'}
+											src={`${process.env.PUBLIC_URL}/images/account_logo.png`}
+										/>
+									</MenuButton>
+									<MenuList alignItems={'center'}>
+										<br />
+										<Center>
+											<Avatar
+												size={'2xl'}
+												src={`${process.env.PUBLIC_URL}/images/account_logo.png`}
+											/>
+										</Center>
+										<br />
+										<Center>
+											<Text>{localStorage.getItem('name')}</Text>
+										</Center>
+										<br />
+										<MenuDivider />
+										{
+											whoIsLoggedin === 'customer' ? (
+												// for customer
+												<>
+													<Link to='/displayshops'> <MenuItem>View Shops</MenuItem> </Link >
+													<Link to='/cart'> <MenuItem>View cart</MenuItem> </Link>
+													<Link to='/logout'> <MenuItem>Logout</MenuItem> </Link>
+												</>
 
-                            </Stack>) :
-                            (<Stack
-                                flex={{ base: 1, md: 0 }}
-                                justify={'flex-end'}
-                                direction={'row'}
-                                spacing={6}>
-                                {
-                                    isuser == '' ? (<>
-                                        <Button
-                                            as={'a'}
-                                            fontSize={'sm'}
-                                            fontWeight={400}
-                                            variant={'link'}
-                                            href={'/login'}>
-                                            Sign In
-                                        </Button>
-                                        <Button
-                                            as={'a'}
-                                            display={{ base: 'none', md: 'inline-flex' }}
-                                            fontSize={'sm'}
-                                            fontWeight={600}
-                                            color={'white'}
-                                            bg={'pink.400'}
-                                            href={'/signup'}
-                                            _hover={{
-                                                bg: 'pink.300',
-                                            }}>
-                                            Sign Up
-                                        </Button>
-                                    </>)
-                                        :
-                                        (
-                                            <Button
-                                                as={'a'}
-                                                display={{ base: 'none', md: 'inline-flex' }}
-                                                fontSize={'sm'}
-                                                fontWeight={600}
-                                                color={'white'}
-                                                bg={'pink.400'}
-                                                onClick={handleLogout}
-                                                _hover={{
-                                                    bg: 'pink.300',
-                                                }}>
-                                                Logout
-                                            </Button>
-                                        )
-                                }
+											)
+												: ( // for shopkeeper
+													<>
+														<Link to='/addproduct'> <MenuItem>Add Product</MenuItem> </Link >
+														<Link to='/shopproducts'> <MenuItem> Your Products </MenuItem> </Link>
+														<Link to='/'> <MenuItem>View Orders</MenuItem> </Link>
+														<Link to='/logout'> <MenuItem>Logout</MenuItem> </Link>
+													</>
+												)
+										}
+									</MenuList>
+								</Menu>
 
-                            </Stack>)
-                        }
-                    </Flex>
-                </Flex>
-            </Box>
-        </>
-    );
+							</Stack>
+							) :
+							(<Stack
+								flex={{ base: 1, md: 0 }}
+								justify={'flex-end'}
+								direction={'row'}
+								spacing={6}>
+								{
+									isuser == '' ? (<>
+										<Button
+											as={'a'}
+											fontSize={'sm'}
+											fontWeight={400}
+											variant={'link'}
+											href={'/login'}>
+											Sign In
+										</Button>
+										<Button
+											as={'a'}
+											display={{ base: 'none', md: 'inline-flex' }}
+											fontSize={'sm'}
+											fontWeight={600}
+											color={'white'}
+											bg={'pink.400'}
+											href={'/signup'}
+											_hover={{
+												bg: 'pink.300',
+											}}>
+											Sign Up
+										</Button>
+									</>)
+										:
+										(
+											<Button
+												as={'a'}
+												display={{ base: 'none', md: 'inline-flex' }}
+												fontSize={'sm'}
+												fontWeight={600}
+												color={'white'}
+												bg={'pink.400'}
+												onClick={handleLogout}
+												_hover={{
+													bg: 'pink.300',
+												}}>
+												Logout
+											</Button>
+										)
+								}
+
+							</Stack>)
+						}
+					</Flex>
+				</Flex>
+			</Box>
+		</>
+	);
 }

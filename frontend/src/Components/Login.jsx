@@ -79,12 +79,12 @@ export default function Login() {
 					title: 'Login successfull',
 					description: "You are now logged in",
 					status: 'success',
-					
-					
 				})
 				localStorage.setItem('token', response.data.token);
-				localStorage.setItem('whoIs', isShopkeeper ? 'shopkeeper' : 'customer');
+				localStorage.setItem('whoIsLoggedIn', isShopkeeper ? 'shopkeeper' : 'customer');
+				localStorage.setItem('name', response.data.userData.name ? response.data.userData.name : response.data.userData.shop_name)
 				navigate('/');
+				window.location.reload();
 			}
 		} catch (err) {
 			ShowToast({
