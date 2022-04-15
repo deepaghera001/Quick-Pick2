@@ -2,6 +2,7 @@ import React, { createContext, useState } from "react";
 import { Route, Routes } from "react-router-dom";
 import Login from "../Components/Login";
 import Navbar from '../Components/partials/Navbar'
+import Footer from "../Components/partials/Footer"
 import SignUp from "../Components/SignUp";
 import AddProduct from "../Components/Shop/AddProduct";
 import Shopproduct from "../Components/Shop/ShopProducts"
@@ -13,6 +14,8 @@ import Order_Success from "../Components/Customer/Order_Success"
 import Cart_With_shop from "../Components/Customer/Cart_With_shop";
 import DisplayCartProduct from "../Components/Customer/DisplayCartProduct";
 import Logout from "../Components/Logout"
+import { Box } from "@chakra-ui/react";
+
 // import Alert from "../Components/partials/ShowToast"
 
 export const userContext = createContext([])
@@ -42,27 +45,28 @@ export const MainRoute = () => {
         <>
             <userContext.Provider value={{ isuser, setisuser }}>
                 <Navbar />
-                <Routes>
-
-                    <Route exact path="/" element={<Home />}></Route>
-                    <Route exact path="/addproduct" element={<AddProduct />}></Route>
-                    <Route exact path="/shopproduct" element={<Shopproduct />}></Route>
-                    <Route exact path="/product/:shopId/:productId" element={<ShowProduct2 />}></Route>
-                    <Route exact path="/displayshops" element={<DisplayShops />}></Route>
-                    <Route exact path="/cart" element={<Cart_With_shop />}></Route>
-                    <Route exact path="/cartproducts/:shop_id" element={<DisplayCartProduct />}></Route>
-                    <Route exact path="/shopproducts/:shop_id" element={<DisplayProducts />}></Route>
-                    {/* <Route exact path="/temp" element={<Alert />}></Route>
+                <Box minH={'50vh'}>
+                    <Routes>
+                        <Route exact path="/" element={<Home />}></Route>
+                        <Route exact path="/addproduct" element={<AddProduct />}></Route>
+                        <Route exact path="/shopproduct" element={<Shopproduct />}></Route>
+                        <Route exact path="/product/:shopId/:productId" element={<ShowProduct2 />}></Route>
+                        <Route exact path="/displayshops" element={<DisplayShops />}></Route>
+                        <Route exact path="/cart" element={<Cart_With_shop />}></Route>
+                        <Route exact path="/cartproducts/:shop_id" element={<DisplayCartProduct />}></Route>
+                        <Route exact path="/shopproducts/:shop_id" element={<DisplayProducts />}></Route>
+                        {/* <Route exact path="/temp" element={<Alert />}></Route>
                     <Route exact path="/temp2" element={<New2 />}></Route> */}
 
-                    <Route exact path="/login" element={<Login />}></Route>
-                    <Route exact path="/signup" element={<SignUp />}></Route>
-                    <Route exact path='/logout' element={<Logout />}></Route>
-                    {/* <Route exact path="/displayProducts" element={<DisplayProducts />}></Route> */}
-                    {/* <Route exact path="/cart" element={<DisplayCart />}></Route> */}
+                        <Route exact path="/login" element={<Login />}></Route>
+                        <Route exact path="/signup" element={<SignUp />}></Route>
+                        <Route exact path='/logout' element={<Logout />}></Route>
+                        {/* <Route exact path="/displayProducts" element={<DisplayProducts />}></Route> */}
+                        {/* <Route exact path="/cart" element={<DisplayCart />}></Route> */}
 
-
-                </Routes>
+                    </Routes>
+                </Box>
+                <Footer />
             </userContext.Provider>
         </>
     )
