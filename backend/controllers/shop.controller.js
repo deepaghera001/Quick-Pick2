@@ -9,6 +9,7 @@ module.exports = {
         // console.log(req.body);
         console.log("REQ COME.....  ")
         try {
+
             const {
                 shop_name,
                 email,
@@ -22,12 +23,21 @@ module.exports = {
                 start_time,
                 end_time
             } = req.body;
-            console.log('hello thsi is shop register')
+            // console.log('hello thsi is shop register')
+            if (!shop_name || !email || !password || !phone_number || !owner_name || !address || !area || !city || !pincode || !start_time || !end_time){
+                return res.status(400).json({
+                    status: true,
+                    statusCode: 400,
+                    message: 'Please fill all the filled properly'
+                })
+            }
 
-            const checkEmail = await shop_schema.findOne({ email });
+                const checkEmail = await shop_schema.findOne({ email });
             if (checkEmail)
-                return res.status(200).json({
-                    message: 'Email is already exist.'
+                return res.status(409).json({
+                    status: true,
+                    statusCode: 409,
+                    message: 'Email is already exist.',
                 })
 
             const hash_password = await bcrypt.hash(password, 10);
@@ -49,7 +59,7 @@ module.exports = {
             var response = {
                 status: true,
                 statusCode: 200,
-                message: 'Shop detail registration successfull',
+                message: 'Your shop detail registered successfully',
                 userdata: savedUser
             }
             res.status(200).send(response)

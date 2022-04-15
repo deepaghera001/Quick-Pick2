@@ -16,11 +16,21 @@ module.exports = {
             pincode,
 
         } = req.body
+        
         try {
+            if(!email || !phone_number || !password || !name || !address || !area || !city || !pincode){
+                return res.status(400).json({
+                    status: true,
+                    statusCode: 400,
+                    message: "Please filled all filed properly"
+                })
+            }
             const user = await customer_schema.findOne({ $or: [{ email }, { phone_number }] })
             if (user) {
-                return res.status(400).json({
-                    message: 'user already exist'
+                return res.status(409).json({
+                    status: true,
+                    statusCode: 409,
+                    message: 'Email already exist'
                 })
             }
 
@@ -47,6 +57,7 @@ module.exports = {
             res.status(200).json(response)
 
         } catch (error) {
+            console.log("Error while register customer: " , error)
             res.status(500).json({
                 message: 'Server error'
             })

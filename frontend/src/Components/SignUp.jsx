@@ -17,15 +17,18 @@ import {
     RadioGroup,
     Radio,
     CheckboxGroup,
+    useToast
 } from '@chakra-ui/react';
 import { useState, useEffect } from 'react';
 import { API } from '../API/api_url';
-import { ViewIcon, ViewOffIcon } from '@chakra-ui/icons';
-import { } from 'react-router-dom'
+import { useNavigate } from 'react-router-dom'
 const axios = require('axios')
+
 
 // Sign up form for shop 
 const ShopRegister = () => {
+    const toast = useToast();
+    const navigate = useNavigate();
     // // put spinner and toast
     // const [status, setStatus] = ({
     //     type: '',
@@ -47,9 +50,19 @@ const ShopRegister = () => {
     }
     const [shopDetail, setShopDetail] = useState(initalData)
 
+    // // This will give a message in type of alert that can be remove in 3s
+    const ShowToast = (details) => {
+        toast({
+            ...details,
+            duration: 3000,
+            isClosable: true,
+            position: 'bottom-right',
+            variant: localStorage.getItem('chakra-ui-color-mode') === 'light' ? 'subtle' : 'solid',
+        })
+    }
     const inputHandler = (e) => {
         const { name, value } = e.target;
-        console.log(name, value)
+        // console.log(name, value)
         setShopDetail((preVal) => {
             return {
                 ...preVal,
@@ -59,17 +72,27 @@ const ShopRegister = () => {
     }
 
     const onsubmit = async () => {
-        console.log("Going....", shopDetail)
-        const res = await axios.post(`${API}/api/shop_register`, shopDetail)
-        console.log('res is', res.data)
+        // console.log("Going....", shopDetail)
+        try {
+            const res = await axios.post(`${API}/api/shop_register`, shopDetail)
+            console.log('res is', res.data)
 
-        if (res.data.statusCode === 200) {
-            setShopDetail(initalData);
-            alert(res.data.message)
-            // PUT toast here
-        } else {
-            console.log('')
-            alert(res.data.message)
+            if (res.data.statusCode === 200) {
+                setShopDetail(initalData);
+                ShowToast({
+                    title: "Success!",
+                    description: res.data.message,
+                    status: 'success'
+                })
+                navigate('/login')
+            }
+        }
+        catch (err) {
+            ShowToast({
+                title: "Error!",
+                description: err.response.data.message,
+                status: 'error'
+            })
         }
     }
 
@@ -161,6 +184,8 @@ const ShopRegister = () => {
 
 // Sign up form for customer
 const CustomerRegiter = () => {
+    const navigate = useNavigate();
+    const toast = useToast();
     const initalValue = {
         email: '',
         phone_number: '',
@@ -172,6 +197,17 @@ const CustomerRegiter = () => {
         pincode: '',
     }
     const [custDetail, setCustDetail] = useState(initalValue)
+
+    // // This will give a message in type of alert that can be remove in 3s
+    const ShowToast = (details) => {
+        toast({
+            ...details,
+            duration: 3000,
+            isClosable: true,
+            position: 'bottom-right',
+            variant: localStorage.getItem('chakra-ui-color-mode') === 'light' ? 'subtle' : 'solid',
+        })
+    }
 
     const handleInput = (e) => {
         const { name, value } = e.target;
@@ -185,15 +221,26 @@ const CustomerRegiter = () => {
         })
     }
     const onSubmit = async (e) => {
-        e.preventDefault();
-        const user = await axios.post(`${API}/api/customerRegister`, custDetail) // remove password from response
+        try {
+            e.preventDefault();
+            const response = await axios.post(`${API}/api/customerRegister`, custDetail) // remove password from response
 
-        if (user.data.statusCode === 200) {
-            setCustDetail(initalValue);
-            alert(user.data.message)
-        } else {
-
-            alert(user.data.message)
+            if (response.data.statusCode === 200) {
+                setCustDetail(initalValue);
+                ShowToast({
+                    title: "Success!",
+                    description: response.data.message,
+                    status: 'success'
+                })
+                navigate('/login');
+            }
+        }
+        catch (err) {
+            ShowToast({
+                title: "Error!",
+                description: err.response.data.message,
+                status: 'error'
+            })
         }
 
     }

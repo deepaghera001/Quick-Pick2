@@ -1,6 +1,5 @@
 import {
   Box,
-  chakra,
   Container,
   Stack,
   Text,
@@ -12,9 +11,7 @@ import {
   SimpleGrid,
   StackDivider,
   useColorModeValue,
-  VisuallyHidden,
-  List,
-  ListItem,
+  useToast
 } from '@chakra-ui/react';
 import React, { useState, useEffect } from 'react'
 import { useParams } from 'react-router-dom'
@@ -26,7 +23,17 @@ export default function ShowProduct2() {
   const { shopId, productId } = useParams();
   const [productDetail, setproductDetail] = useState('')
   const [count, setCount] = useState(0)
-
+  const toast = useToast();
+  // // This will give a message in type of alert that can be remove in 3s
+  const ShowToast = (details) => {
+    toast({
+      ...details,
+      duration: 3000,
+      isClosable: true,
+      position: 'bottom-right',
+      variant: localStorage.getItem('chakra-ui-color-mode') === 'light' ? 'subtle' : 'solid',
+    })
+  }
   const handleCount = (e) => {
     const value = e.target.value;
     // console.log(value)
@@ -38,13 +45,25 @@ export default function ShowProduct2() {
     }
   }
   const addtocart = async (e) => {
-    const cart = await axios.post(`${API}/api/addtocart`, {
-      shopId: shopId,
-      productId: productId,
-      quantity: count
-    })
-    console.log(cart.data)
-    alert('added to cart')
+    try {
+      const response = await axios.post(`${API}/api/addtocart`, {
+        shopId: shopId,
+        productId: productId,
+        quantity: count
+      })
+      ShowToast({
+        title: "Success!",
+        description: response.data.message,
+        status: 'success'
+      })
+    }
+    catch (err) {
+      ShowToast({
+        title: "Error!",
+        description: err.response.data.message,
+        status: 'error'
+      })
+    }
   }
 
   useEffect(() => {
@@ -59,10 +78,10 @@ export default function ShowProduct2() {
   }
   const isInCart = async () => {
     const result = await axios.get(`${API}/api/isincart/${shopId}/${productId}`);
-    if(result.data.statusCode === 200){
-      if(result.data.quantity) 
+    if (result.data.statusCode === 200) {
+      if (result.data.quantity)
         setCount(result.data.quantity);
-    }else{
+    } else {
       console.error("Error while checking product present in cart or not")
     }
   }
@@ -101,7 +120,7 @@ export default function ShowProduct2() {
               fontWeight={400}
               fontSize={'2xl'}
               my={3}
-              >
+            >
               ₹ {productDetail.price}
             </Text>
             {/* <Text
@@ -215,16 +234,16 @@ export default function ShowProduct2() {
           </Stack>
 
           <Flex direction={"column"} m={'auto'}>
-            <Text fontWeight={600}  size="md" my={2}>
+            <Text fontWeight={600} size="md" my={2}>
               <Flex direction={'row'} justifyContent={'space-evenly'}>
 
                 <Button bg={useColorModeValue('gray.900', 'gray.50')}
                   color={useColorModeValue('white', 'gray.900')} size='md' value="-" id="moinsminus" onClick={handleCount}
-                  isDisabled = {count ? false : true}
-                  >
+                  isDisabled={count ? false : true}
+                >
                   <MinusIcon />
                 </Button>
-                { count }     {/* if iteam is alrady present in cart then that is reamin */}
+                {count}     {/* if iteam is alrady present in cart then that is reamin */}
                 <Button bg={useColorModeValue('gray.900', 'gray.50')}
                   color={useColorModeValue('white', 'gray.900')} size='md' value="+" id="moinsplus" onClick={handleCount}>
                   <AddIcon />
@@ -246,7 +265,7 @@ export default function ShowProduct2() {
                 boxShadow: 'lg',
               }}
               onClick={addtocart}
-              isDisabled = {count ? false : true}
+              isDisabled={count ? false : true}
             >
               Add to cart
             </Button>

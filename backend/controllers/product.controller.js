@@ -8,7 +8,7 @@ const fs = require('fs')
 module.exports = {
     add_product_controller: async (req, res) => {
         try {
-            console.log(req.body)
+            // console.log(req.body)
             const {
                 name,
                 description,
@@ -16,6 +16,13 @@ module.exports = {
                 price,
                 tags,
             } = req.body;
+            if(!name || !description || !stock || !price || !tags || isNaN(price) || isNaN(stock)){ // if given string is not a number then isNaN return true   
+                return res.status(400).json({
+                    status: true,
+                    statusCode: 400,
+                    message: "Please filled all filed properly"
+                })
+            }
             // const tags = req.body.tags.split(',')
             // // const user_found = await shop_schema.findOne({ _id: shop_id });
 
@@ -38,7 +45,7 @@ module.exports = {
             response = {
                 status: true,
                 statusCode: 200,
-                message: 'Product detail is added successfully.',
+                message: 'Product detail is added successfully',
                 productDetail: saved_product
             }
             res.status(200).json(response)
@@ -82,7 +89,11 @@ module.exports = {
             // }
         } catch (error) {
             console.log(error)
-            res.status(500).send('server crashed.')
+            res.status(500).json({
+                status: true,
+                statusCode: 500,
+                message: error
+            })
         }
     },
     all_shop_product_controller: async (req, res) => {

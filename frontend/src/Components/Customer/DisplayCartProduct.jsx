@@ -3,7 +3,7 @@ import axios from 'axios';
 import { useParams } from 'react-router-dom'; import Product from '../partials/ProductCard'
 import Cart_product_card from '../partials/Cart_product_card';
 import { ArrowForwardIcon, TimeIcon } from '@chakra-ui/icons';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { API } from '../../API/api_url'
 
 import {
@@ -41,6 +41,7 @@ export default function DisplayCartProduct() {
 	const [amount, setAmount] = useState(0);
 	const [productDetails, setProductDetails] = useState(''); // array of all product that added in cart
 	const [orderData, setOrderData] = useState({});
+	const navigate = useNavigate();
 
 
 
@@ -100,8 +101,6 @@ export default function DisplayCartProduct() {
 			setOrderData(response.data.orderData);
 			onOpen()
 
-			// console.log(response.data);
-			// console.log(orderData)
 		} else {
 			alert("Error While doing order")
 		}
@@ -189,70 +188,14 @@ export default function DisplayCartProduct() {
 										<Text as='span'> {orderData.pickup_time} </Text>
 									</Box>
 
-
-									{/* Actress, musician, songwriter and artist. PM for work inquires or{' '}
-												<Link href={'#'} color={'blue.400'}>
-														#tag
-												</Link>{' '}
-												me in your posts */}
 								</Text>
-
-
-								{/* <Stack mt={8} direction={'row'} spacing={4}>
-										<Button
-											flex={1}
-											fontSize={'sm'}
-											rounded={'full'}
-											_focus={{
-												bg: 'gray.200',
-											}}>
-											Message
-										</Button>
-										<Button
-											flex={1}
-											fontSize={'sm'}
-											rounded={'full'}
-											bg={'blue.400'}
-											color={'white'}
-											boxShadow={
-												'0px 1px 25px -5px rgb(66 153 225 / 48%), 0 10px 10px -5px rgb(66 153 225 / 43%)'
-											}
-											_hover={{
-												bg: 'blue.500',
-											}}
-											_focus={{
-												bg: 'blue.500',
-											}}>
-											Follow
-										</Button>
-									</Stack> */}
 							</Box>
 						</Center>
 
-						{/* <Alert
-								status='success'
-								variant='subtle'
-								flexDirection='column'
-								alignItems='center'
-								justifyContent='center'
-								textAlign='center'
-								height='200px'
-							>
-								<AlertIcon boxSize='40px' mr={0} />
-								<AlertTitle mt={4} mb={1} fontSize='lg'>
-									Order submitted!
-								</AlertTitle>
-								<AlertDescription maxWidth='sm'>
-								
-									Thanks for submitting your order.
-	
-							
-						</AlertDescription>
-					</Alert> */}
 					</ModalBody>
 
 					<ModalFooter>
-						<Button colorScheme='blue' mr={3} onClick={onClose}>
+						<Button colorScheme='blue' mr={3} onClick={() => {navigate('/displayshops'); onClose()}}>
 							Explore More
 						</Button>
 						{/* <Button onClick={onClose}>Cancel</Button> */}

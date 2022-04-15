@@ -10,13 +10,13 @@ const AuthenticateCustomer = async ( req, res, next) => {
             message: "You must need to login for access this page",
         }
         if(!token){
-            req.status(400).json(response);
+           return res.status(400).json(response);
         }
 
         const id = jwt.verify(token, process.env.SECRET_KEY).id;
         const result = await customer_detail.findOne({_id: id});
         if(!result){
-            req.status(400).json(response);
+            res.status(400).json(response);
         }
         // console.log(result);
         req.id = result._id;

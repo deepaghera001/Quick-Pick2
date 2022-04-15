@@ -11,7 +11,7 @@ export default function DisplayShops() {
     }, []);
 
     const getAllShop = async () => {
-        console.log('s///')
+        // console.log('s///')
         const shops = await axios.get(`${API}/api/shop_register`)
         setshops(shops.data.userdata)
         console.log('shops are: ', shops)

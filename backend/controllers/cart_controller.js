@@ -23,7 +23,7 @@ module.exports = {
                     })
 
                     res.status(200).json({
-                        message: 'product modified',
+                        message: 'Product quantity modified successfully',
                         data: setVal
                     })
                 }
@@ -68,7 +68,11 @@ module.exports = {
                 })
             }
         }).catch(err => {
-            res.status(500).send('error')
+            res.status(500).json({
+                status: true,
+                statusCode: 500,
+                message: "Server error"
+            })
         })
 
     },
