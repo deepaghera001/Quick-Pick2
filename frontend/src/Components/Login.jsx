@@ -73,40 +73,25 @@ export default function Login() {
 			console.log('shopkeeper')
 			const url = isShopkeeper ? `${API}/api/shop_login` : `${API}/api/customerLogin`;
 			const response = await axios.post(url, loginDetail)
-			console.log(response.data)
 			if (response.data.statusCode === 200) {
 				ShowToast({
 					title: 'Login successfull',
 					description: "You are now logged",
 					status: 'success',
-					variant: 'subtle',
+					variant: localStorage.getItem('chakra-ui-color-mode') === 'light' ? 'subtle' : 'solid',
 				})
-			}
-			else {//if (response.data.statusCode === 400) 
-				ShowToast({
-					title: 'Bad credentials',
-					description: response.data.message,
-					status: 'error',
-					variant: 'subtle'
-				})
+				localStorage.setItem('token', response.data.token);
+				localStorage.setItem('whoIs', isShopkeeper ? 'shopkeeper' : 'customer');
 			}
 		} catch (err) {
+			ShowToast({
+				title: err.response.statusText, // this statusText is shows bad request if staus code is 400 like
+				description: err.response.data.message,
+				status: 'error',
+				variant: localStorage.getItem('chakra-ui-color-mode') === 'light' ? 'subtle' : 'solid',
+			})
 
 		}
-
-		// else {
-		// 	console.log('customer')
-		// 	const response = await axios.post(, loginDetail)
-		// 	if (response.data.statusCode === 200) {
-		// 		ShowToast({
-		// 			title: 'Login successfull',
-		// 			description: "You are now logged",
-		// 			status: 'success',
-		// 			variant: 'subtle',
-		// 		});
-		// 	}
-
-		// }
 	}
 
 

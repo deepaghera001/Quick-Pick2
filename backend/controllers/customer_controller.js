@@ -66,21 +66,26 @@ module.exports = {
                     expires: new Date(Date.now() + 25892000000),
                     httpOnly: true,
                 });
+                res.cookie('st', '', {
+                    maxAge: 0,
+                    httpOnly: true
+                })
                 res.status(200).json({
                     status: true,
                     statusCode: 200,
                     message: 'user login successfull',
+                    token: token,
                     userData: customer
                 })
             } else {
-                res.status(200).json({
+                res.status(400).json({
                     status: true,
                     statusCode: 400,
                     message: 'Email and Password are not matched'
                 })
             }
         } else {
-            res.status(200).json({
+            res.status(400).json({
                 status: true,
                 statusCode: 400,
                 message: 'User is not exits'

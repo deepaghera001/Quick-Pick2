@@ -74,10 +74,15 @@ module.exports = {
                         expires: new Date(Date.now() + 86400000),
                         // httpOnly: true,
                     })
+                    res.cookie('ct', '', {
+                        maxAge: 0,
+                        httpOnly: true
+                    })
                     res.status(200).json({
                         status: true,
                         statusCode: 200,
                         message: 'user login successfull',
+                        token: token,
                         userData: shop
                     })
                 } else {
