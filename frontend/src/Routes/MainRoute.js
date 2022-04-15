@@ -4,6 +4,7 @@ import Login from "../Components/Login";
 import Navbar from '../Components/partials/Navbar'
 import Footer from "../Components/partials/Footer"
 import SignUp from "../Components/SignUp";
+import Home from "../Components/Home";
 import AddProduct from "../Components/Shop/AddProduct";
 import Shopproduct from "../Components/Shop/ShopProducts"
 import DisplayProducts from "../Components/Customer/DisplayProducts";
@@ -15,19 +16,10 @@ import Cart_With_shop from "../Components/Customer/Cart_With_shop";
 import DisplayCartProduct from "../Components/Customer/DisplayCartProduct";
 import Logout from "../Components/Logout"
 import { Box } from "@chakra-ui/react";
-
 // import Alert from "../Components/partials/ShowToast"
 
 export const userContext = createContext([])
-// import Cart_product_card from "../Components/partials/Cart_product_card";
-const Home = () => {
 
-    return (
-        <>
-            hello world
-        </>
-    )
-}
 
 // const New2 = () => {
 //     Alert({
