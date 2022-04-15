@@ -26,10 +26,8 @@ export default function Login() {
 	const toast = useToast();
 	const navigate = useNavigate();
 	const [isShopkeeper, setShopkeeper] = useState(false);
-	const [loginDetail, setLoginDetail] = useState({
-		email: '',
-		password: ''
-	})
+	const [loginDetail, setLoginDetail] = useState({ email: '', password: '' })
+	const [isBtnLoading, setIsBtnLoading] = useState(false);
 
 	useEffect(() => {
 
@@ -70,10 +68,11 @@ export default function Login() {
 
 	const onSubmit = async () => {
 		try {
-
+			setIsBtnLoading(true)
 			console.log('shopkeeper')
 			const url = isShopkeeper ? `${API}/api/shop_login` : `${API}/api/customerLogin`;
 			const response = await axios.post(url, loginDetail)
+			setIsBtnLoading(false)
 			if (response.data.statusCode === 200) {
 				ShowToast({
 					title: 'Login successfull',
@@ -87,11 +86,12 @@ export default function Login() {
 				window.location.reload();
 			}
 		} catch (err) {
+			setIsBtnLoading(false) // for stop btn loading effect
 			ShowToast({
 				title: err.response.statusText, // this statusText is shows bad request if staus code is 400 like
 				description: err.response.data.message,
 				status: 'error',
-				
+
 			})
 
 		}
@@ -146,13 +146,17 @@ export default function Login() {
 								onClick={onSubmit}
 								_hover={{
 									bg: 'blue.500',
-								}}>
+								}}
+								isLoading={isBtnLoading ? true : false}
+								spinnerPlacement='end'
+							>
+
 								Sign In
 							</Button>
 						</Stack>
 						<Stack pt={6}>
 							<Text align={'center'}>
-								Already a user? <Link color={'blue.400'} to="/signup">Sign Up</Link>
+								Not have an account? <Link color={'blue.400'} to="/signup">Sign Up</Link>
 							</Text>
 						</Stack>
 					</Stack>

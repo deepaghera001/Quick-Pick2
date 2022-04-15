@@ -29,6 +29,7 @@ const axios = require('axios')
 const ShopRegister = () => {
     const toast = useToast();
     const navigate = useNavigate();
+
     // // put spinner and toast
     // const [status, setStatus] = ({
     //     type: '',
@@ -49,6 +50,7 @@ const ShopRegister = () => {
         end_time: ''
     }
     const [shopDetail, setShopDetail] = useState(initalData)
+    const [isBtnLoading, setIsBtnLoading] = useState(false);
 
     // // This will give a message in type of alert that can be remove in 3s
     const ShowToast = (details) => {
@@ -74,9 +76,10 @@ const ShopRegister = () => {
     const onsubmit = async () => {
         // console.log("Going....", shopDetail)
         try {
+            setIsBtnLoading(true);
             const res = await axios.post(`${API}/api/shop_register`, shopDetail)
             console.log('res is', res.data)
-
+            setIsBtnLoading(false);
             if (res.data.statusCode === 200) {
                 setShopDetail(initalData);
                 ShowToast({
@@ -88,6 +91,7 @@ const ShopRegister = () => {
             }
         }
         catch (err) {
+            setIsBtnLoading(false);            
             ShowToast({
                 title: "Error!",
                 description: err.response.data.message,
@@ -175,7 +179,9 @@ const ShopRegister = () => {
                     onClick={onsubmit}
                     _hover={{
                         bg: 'blue.500',
-                    }}>
+                    }}
+                    isLoading={isBtnLoading ? true  : false}
+                    >
                     Sign up
                 </Button>
             </Stack>
@@ -197,6 +203,7 @@ const CustomerRegiter = () => {
         pincode: '',
     }
     const [custDetail, setCustDetail] = useState(initalValue)
+    const [isBtnLoading, setIsBtnLoading] = useState(false)
 
     // // This will give a message in type of alert that can be remove in 3s
     const ShowToast = (details) => {
@@ -222,8 +229,10 @@ const CustomerRegiter = () => {
     }
     const onSubmit = async (e) => {
         try {
+            setIsBtnLoading(true);
             e.preventDefault();
             const response = await axios.post(`${API}/api/customerRegister`, custDetail) // remove password from response
+            setIsBtnLoading(false);
 
             if (response.data.statusCode === 200) {
                 setCustDetail(initalValue);
@@ -236,6 +245,7 @@ const CustomerRegiter = () => {
             }
         }
         catch (err) {
+            setIsBtnLoading(false);
             ShowToast({
                 title: "Error!",
                 description: err.response.data.message,
@@ -303,7 +313,9 @@ const CustomerRegiter = () => {
                         onClick={onSubmit}
                         _hover={{
                             bg: 'blue.500',
-                        }}>
+                        }}
+                        isLoading={isBtnLoading ? true : false}
+                        >
                         Sign up
                     </Button>
                 </Stack>
