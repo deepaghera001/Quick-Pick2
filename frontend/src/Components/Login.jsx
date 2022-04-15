@@ -15,17 +15,16 @@ import {
 	useToast,
 } from '@chakra-ui/react';
 import { API } from "../API/api_url";
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { useState, useEffect, useContext } from 'react';
 import { userContext } from '../Routes/MainRoute';
-import Alert from "./partials/Alert"
-const axios = require('axios')
+import axios from 'axios';
 
 export default function Login() {
 
 	// const { isuser, setisUser } = useContext(userContext)
 	const toast = useToast();
-
+	const navigate = useNavigate();
 	const [isShopkeeper, setShopkeeper] = useState(false);
 	const [loginDetail, setLoginDetail] = useState({
 		email: '',
@@ -37,12 +36,14 @@ export default function Login() {
 
 	}, [isShopkeeper]);
 
-	// This will give a message in type of alert that can be remove in 3s
+	// // This will give a message in type of alert that can be remove in 3s
 	const ShowToast = (details) => {
 		toast({
 			...details,
 			duration: 3000,
 			isClosable: true,
+			position: 'bottom-right',
+			variant: localStorage.getItem('chakra-ui-color-mode') === 'light' ? 'subtle' : 'solid',
 		})
 	}
 
@@ -76,19 +77,21 @@ export default function Login() {
 			if (response.data.statusCode === 200) {
 				ShowToast({
 					title: 'Login successfull',
-					description: "You are now logged",
+					description: "You are now logged in",
 					status: 'success',
-					variant: localStorage.getItem('chakra-ui-color-mode') === 'light' ? 'subtle' : 'solid',
+					
+					
 				})
 				localStorage.setItem('token', response.data.token);
 				localStorage.setItem('whoIs', isShopkeeper ? 'shopkeeper' : 'customer');
+				navigate('/');
 			}
 		} catch (err) {
 			ShowToast({
 				title: err.response.statusText, // this statusText is shows bad request if staus code is 400 like
 				description: err.response.data.message,
 				status: 'error',
-				variant: localStorage.getItem('chakra-ui-color-mode') === 'light' ? 'subtle' : 'solid',
+				
 			})
 
 		}

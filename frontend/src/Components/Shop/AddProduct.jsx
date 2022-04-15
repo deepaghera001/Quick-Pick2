@@ -3,29 +3,22 @@ import { API } from "../../API/api_url";
 import {
     FormControl,
     FormLabel,
-    FormErrorMessage,
-    FormHelperText,
     Flex,
     Box,
     Input,
     InputGroup,
-    HStack,
-    InputRightElement,
     Stack,
     Button,
     Heading,
-    Text,
     useColorModeValue,
-    Link,
-    RadioGroup,
-    Radio,
-    CheckboxGroup,
     Textarea,
+    useToast
 } from '@chakra-ui/react'
 import { useState } from 'react'
 const axios = require('axios')
 
 export default function AddProduct() {
+    const toast = useToast();
     const initalValue = {
         name: '',
         description: '',
@@ -35,6 +28,17 @@ export default function AddProduct() {
     }
     const [productDetail, setproductDetail] = useState(initalValue)
     const [image, setImage] = useState('')
+
+    // // This will give a message in type of alert that can be remove in 3s
+    const ShowToast = (details) => {
+        toast({
+            ...details,
+            duration: 3000,
+            isClosable: true,
+            position: 'bottom-right',
+            variant: localStorage.getItem('chakra-ui-color-mode') === 'light' ? 'subtle' : 'solid',
+        })
+    }
 
     const inputHandler = (e) => {
         const { name, value } = e.target;
@@ -60,23 +64,31 @@ export default function AddProduct() {
             tags: productDetail.tags.split(',')
         }
         console.log("Product Detail: ", productDetail_split);
-        
-        const res = await axios.post(`${API}/api/productDetail`, productDetail_split)
-        console.log(res);
-        // console.log('res is', res, 'id is', res.data.productDetail._id)
-
-        const formData = new FormData()
-        formData.append('productImage', image)
-        const res2 = await axios.post(`${API}/api/upload/${res.data.productDetail._id}`, formData, image)
-
-        console.log(res2)
-        if (res.data.statusCode === 200) {
-            setproductDetail(initalValue);
-            alert(res.data.message)
-            setImage('');
-        } else {
-            console.log('')
-            alert(res.data.message)
+        try{
+            const res = await axios.post(`${API}/api/productDetail`, productDetail_split)
+            // console.log(res);
+    
+            const formData = new FormData()
+            formData.append('productImage', image)
+            const res2 = await axios.post(`${API}/api/upload/${res.data.productDetail._id}`, formData, image)
+    
+            // console.log(res2)
+            if (res.data.statusCode === 200) {
+                setproductDetail(initalValue);
+                ShowToast({
+                    title: "Success!",
+                    description: res.data.message,
+                    status: 'success'
+                })
+                setImage('');
+            }
+        }
+        catch(err){
+            ShowToast({
+                title: "Error!",
+                description: err.response.data.message,
+                status: 'error'
+            })
         }
     }
 
