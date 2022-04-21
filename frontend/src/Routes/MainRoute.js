@@ -16,6 +16,7 @@ import Cart_With_shop from "../Components/Customer/Cart_With_shop";
 import DisplayCartProduct from "../Components/Customer/DisplayCartProduct";
 import Logout from "../Components/Logout"
 import { Box } from "@chakra-ui/react";
+import OrderDetails from "../Components/Shop/OrderDetails";
 // import Alert from "../Components/partials/ShowToast"
 
 export const userContext = createContext([])
@@ -46,7 +47,8 @@ export const MainRoute = () => {
                         <Route exact path="/displayshops" element={<DisplayShops />}></Route>
                         <Route exact path="/cart" element={<Cart_With_shop />}></Route>
                         <Route exact path="/cartproducts/:shop_id" element={<DisplayCartProduct />}></Route>
-                        <Route exact path="/shopproducts/:shop_id" element={<DisplayProducts />}></Route>
+                        <Route exact path="/shopproducts" element={<DisplayProducts />}></Route>
+                        <Route exact path="/shoporders" element={<OrderDetails />}></Route>
                         {/* <Route exact path="/temp" element={<Alert />}></Route>
                     <Route exact path="/temp2" element={<New2 />}></Route> */}
 

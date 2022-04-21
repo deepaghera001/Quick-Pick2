@@ -1,6 +1,6 @@
 const order_schema = require('../model/order_schema')
 const customer_schema = require('../model/customer_schema')
-const cart_schema  = require("../model/cart_schema")
+const cart_schema = require("../model/cart_schema")
 const nodemailer = require('nodemailer');
 
 // for seding secret code
@@ -44,15 +44,15 @@ function data(toEmail, toName, secureCode) {
 
 // on success full order we can remove product from cart
 const remove_shop_cart = async (custId, shopId) => {
-    try{
+    try {
         // const cust_id = req.id;
         // const shop_id = req.params.shop_id;
-        const result = await cart_schema.deleteOne({custId: custId, shopId: shopId});
+        const result = await cart_schema.deleteOne({ custId: custId, shopId: shopId });
     }
-    catch(err){
+    catch (err) {
         console.log("Error while removing shop cart", err);
     }
-    
+
 }
 module.exports = {
     order_controller: async (req, res) => {
@@ -101,7 +101,7 @@ module.exports = {
 
     get_order_of_customer: async (req, res) => {
         try {
-            const orders = await order_schema.find({ c_id: req.params.customerId });
+            const orders = await order_schema.find({ custId: req.params.customerId });
             const response = {
                 status: true,
                 statusCode: 200,
@@ -116,7 +116,11 @@ module.exports = {
 
     get_order_of_shop: async (req, res) => {
         try {
-            const orders = await order_schema.find({ c_id: req.params.shopId });
+            console.log('in..')
+            const orders = await order_schema.find({ shopId: req.id })
+                .populate('product_details.productId')
+                .populate('shopId')
+            console.log('oo...', orders)
             const response = {
                 status: true,
                 statusCode: 200,
@@ -126,6 +130,19 @@ module.exports = {
             res.status(200).send(response)
         } catch (error) {
             res.status(500).send('error');
+        }
+    },
+
+    update_order_status: async (req, res) => {
+        try {
+            const order = await order_schema.findByIdAndUpdate({ _id: req.params.orderId }, {
+                $set: {
+                    order_status: 'success'
+                }
+            })
+            res.status(200).send('success')
+        } catch (error) {
+            res.status(500).send(error);
         }
     }
 
