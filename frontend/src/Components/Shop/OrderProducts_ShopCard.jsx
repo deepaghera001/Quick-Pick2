@@ -29,17 +29,18 @@ import {
     InputLeftElement,
     Input,
     InputRightElement,
+    Badge,
 } from '@chakra-ui/react';
 
 export default function OrderProducts_ShopCard(props) {
 
 
 
-    const completeOrder = () => {
-        const success = axios.put(`${API}/api/orderStatus/${props.orderId}`, {});
-        
-    }
-    useEffect(() => { console.log('running...') }, [completeOrder])
+    // const completeOrder = () => {
+    //     const success = axios.put(`${API}/api/orderStatus/${props.orderId}`, {});
+
+    // }
+    // useEffect(() => { console.log('running...') }, [completeOrder])
     return (
         <Container maxW={'1000px'} bg={useColorModeValue('gray.100', 'gray.700')} my={5} p={3} borderRadius={'md'}>
             <Flex direction={'row'} justifyContent={'space-around'}>
@@ -67,21 +68,33 @@ export default function OrderProducts_ShopCard(props) {
                     {/* <Cart_product_card /> */}
                 </Box>
                 <Box mt={3} >
-                    <Box bg={useColorModeValue('white', 'gray.900')} borderRadius={'lg'} maxWidth={'200px'} p={4} height={'auto'} boxShadow={'md'}>
+                    <Box bg={useColorModeValue('white', 'gray.900')} borderRadius={'lg'} maxWidth={'200px'} p={3} height={'auto'} boxShadow={'md'}>
                         <Flex direction={'row'} justifyContent={'space-between'} my={2}>
                             <Flex direction={'column'}>
                                 {/* <Box mt={1}>
                                     <Text fontWeight={600} as='span'>Amount: </Text>
                                     <Text as='span'> {"2204"} </Text>
                                 </Box> */}
-                                <Box>
-                                    <Text fontWeight={600} as='span'> Order Id: </Text>
-                                    <Text as='span'> {props.orderId} </Text>
-                                </Box>
-                                <Box>
+                                <Badge rounded="full" width={'fit-content'} px="2" fontSize="0.8em" colorScheme={props.order_status == "pick up" ? "green" : "red"}>
+                                    {props.order_status}
+                                </Badge>
+                                <Badge
+                                    my={2}
+                                    mx={'auto'}
+                                    px={2}
+                                    py={1}
+                                    bg={useColorModeValue('gray.100', 'gray.800')}
+                                    fontWeight={'400'}>
+                                    {props.orderId}
+                                </Badge>
+                                {/* <Box>
+                                    <Text fontWeight={600} as='span' fontSize={'10px'}> Id: </Text>
+                                    <Text as='span' fontSize={'sm'}> {props.orderId} </Text>
+                                </Box> */}
+                                {/* <Box>
                                     <Text fontWeight={600} as='span'> Status: </Text>
                                     <Text as='span'> {props.order_status} </Text>
-                                </Box>
+                                </Box> */}
                                 <Box>
                                     <Text fontWeight={600} as='span'> Secure Code: </Text>
                                     <Text as='span'> {props.secure_code} </Text>
@@ -108,9 +121,11 @@ export default function OrderProducts_ShopCard(props) {
                                 width={'110px'}
                                 fontSize={'sm'}
                                 rounded={'full'}
-                                onClick={completeOrder}
+                                onClick={props.onClick}
+                                isDisabled={props.order_status == 'pick up'} // if item is picked up then disabled
                             >
-                                {props.order_status == 'success' ? "Done" : "Completed"}
+
+                                {props.order_status == 'pick up' ? "Completed" : "Pick Up"}
                             </Button>
                         </Stack>
                     </Box>

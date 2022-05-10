@@ -304,7 +304,7 @@ module.exports = {
             const product = await product_Schema.findOne({ _id: req.params.productId });
 
             product.image.imgId = req.file.filename;
-            product.image.url = `D:/Savan Program/Web devlopment/Project/Quick-Pick/Code/backend/upload/images/${req.file.filename}`
+            // product.image.url = `D:/Savan Program/Web devlopment/Project/Quick-Pick/Code/frontend/public/upload/images/${req.file.filename}`
 
             await product.save();
 

@@ -2,16 +2,17 @@ import React, { useEffect, useState } from 'react'
 import axios from 'axios';
 import { API } from '../../API/api_url'
 import OrderProducts_ShopCard from './OrderProducts_ShopCard';
+import { Center, Heading } from '@chakra-ui/react';
 
 
 
 export default function ShopOrder() {
 
     const [orderDetail, setOrderDetail] = useState([]);
-
+    const [status, setStatus] = useState(''); // status of wheather order is success or not
     useEffect(() => {
         fetchData();
-    }, [orderDetail])
+    }, [status])
 
     const fetchData = async () => {
         console.log('inside order....')
@@ -20,6 +21,12 @@ export default function ShopOrder() {
         setOrderDetail(orders.data.userdata)
     }
 
+    const completeOrder = async (orderId) => {
+        console.log("Called again");
+        const success = await axios.put(`${API}/api/orderStatus/${orderId}`, {});
+        setStatus(success.data);
+        
+    }
 
     return (
 
@@ -33,12 +40,13 @@ export default function ShopOrder() {
                 orderDetail.length > 0 ? orderDetail.map((val, ind) => (
                     <OrderProducts_ShopCard
                         orderId={val._id}
-                        index={ind}
+                        key={ind}
                         amount={val.amount}
                         pickup_time={val.pickup_time}
                         product_details={val.product_details}
                         secure_code={val.secure_code}
                         order_status={val.order_status}
+                        onClick={() => {completeOrder(val._id)}}
                     />
                 )) : 'No order'
             }
