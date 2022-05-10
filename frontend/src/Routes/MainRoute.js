@@ -48,6 +48,7 @@ export const MainRoute = () => {
                         <Route exact path="/cartproducts/:shop_id" element={<DisplayCartProduct />}></Route>
                         <Route exact path="/shopproducts/:shop_id" element={<DisplayProducts />}></Route>
                         <Route exact path="/shoporders" element={<ShopOrder />}></Route>
+                        <Route exact path="/shopproducts" element={<DisplayProducts />}></Route>
                         {/* <Route exact path="/temp" element={<Alert />}></Route>
                     <Route exact path="/temp2" element={<New2 />}></Route> */}
 

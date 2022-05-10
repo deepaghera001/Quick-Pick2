@@ -88,6 +88,7 @@ export default function Navbar() {
 											whoIsLoggedin === 'customer' ? (
 												// for customer
 												<>
+													<Link to='/'> <MenuItem>Home</MenuItem> </Link >
 													<Link to='/displayshops'> <MenuItem>View Shops</MenuItem> </Link >
 													<Link to='/cart'> <MenuItem>View cart</MenuItem> </Link>
 													<Link to='/logout'> <MenuItem>Logout</MenuItem> </Link>
@@ -96,6 +97,7 @@ export default function Navbar() {
 											)
 												: ( // for shopkeeper
 													<>
+														<Link to='/'> <MenuItem>Home</MenuItem> </Link >
 														<Link to='/addproduct'> <MenuItem>Add Product</MenuItem> </Link >
 														<Link to='/shopproducts'> <MenuItem> Your Products </MenuItem> </Link>
 														<Link to='/shoporders'> <MenuItem>View Orders</MenuItem> </Link>

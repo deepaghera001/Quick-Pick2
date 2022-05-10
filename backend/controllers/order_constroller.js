@@ -8,6 +8,7 @@ function data(toEmail, toName, secureCode) {
     const htmldata = `
     <div>
         <p>Hello Mr/Mis ${toName}<p>
+        <p>Your order is successfully place. Thank you for shoping. </p>
         <p>Your seceret code is ${secureCode}</p>
     </div>
         `

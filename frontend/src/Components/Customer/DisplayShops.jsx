@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react'
 import axios from 'axios'
 import { API } from '../../API/api_url'
 import Shop_card from '../partials/Shop_card'
-import { Flex } from '@chakra-ui/react';
+import { Center, Flex, Heading } from '@chakra-ui/react';
 
 export default function DisplayShops() {
     const [shops, setshops] = useState([]);
@@ -19,6 +19,11 @@ export default function DisplayShops() {
     }
     return (
         <>
+            <Heading mt={'20px'} isTruncated>
+                <Center>
+                    All Shop Details
+                </Center>
+            </Heading>
             <Flex justifyContent={'space-around'} alignContent={'space-between'} wrap={'wrap'}>
                 {shops.length > 0 ? shops.map((val, ind) => (
                     <Shop_card
@@ -33,7 +38,7 @@ export default function DisplayShops() {
                         start_time={val.start_time}
                         end_time={val.end_time}
                         onClickLink={`/shopproducts/${val._id}`}
-                        btnText = {"View Products"}
+                        btnText={"View Products"}
                     />
                 )) : "no found"}
             </Flex>

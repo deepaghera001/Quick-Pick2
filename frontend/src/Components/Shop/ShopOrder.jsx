@@ -24,6 +24,11 @@ export default function ShopOrder() {
     return (
 
         <>
+            <Heading mt={'20px'} isTruncated>
+                <Center>
+                    Order Details
+                </Center>
+            </Heading>
             {
                 orderDetail.length > 0 ? orderDetail.map((val, ind) => (
                     <OrderProducts_ShopCard
