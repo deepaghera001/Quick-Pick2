@@ -18,7 +18,7 @@ const AuthenticateShop = async (req, res, next) => {
         if (!result) {
             res.status(400).json(response);
         }
-        console.log(result);
+        // console.log(result);
         req.id = result._id;
         next();
     }

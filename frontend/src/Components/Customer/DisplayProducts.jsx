@@ -10,10 +10,11 @@ import { useParams } from 'react-router-dom';
 
 export default function DisplayProducts() {
   const [products, setProducts] = useState([]);
-
+  const { shop_id } = useParams();
   const fetchAllProducts = async () => {
-    console.log("Fating all data");
-    const response = await axios.get(`${API}/api/getShopProducts`);
+    // console.log("Fating all data");
+    // console.log(shop_id);
+    const response = await axios.get(`${API}/api/getShopProducts/${shop_id}`);
     console.log(response.data);
     if (response.data.statusCode === 200) {
       setProducts(response.data.products);

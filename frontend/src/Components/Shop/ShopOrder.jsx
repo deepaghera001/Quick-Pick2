@@ -36,13 +36,13 @@ import OrderProducts from './OrderProducts';
 
 
 
-export default function OrderDetails() {
+export default function ShopOrder() {
 
     const [orderDetail, setOrderDetail] = useState([]);
 
     useEffect(() => {
         fetchData();
-    }, [])
+    }, [orderDetail])
 
     const fetchData = async () => {
         console.log('inside order....')

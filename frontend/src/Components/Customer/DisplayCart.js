@@ -6,7 +6,7 @@ export default function DisplayCart() {
     const [cart, setCart] = useState([]);
     const fetchCartDetail = async () => {
         const products = await axios.get(`${API}/api/getcart`);
-        console.log(products.data)
+        // console.log(products.data)
     }
     useEffect(() => {
       fetchCartDetail();

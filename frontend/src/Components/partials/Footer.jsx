@@ -9,6 +9,7 @@ import {
     Input,
     IconButton,
     useColorModeValue,
+    Heading,
 } from '@chakra-ui/react';
 import { Link } from 'react-router-dom'
 import { ReactNode } from 'react';
@@ -79,7 +80,8 @@ export default function LargeWithNewsletter() {
                     spacing={8}>
                     <Stack spacing={6}>
                         <Box>
-                            <Logo color={useColorModeValue('gray.700', 'white')} />
+                            <Heading as='h2' fontSize='lg'>Quick-Pick</Heading>
+                            {/* <Logo color={useColorModeValue('gray.700', 'white')} /> */}
                         </Box>
                         <Text fontSize={'sm'}>
                             © 2022 Chakra Templates. All rights reserved
