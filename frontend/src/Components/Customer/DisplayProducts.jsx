@@ -1,4 +1,4 @@
-import { Box, Flex, Link, } from '@chakra-ui/react'
+import { Box, Center, Flex, Heading, Link, } from '@chakra-ui/react'
 import axios from 'axios';
 import React, { useEffect } from 'react'
 import { useState } from 'react'
@@ -12,9 +12,14 @@ export default function DisplayProducts() {
   const [products, setProducts] = useState([]);
   const { shop_id } = useParams();
 
+  var response = '';
   const fetchAllProducts = async () => {
-    console.log("Fating all data");
-    const response = await axios.get(`${API}/api/getShopProducts/${shop_id}`);
+    console.log("Fating all data", shop_id);
+    if (shop_id != null) {
+      response = await axios.get(`${API}/api/getShopProducts/${shop_id}`);
+    } else {
+      response = await axios.get(`${API}/api/getShopProducts`);
+    }
     console.log(response.data);
     if (response.data.statusCode === 200) {
       setProducts(response.data.products);
@@ -30,18 +35,32 @@ export default function DisplayProducts() {
 
   return (
     <>
+      <Heading mt={'20px'} mb={'10px'} isTruncated>
+        <Center>
+          Shop Products
+        </Center>
+      </Heading>
       <Flex justifyContent={'space-around'} alignContent={'space-between'} wrap={'wrap'}>
         {
           products.length > 0 ? products.map((value, index) => (
             <Box key={index}>
-              <Link href={`/product/${value.shop_id}/${value._id}`}>
+              {shop_id != null ?
+
+                <Link href={`/product/${value.shop_id}/${value._id}`}>
+                  <Product
+                    name={value.name}
+                    imageURL={value.image ? process.env.PUBLIC_URL + `/upload/images/${value.image.imgId}` : ""}
+                    price={value.price}
+                    description={value.description}
+                  />
+                </Link>
+                :
                 <Product
                   name={value.name}
                   imageURL={value.image ? process.env.PUBLIC_URL + `/upload/images/${value.image.imgId}` : ""}
                   price={value.price}
                   description={value.description}
-                />
-              </Link>
+                />}
             </Box>
           ))
             : <h3>No products found</h3>

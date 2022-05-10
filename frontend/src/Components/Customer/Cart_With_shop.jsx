@@ -1,4 +1,4 @@
-import { Flex } from '@chakra-ui/react';
+import { Center, Flex, Heading } from '@chakra-ui/react';
 import axios from 'axios';
 import React, { useEffect, useState } from 'react'
 import Shop_card from '../partials/Shop_card';
@@ -21,7 +21,12 @@ export default function Cart_With_shop() {
 
     return (
         <>
-            Cart with shops
+            <Heading mt={'20px'} isTruncated>
+                <Center>
+                    Cart with shops
+                </Center>
+            </Heading>
+
 
             <Flex justifyContent={'space-around'} alignContent={'space-between'} wrap={'wrap'}>
                 {

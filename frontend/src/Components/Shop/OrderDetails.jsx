@@ -55,6 +55,11 @@ export default function OrderDetails() {
     return (
 
         <>
+            <Heading mt={'20px'} isTruncated>
+                <Center>
+                    Order Details
+                </Center>
+            </Heading>
             {
                 orderDetail.length > 0 ? orderDetail.map((val, ind) => (
                     <OrderProducts
