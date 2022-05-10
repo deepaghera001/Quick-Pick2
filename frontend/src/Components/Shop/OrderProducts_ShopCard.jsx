@@ -31,13 +31,13 @@ import {
     InputRightElement,
 } from '@chakra-ui/react';
 
-export default function OrderProducts(props) {
+export default function OrderProducts_ShopCard(props) {
 
 
 
     const completeOrder = () => {
         const success = axios.put(`${API}/api/orderStatus/${props.orderId}`, {});
-        console.log(success)
+        
     }
     useEffect(() => { console.log('running...') }, [completeOrder])
     return (
@@ -67,33 +67,42 @@ export default function OrderProducts(props) {
                     {/* <Cart_product_card /> */}
                 </Box>
                 <Box mt={3} >
-                    <Box bg={useColorModeValue('white', 'gray.900')} borderRadius={'lg'} maxWidth={'200px'} p={4} height={'160px'} boxShadow={'md'}>
+                    <Box bg={useColorModeValue('white', 'gray.900')} borderRadius={'lg'} maxWidth={'200px'} p={4} height={'auto'} boxShadow={'md'}>
                         <Flex direction={'row'} justifyContent={'space-between'} my={2}>
                             <Flex direction={'column'}>
-                                <Text>
-                                    Order id: {props.orderId}
-                                </Text>
-                                <Text>
-                                    Status: {props.order_status}
-                                </Text>
-                                <Text>
-                                    Secure code: {props.secure_code}
-                                </Text>
-                                <Text>
-                                    Pickup Time: {props.pickup_time}
-                                </Text>
-                                <Text>Total amount: {props.amount} </Text>
+                                {/* <Box mt={1}>
+                                    <Text fontWeight={600} as='span'>Amount: </Text>
+                                    <Text as='span'> {"2204"} </Text>
+                                </Box> */}
+                                <Box>
+                                    <Text fontWeight={600} as='span'> Order Id: </Text>
+                                    <Text as='span'> {props.orderId} </Text>
+                                </Box>
+                                <Box>
+                                    <Text fontWeight={600} as='span'> Status: </Text>
+                                    <Text as='span'> {props.order_status} </Text>
+                                </Box>
+                                <Box>
+                                    <Text fontWeight={600} as='span'> Secure Code: </Text>
+                                    <Text as='span'> {props.secure_code} </Text>
+                                </Box>
+                                <Box>
+                                    <Text fontWeight={600} as='span'> Pickup Time: </Text>
+                                    <Text as='span'> {props.pickup_time} </Text>
+                                </Box>
+                                <Box>
+                                    <Text fontWeight={600} as='span'> Total amount: </Text>
+                                    <Text as='span'> {props.amount} </Text>
+                                </Box>
                             </Flex>
                         </Flex>
-                    </Box>
-
-                    <Stack
-                        mt={'1rem'}
-                        direction={'row'}
-                        padding={2}
-                        justifyContent={'space-between'}
-                        alignItems={'center'}>
-                        {props.order_status == 'success' ?
+                        <Stack
+                            mt={'1rem'}
+                            direction={'row'}
+                            padding={2}
+                            justifyContent={'space-between'}
+                            alignItems={'center'}>
+                            {/* {props.order_status == 'success' ? */}
 
                             <Button
                                 width={'110px'}
@@ -101,17 +110,11 @@ export default function OrderProducts(props) {
                                 rounded={'full'}
                                 onClick={completeOrder}
                             >
-                                Done
+                                {props.order_status == 'success' ? "Done" : "Completed"}
                             </Button>
-                            : <Button
-                                width={'110px'}
-                                fontSize={'sm'}
-                                rounded={'full'}
-                                onClick={completeOrder}
-                            >
-                                Completed
-                            </Button>}
-                    </Stack>
+                        </Stack>
+                    </Box>
+
 
                 </Box>
             </Flex>

@@ -11,7 +11,6 @@ import DisplayProducts from "../Components/Customer/DisplayProducts";
 import ShowProduct2 from "../Components/Customer/ShowProduct2"
 import DisplayShops from "../Components/Customer/DisplayShops"
 import DisplayCart from "../Components/Customer/DisplayCart"
-import Order_Success from "../Components/Customer/Order_Success"
 import Cart_With_shop from "../Components/Customer/Cart_With_shop";
 import DisplayCartProduct from "../Components/Customer/DisplayCartProduct";
 import Logout from "../Components/Logout"
