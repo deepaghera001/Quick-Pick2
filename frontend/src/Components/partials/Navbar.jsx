@@ -98,7 +98,7 @@ export default function Navbar() {
 													<>
 														<Link to='/addproduct'> <MenuItem>Add Product</MenuItem> </Link >
 														<Link to='/shopproducts'> <MenuItem> Your Products </MenuItem> </Link>
-														<Link to='/'> <MenuItem>View Orders</MenuItem> </Link>
+														<Link to='/shoporders'> <MenuItem>View Orders</MenuItem> </Link>
 														<Link to='/logout'> <MenuItem>Logout</MenuItem> </Link>
 													</>
 												)

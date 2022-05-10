@@ -39,6 +39,7 @@ export default function OrderProducts(props) {
         const success = axios.put(`${API}/api/orderStatus/${props.orderId}`, {});
         console.log(success)
     }
+    useEffect(() => { console.log('running...') }, [completeOrder])
     return (
         <Container maxW={'1000px'} bg={useColorModeValue('gray.100', 'gray.700')} my={5} p={3} borderRadius={'md'}>
             <Flex direction={'row'} justifyContent={'space-around'}>
@@ -92,14 +93,24 @@ export default function OrderProducts(props) {
                         padding={2}
                         justifyContent={'space-between'}
                         alignItems={'center'}>
-                        <Button
-                            width={'110px'}
-                            fontSize={'sm'}
-                            rounded={'full'}
-                            onClick={completeOrder}
-                        >
-                            Completed
-                        </Button>
+                        {props.order_status == 'success' ?
+
+                            <Button
+                                width={'110px'}
+                                fontSize={'sm'}
+                                rounded={'full'}
+                                onClick={completeOrder}
+                            >
+                                Done
+                            </Button>
+                            : <Button
+                                width={'110px'}
+                                fontSize={'sm'}
+                                rounded={'full'}
+                                onClick={completeOrder}
+                            >
+                                Completed
+                            </Button>}
                     </Stack>
 
                 </Box>

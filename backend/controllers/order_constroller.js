@@ -135,6 +135,7 @@ module.exports = {
 
     update_order_status: async (req, res) => {
         try {
+            console.log(req.params.orderId)
             const order = await order_schema.findByIdAndUpdate({ _id: req.params.orderId }, {
                 $set: {
                     order_status: 'success'
