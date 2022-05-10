@@ -47,6 +47,7 @@ export default function Logout() {
 	}
 	useEffect(() => {
 		logoutFun();
+		console.log('logout....')
 	}, [])
 	return (
 		<>

@@ -14,6 +14,7 @@ const order_schema = new mongoose.Schema({
         {
             productId: {
                 type: String,
+                ref: 'product_detail'
             },
             quantity: {
                 type: Number,

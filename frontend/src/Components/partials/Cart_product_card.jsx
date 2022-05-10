@@ -27,13 +27,13 @@ export default function Cart_product_card(props) {
       mt={3}
     >
       <Flex flex={0.3} bg="blue.200" >
-        
-          <Image
-            objectFit="cover"
-            boxSize="100%"
-            src={props.imageURL}
-          />
-        
+
+        <Image
+          objectFit="cover"
+          boxSize="100%"
+          src={props.imageURL}
+        />
+
       </Flex>
       <Stack
         flex={0.7}
@@ -70,25 +70,29 @@ export default function Cart_product_card(props) {
 
           </Stack>
         </Link>
+        {props.removeItem ?
+          <Stack
+            mt={'1rem'}
+            direction={'row'}
+            padding={2}
+            justifyContent={'space-between'}
+            alignItems={'center'}>
+            <Button
+              width={'110px'}
+              fontSize={'sm'}
+              rounded={'full'}
+              _focus={{
+                bg: 'gray.200',
+              }}
+              onClick={() => { props.removeItem(props.product_id) }}
+            >
+              Remove
+            </Button>
+          </Stack>
+          : ''
+        }
 
-        <Stack
-          mt={'1rem'}
-          direction={'row'}
-          padding={2}
-          justifyContent={'space-between'}
-          alignItems={'center'}>
-          <Button
-            width={'110px'}
-            fontSize={'sm'}
-            rounded={'full'}
-            _focus={{
-              bg: 'gray.200',
-            }}
-            onClick={() => {props.removeItem(props.product_id)}}
-          >
-            Remove
-          </Button>
-          {/* <Button
+        {/* <Button
                 flex={1}
                 fontSize={'sm'}
                 rounded={'full'}
@@ -105,7 +109,7 @@ export default function Cart_product_card(props) {
                 }}>
                 Follow
               </Button> */}
-        </Stack>
+
       </Stack>
     </Stack>
     //   </Center>
