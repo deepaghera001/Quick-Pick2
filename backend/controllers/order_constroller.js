@@ -17,8 +17,8 @@ function data(toEmail, toName, secureCode) {
         // port: 587,
         // secure: false,
         auth: {
-            user: 'smiteshmaniya6@gmail.com',
-            pass: '',
+            user: 'quickpickwebapp@gmail.com',
+            pass: 'quickpick@12345',
         },
         tls: {
             rejectUnauthorized: false

@@ -47,7 +47,7 @@ export const MainRoute = () => {
                         <Route exact path="/displayshops" element={<DisplayShops />}></Route>
                         <Route exact path="/cart" element={<Cart_With_shop />}></Route>
                         <Route exact path="/cartproducts/:shop_id" element={<DisplayCartProduct />}></Route>
-                        <Route exact path="/shopproducts" element={<DisplayProducts />}></Route>
+                        <Route exact path="/shopproducts/:shop_id" element={<DisplayProducts />}></Route>
                         <Route exact path="/shoporders" element={<OrderDetails />}></Route>
                         {/* <Route exact path="/temp" element={<Alert />}></Route>
                     <Route exact path="/temp2" element={<New2 />}></Route> */}
