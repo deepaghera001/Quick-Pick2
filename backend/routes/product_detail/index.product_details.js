@@ -17,7 +17,7 @@ const storage = multer.diskStorage({
 
 const upload = multer({
   storage: storage,
-  limits: { fileSize: 1024 * 500 }
+  limits: { fileSize: 1024 * 500 * 10}
 })
 
 routes.use('/productImage', express.static('upload/images'))

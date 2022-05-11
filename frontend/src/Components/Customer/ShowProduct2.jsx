@@ -101,10 +101,10 @@ export default function ShowProduct2() {
                 ? process.env.PUBLIC_URL + `/upload/images/${productDetail.image.imgId}`
                 : ""
             }
-            fit={'cover'}
-            align={'center'}
+            // fit={'cover'}
+            // align={'center'}
             w={'100%'}
-            h={{ base: '100%', sm: '400px', lg: '500px' }}
+            h={'auto'}
           />
         </Flex>
         <Stack spacing={{ base: 6, md: 10 }}>
@@ -146,9 +146,9 @@ export default function ShowProduct2() {
                 fontWeight={'300'}>
                 {productDetail.description}
               </Text>
-              <Text fontSize={'lg'}>
+              {/* <Text fontSize={'lg'}>
                 {productDetail.description}
-              </Text>
+              </Text> */}
             </VStack>
             {/* 
               <Box>
