@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react'
 import axios from 'axios';
 import { API } from '../../API/api_url'
 import OrderProducts_ShopCard from './OrderProducts_ShopCard';
-import { Center, Heading } from '@chakra-ui/react';
+import { Center, Heading, Text } from '@chakra-ui/react';
 
 
 
@@ -48,7 +48,7 @@ export default function ShopOrder() {
                         order_status={val.order_status}
                         onClick={() => {completeOrder(val._id)}}
                     />
-                )) : 'No order'
+                )) : <Center> <Text  fontSize={'16px'} my={3}> No order </Text> </Center>
             }
         </>
     )
