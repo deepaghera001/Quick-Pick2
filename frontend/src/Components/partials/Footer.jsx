@@ -84,7 +84,7 @@ export default function LargeWithNewsletter() {
                             {/* <Logo color={useColorModeValue('gray.700', 'white')} /> */}
                         </Box>
                         <Text fontSize={'sm'}>
-                            © 2022 Chakra Templates. All rights reserved
+                            © 2022 quick pick. All rights reserved
                         </Text>
                         <Stack direction={'row'} spacing={6}>
                             <SocialButton label={'Twitter'} to={'#'}>

@@ -8,8 +8,10 @@ function data(toEmail, toName, secureCode) {
     const htmldata = `
     <div>
         <p>Hello Mr/Mis ${toName}<p>
-        <p>Your order is successfully place. Thank you for shoping. </p>
-        <p>Your seceret code is ${secureCode}</p>
+        <p>Your order is successfully place.  </p>
+        <p>Your seceret code is ${secureCode}. Use this secret code while pick up your order.</p>
+        <p>Thank you for shoping.</p>
+        
     </div>
         `
     var transporter = nodemailer.createTransport({
@@ -29,7 +31,7 @@ function data(toEmail, toName, secureCode) {
     var mailOptions = {
         from: `${process.env.COMPANYNAME} <${toEmail}>`,
         to: toEmail,
-        subject: 'Activation Account',
+        subject: 'Order Placed Successfully',
         text: `${process.env.COMPANYNAME}: Activation Account `,
         html: htmldata
     };
