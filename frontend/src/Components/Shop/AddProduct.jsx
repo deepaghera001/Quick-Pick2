@@ -64,14 +64,14 @@ export default function AddProduct() {
             tags: productDetail.tags.split(',')
         }
         console.log("Product Detail: ", productDetail_split);
-        try{
+        try {
             const res = await axios.post(`${API}/api/productDetail`, productDetail_split)
             // console.log(res);
-    
+
             const formData = new FormData()
             formData.append('productImage', image)
             const res2 = await axios.post(`${API}/api/upload/${res.data.productDetail._id}`, formData, image)
-    
+
             // console.log(res2)
             if (res.data.statusCode === 200) {
                 setproductDetail(initalValue);
@@ -83,7 +83,7 @@ export default function AddProduct() {
                 setImage('');
             }
         }
-        catch(err){
+        catch (err) {
             ShowToast({
                 title: "Error!",
                 description: err.response.data.message,
