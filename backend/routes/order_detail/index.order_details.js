@@ -10,6 +10,9 @@ routes.post('/makeOrder', AuthenticateCustomer, order_controller)
 
 routes.get('/customerOrders/:id', AuthenticateCustomer, get_order_of_customer);
 
+// orderHistory
+routes.get('/orders', AuthenticateCustomer, get_order_of_customer);
+
 routes.get('/shopOrders', AuthenticateShop, get_order_of_shop);
 
 routes.put('/orderStatus/:orderId', update_order_status);

@@ -109,25 +109,29 @@ export default function OrderProducts_ShopCard(props) {
                                 </Box>
                             </Flex>
                         </Flex>
-                        <Stack
-                            mt={'1rem'}
-                            direction={'row'}
-                            padding={2}
-                            justifyContent={'space-between'}
-                            alignItems={'center'}>
-                            {/* {props.order_status == 'success' ? */}
+                        {
+                            props.iscustomer == undefined ? // if iscustomer is not defined then is called for shop
+                            <Stack
+                                mt={'1rem'}
+                                direction={'row'}
+                                padding={2}
+                                justifyContent={'space-between'}
+                                alignItems={'center'}>
+                                {/* {props.order_status == 'success' ? */}
 
-                            <Button
-                                width={'110px'}
-                                fontSize={'sm'}
-                                rounded={'full'}
-                                onClick={props.onClick}
-                                isDisabled={props.order_status == 'pick up'} // if item is picked up then disabled
-                            >
+                                <Button
+                                    width={'110px'}
+                                    fontSize={'sm'}
+                                    rounded={'full'}
+                                    onClick={props.onClick}
+                                    isDisabled={props.order_status == 'pick up'} // if item is picked up then disabled
+                                >
 
-                                {props.order_status == 'pick up' ? "Completed" : "Pick Up"}
-                            </Button>
-                        </Stack>
+                                    {props.order_status == 'pick up' ? "Completed" : "Pick Up"}
+                                </Button>
+                            </Stack>
+                            : ""
+                        }
                     </Box>
 
 

@@ -91,6 +91,7 @@ export default function Navbar() {
 													<Link to='/'> <MenuItem>Home</MenuItem> </Link >
 													<Link to='/displayshops'> <MenuItem>View Shops</MenuItem> </Link >
 													<Link to='/cart'> <MenuItem>View cart</MenuItem> </Link>
+													<Link to='/orders'> <MenuItem>Orders History</MenuItem> </Link>
 													<Link to='/logout'> <MenuItem>Logout</MenuItem> </Link>
 												</>
 

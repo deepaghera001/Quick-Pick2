@@ -102,7 +102,10 @@ module.exports = {
 
     get_order_of_customer: async (req, res) => {
         try {
-            const orders = await order_schema.find({ custId: req.params.customerId });
+            // here we take a customer id but not used it bcz this fun call for two id
+            const orders = await order_schema.find({ custId: req.id })
+                .populate('product_details.productId')
+                .populate('shopId');
             const response = {
                 status: true,
                 statusCode: 200,
