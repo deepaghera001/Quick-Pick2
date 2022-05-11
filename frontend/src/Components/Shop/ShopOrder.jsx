@@ -1,48 +1,18 @@
 import React, { useEffect, useState } from 'react'
 import axios from 'axios';
-import { useParams } from 'react-router-dom'; import Product from '../partials/ProductCard'
-import Cart_product_card from '../partials/Cart_product_card';
-import { ArrowForwardIcon, TimeIcon } from '@chakra-ui/icons';
-import { Link, useNavigate } from 'react-router-dom';
 import { API } from '../../API/api_url'
-
-import {
-    Modal,
-    ModalOverlay,
-    ModalContent,
-    ModalHeader,
-    ModalFooter,
-    ModalBody,
-    useDisclosure,
-    Heading,
-    Avatar,
-    Center,
-    Box,
-    Container,
-    Divider,
-    Button,
-    Flex,
-    Stack,
-    Text,
-    Image,
-    useColorModeValue,
-    InputGroup,
-    InputLeftElement,
-    Input,
-    InputRightElement,
-    Badge,
-} from '@chakra-ui/react';
-import OrderProducts from './OrderProducts';
+import OrderProducts_ShopCard from './OrderProducts_ShopCard';
+import { Center, Heading } from '@chakra-ui/react';
 
 
 
-export default function OrderDetails() {
+export default function ShopOrder() {
 
     const [orderDetail, setOrderDetail] = useState([]);
-
+    const [status, setStatus] = useState(''); // status of wheather order is success or not
     useEffect(() => {
         fetchData();
-    }, [])
+    }, [status])
 
     const fetchData = async () => {
         console.log('inside order....')
@@ -51,6 +21,12 @@ export default function OrderDetails() {
         setOrderDetail(orders.data.userdata)
     }
 
+    const completeOrder = async (orderId) => {
+        console.log("Called again");
+        const success = await axios.put(`${API}/api/orderStatus/${orderId}`, {});
+        setStatus(success.data);
+        
+    }
 
     return (
 
@@ -62,14 +38,15 @@ export default function OrderDetails() {
             </Heading>
             {
                 orderDetail.length > 0 ? orderDetail.map((val, ind) => (
-                    <OrderProducts
+                    <OrderProducts_ShopCard
                         orderId={val._id}
-                        index={ind}
+                        key={ind}
                         amount={val.amount}
                         pickup_time={val.pickup_time}
                         product_details={val.product_details}
                         secure_code={val.secure_code}
                         order_status={val.order_status}
+                        onClick={() => {completeOrder(val._id)}}
                     />
                 )) : 'No order'
             }

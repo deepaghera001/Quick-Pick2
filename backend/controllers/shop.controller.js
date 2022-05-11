@@ -169,7 +169,7 @@ module.exports = {
     one_shop_controller: async (req, res) => {
         try {
             const _id = req.id; // this id is added while authenticating
-            console.log(_id)
+            // console.log(_id)
             const user = await shop_schema.findOne({ _id });
             if (user) {
                 var response = {

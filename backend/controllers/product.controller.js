@@ -98,13 +98,13 @@ module.exports = {
     },
     all_shop_product_controller: async (req, res) => {
         try {
-            console.log('inside')
+            // console.log('inside')
             const id = req.id;
             const product_details = await product_Schema.find({ shop_id: id })
             // .populate('shop_id');
-            console.log(product_details)
+            // console.log(product_details)
             if (product_details) {
-                console.log(product_details)
+                // console.log(product_details)
                 var response = {
                     status: true,
                     statusCode: 200,
@@ -128,13 +128,12 @@ module.exports = {
     },
     get_all_shop_product_controller: async (req, res) => {
         try {
-            console.log('-----------inside--------------')
             const shop_id = req.params.shop_id;
             const product_details = await product_Schema.find({ shop_id: shop_id })
             // .populate('shop_id');
-            console.log(product_details)
+            // console.log(product_details)
             if (product_details) {
-                console.log(product_details)
+                // console.log(product_details)
                 var response = {
                     status: true,
                     statusCode: 200,
@@ -158,13 +157,12 @@ module.exports = {
     },
     get_all_shop_product_controller1: async (req, res) => {
         try {
-            console.log('-----------inside--------------')
             const shop_id = req.id;
             const product_details = await product_Schema.find({ shop_id: shop_id })
             // .populate('shop_id');
-            console.log(product_details)
+            // console.log(product_details)
             if (product_details) {
-                console.log(product_details)
+                // console.log(product_details)
                 var response = {
                     status: true,
                     statusCode: 200,
@@ -336,7 +334,6 @@ module.exports = {
     },
     delete_all: async (req, res) => {
         try {
-            console.log('hi')
             await product_Schema.deleteMany({})
             res.send('successs')
         } catch (error) {

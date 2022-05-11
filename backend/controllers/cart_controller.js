@@ -37,7 +37,7 @@ module.exports = {
                             }
                         }
                     })
-                    console.log(setVal)
+                    // console.log(setVal)
                     res.status(200).json({
                         message: 'product added successfully.'
                     })

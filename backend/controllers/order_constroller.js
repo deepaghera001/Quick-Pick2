@@ -139,7 +139,7 @@ module.exports = {
             console.log(req.params.orderId)
             const order = await order_schema.findByIdAndUpdate({ _id: req.params.orderId }, {
                 $set: {
-                    order_status: 'success'
+                    order_status: 'pick up'
                 }
             })
             res.status(200).send('success')

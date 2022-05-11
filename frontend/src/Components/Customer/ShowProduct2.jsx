@@ -146,9 +146,6 @@ export default function ShowProduct2() {
                 fontWeight={'300'}>
                 {productDetail.description}
               </Text>
-              <Text fontSize={'lg'}>
-                {productDetail.description}
-              </Text>
             </VStack>
             {/* 
               <Box>
